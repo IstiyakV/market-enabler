@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/logo2" android:cropToPadding="true" android:layout_marginLeft="10px"></ImageView>
+<RelativeLayout android:id="@+id/RelativeLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="3px">
+<Button android:id="@+id/Button01" android:layout_width="wrap_content" android:textSize="13px" android:text="Enable Paid Apps" android:layout_height="35px"></Button>
+<Button android:id="@+id/Button02" android:layout_width="wrap_content" android:clickable="true" android:text="Restore Market" android:layout_toRightOf="@+id/Button01" android:layout_height="35px" android:textSize="13px"  android:layout_marginLeft="98px"></Button>
+<TextView android:text="Result Here...." android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content"   android:layout_below="@+id/Button01" android:minWidth="320px" android:textColor="@color/buch_verde" android:minHeight="70px"></TextView>
+
+<WebView android:id="@+id/webview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="320px" android:layout_below="@+id/TextView01"/>
+
+</RelativeLayout>
+
+</LinearLayout>
