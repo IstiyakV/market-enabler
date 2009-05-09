@@ -1,5 +1,8 @@
 package com.androidiani.MarketEnabler.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -21,8 +24,24 @@ public class XML2ObjectHandler extends DefaultHandler {
 	private boolean inHash = false;
 	private boolean inConfig = false;
 	
+	private List<ProviderConfig> providerConfigList;
+	
+	public List<ProviderConfig> getProviderConfigList() {
+		List<ProviderConfig> tmp = this.providerConfigList;
+		this.providerConfigList = null;
+		return tmp;
+	}
+
 	public XML2ObjectHandler() {
 		super();
+	}
+	
+	public void startDocument() {
+		this.providerConfigList = new ArrayList<ProviderConfig>();
+	}
+
+	public void endDocument() {
+
 	}
 	
 	public void startElement(String uri, String name, String qName,
@@ -48,6 +67,11 @@ public class XML2ObjectHandler extends DefaultHandler {
 
 	public void endElement(String uri, String name, String qName) {
 		if (name.trim().equals("configuration")) {
+			// create ProviderConfig element and ad to list
+			this.providerConfigList.add(new ProviderConfig(
+					this.gsmSimOperatorNumeric, this.gsmOperatorNumeric,
+					this.gsmSimOperatorIsoCountry, this.gsmOperatorIsoCountry,
+					this.gsmSimOperatorAlpha, this.gsmOperatorAlpha));
 			this.inConfig = false;
 		} else if (name.trim().equals("gsmSimOperatorNumeric")) {
 			this.inSimNum = false;
@@ -68,30 +92,20 @@ public class XML2ObjectHandler extends DefaultHandler {
 	}
 	
 	public void characters(char ch[], int start, int length) {
-		System.out.print("Characters:    \"");
-		for (int i = start; i < start + length; i++) {
-			switch (ch[i]) {
-			case '\\':
-				System.out.print("\\\\");
-				break;
-			case '"':
-				System.out.print("\\\"");
-				break;
-			case '\n':
-				System.out.print("\\n");
-				break;
-			case '\r':
-				System.out.print("\\r");
-				break;
-			case '\t':
-				System.out.print("\\t");
-				break;
-			default:
-				System.out.print(ch[i]);
-				break;
-			}
-		}
-		System.out.print("\"\n");
+		if (inSimNum) {
+			this.gsmSimOperatorNumeric = Integer.parseInt(ch.toString());
+		} else if (inSimIso) {
+			this.gsmSimOperatorIsoCountry = ch.toString();
+		} else if (inSimAlpha) {
+			this.gsmSimOperatorAlpha = ch.toString();
+		} else if (inOpNum) {
+			this.gsmOperatorNumeric = Integer.parseInt(ch.toString());
+		} else if (inOpIso) {
+			this.gsmOperatorIsoCountry = ch.toString();
+		} else if (inOpAlpha) {
+			this.gsmOperatorAlpha = ch.toString();
+		} 
+
 	}
 
 
