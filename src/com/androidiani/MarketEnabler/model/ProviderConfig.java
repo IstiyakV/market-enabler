@@ -17,7 +17,6 @@ public class ProviderConfig {
 	public ProviderConfig(int gsmSimOperatorNumeric, int gsmOperatorNumeric,
 			String gsmSimOperatorIsoCountry, String gsmOperatorIsoCountry,
 			String gsmSimOperatorAlpha, String gsmOperatorAlpha) {
-		super();
 		this.gsmSimOperatorNumeric = gsmSimOperatorNumeric;
 		this.gsmOperatorNumeric = gsmOperatorNumeric;
 		this.gsmSimOperatorIsoCountry = gsmSimOperatorIsoCountry;
