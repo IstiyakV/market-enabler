@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 
-public class XML2ObjectHandler extends DefaultHandler {
+public class XML2Object extends DefaultHandler {
 	private int gsmSimOperatorNumeric;
 	private int gsmOperatorNumeric;
 	private String gsmSimOperatorIsoCountry;
@@ -32,7 +34,7 @@ public class XML2ObjectHandler extends DefaultHandler {
 		return tmp;
 	}
 
-	public XML2ObjectHandler() {
+	public XML2Object() {
 		super();
 	}
 	
@@ -107,6 +109,15 @@ public class XML2ObjectHandler extends DefaultHandler {
 		} 
 
 	}
-
+	
+	public static List<ProviderConfig> parseData(String XMLdata)
+			throws Exception {
+		XMLReader xr = XMLReaderFactory.createXMLReader();
+		XML2Object handler = new XML2Object();
+		xr.setContentHandler(handler);
+		xr.setErrorHandler(handler);
+		xr.parse(XMLdata);
+		return handler.getProviderConfigList();
+	}
 
 }
