@@ -9,7 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 
-public class XML2Object extends DefaultHandler {
+public class XML2PCObject extends DefaultHandler {
 	private int gsmSimOperatorNumeric;
 	private int gsmOperatorNumeric;
 	private String gsmSimOperatorIsoCountry;
@@ -34,7 +34,7 @@ public class XML2Object extends DefaultHandler {
 		return tmp;
 	}
 
-	public XML2Object() {
+	public XML2PCObject() {
 		super();
 	}
 	
@@ -113,7 +113,7 @@ public class XML2Object extends DefaultHandler {
 	public static List<ProviderConfig> parseData(String XMLdata)
 			throws Exception {
 		XMLReader xr = XMLReaderFactory.createXMLReader();
-		XML2Object handler = new XML2Object();
+		XML2PCObject handler = new XML2PCObject();
 		xr.setContentHandler(handler);
 		xr.setErrorHandler(handler);
 		xr.parse(XMLdata);

@@ -2,7 +2,7 @@ package com.androidiani.MarketEnabler.model;
 
 import java.util.List;
 
-public class Object2XML {
+public class PCObject2XML {
 	public static String getXML(ProviderConfig pc) {
 		String ret = "<?xml version=\"1.0\"?>\n";
 		ret += "<configuration>\n";
