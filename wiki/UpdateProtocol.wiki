@@ -21,14 +21,13 @@ We need to specify a updateID so:
 
 * Cid e Lac
 
-* [Eventually] the xml of the local value.
+* (Eventually) the xml of the local value.
 
 
 
 
 
-= Android --> Server : Problem with the app
- =
+= Android --> Server : Problem with the app =
 * Misc value about android firmware and so on
 
 = XML of the local value =
