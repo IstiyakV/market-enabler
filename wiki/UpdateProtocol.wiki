@@ -46,9 +46,11 @@ We need to specify a updateID so:
 	<gsmOperatorIso-Country>[COUNTRYCODE]</gsmSimOperatorIso-Country>
 
 	<gsmOperatorAlpha>[Alpha Operator Name]</gsmSimOperatorAlpha>
-
+	<SettingsHash>[md5(all_values)]</SettingsHash>
 </configuration>
 }}}
+
+SettingsHash is used as Index to search if actual configuration alredy exists and if not ask the server if he has this config
 
 = XML OF Android-> Server Request =
 
