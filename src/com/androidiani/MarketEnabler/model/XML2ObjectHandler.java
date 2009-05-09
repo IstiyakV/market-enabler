@@ -4,13 +4,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 
-public class XMLparser extends DefaultHandler {
-	public XMLparser() {
+public class XML2ObjectHandler extends DefaultHandler {
+	public XML2ObjectHandler() {
 		super();
 	}
 	
 	public void startDocument() {
-		System.out.println("Start document");
+		// Create empty Provider
 	}
 
 	public void endDocument() {
