@@ -3,6 +3,7 @@ package com.androidiani.MarketEnabler.view;
 import android.app.TabActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -75,6 +76,11 @@ public class StartUpView extends TabActivity implements IStartUp {
 	public void displayError(String error) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public View createTabContent(String tag) {
+		
+		return null;
 	}
 	
 }
