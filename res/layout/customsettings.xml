@@ -134,7 +134,7 @@ android:text="gsm.sim.operator.numeric"
 android:id="@+id/simNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
  />
 </TableRow>
 
@@ -149,7 +149,7 @@ android:text="gsm.operator.numeric"
 android:id="@+id/operatorNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
 />
 </TableRow>
 
@@ -164,7 +164,7 @@ android:text="gsm.sim.operator.iso-country"
 android:id="@+id/simISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
 />
 </TableRow>
 
@@ -179,7 +179,7 @@ android:text="gsm.operator.iso-country"
 android:id="@+id/operatorISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
 />
 </TableRow>
 
@@ -194,7 +194,7 @@ android:text="gsm.sim.operator.alpha"
 android:id="@+id/simAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
 />
 </TableRow>
 
@@ -209,7 +209,7 @@ android:text="gsm.operator.alpha"
 android:id="@+id/operatorAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="9sp"
+android:textSize="4sp"
 />
 </TableRow>
 

@@ -2,6 +2,7 @@ package com.androidiani.MarketEnabler.view;
 
 import android.app.TabActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -17,9 +18,10 @@ public class StartUpView extends TabActivity implements IStartUp {
 			simAlpha, operatorAlpha;
 	
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d("*** DEBUG ***", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
-		
+		Log.d("*** DEBUG ***", "Start setting up tabs");
 		/** setup tabs **/
 		TabHost mTabHost = getTabHost();
 		/** add tabs **/
@@ -32,6 +34,7 @@ public class StartUpView extends TabActivity implements IStartUp {
 		/** set current tab */
 		mTabHost.setCurrentTabByTag("actual");
 		
+		Log.d("*** DEBUG ***", "Start getting UI elements");
 		/** get UI elements **/
 		simNumeric = (TextView) findViewById(R.id.actualsimNumericValue);
 		operatorNumeric = (TextView) findViewById(R.id.actualoperatorNumericValue);
