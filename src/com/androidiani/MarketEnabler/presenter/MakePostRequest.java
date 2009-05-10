@@ -1,4 +1,4 @@
-package com.androidiani.MarketEnabler.model;
+package com.androidiani.MarketEnabler.presenter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +23,7 @@ import android.os.Message;
 import android.util.Log;
 
 /**
- * Questa bellissima classe non farà altro che effettuare una chiamata ad internet in post e ritornare il risultato ;)
+ * Questa bellissima classe non farï¿½ altro che effettuare una chiamata ad internet in post e ritornare il risultato ;)
  * @author veke
  *
  */

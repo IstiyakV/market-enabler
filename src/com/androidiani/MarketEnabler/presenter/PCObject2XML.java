@@ -1,6 +1,8 @@
-package com.androidiani.MarketEnabler.model;
+package com.androidiani.MarketEnabler.presenter;
 
 import java.util.List;
+
+import com.androidiani.MarketEnabler.model.ProviderConfig;
 
 public class PCObject2XML {
 	public static String getXML(ProviderConfig pc) {
