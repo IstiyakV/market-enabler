@@ -7,14 +7,21 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        
+
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+            <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+                    	
     <!-- include the tab content views -->
 	<include android:id="@+id/actual" layout="@layout/actualsettings" />
 	<include android:id="@+id/custom" layout="@layout/customsettings" />
 	<include android:id="@+id/old" layout="@layout/main" />
-	
+</FrameLayout>
     </LinearLayout>
 </TabHost>
