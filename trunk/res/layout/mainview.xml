@@ -13,6 +13,7 @@
             android:layout_height="wrap_content" />
     <!-- include the tab content views -->
 	<include android:id="@+id/actual" layout="@layout/actualsettings" />
+	<include android:id="@+id/custom" layout="@layout/customsettings" />
 	
     </LinearLayout>
 </TabHost>

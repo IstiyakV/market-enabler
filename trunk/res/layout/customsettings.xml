@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-android:id="@+id/actualsettings"
+android:id="@+id/customsettings"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -110,33 +110,110 @@ android:layout_height="wrap_content"
 android:text="nothing"
 />
 </TableRow>
+
+<!--editable area -->
+<TableRow>
 <TextView
-android:id="@+id/aboutText"
+android:id="@+id/actualTitle"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:layout_marginTop="30px"
-android:text="App developed by vekexasia and rac"
-/>
+android:text="Set to:"
+android:layout_span="2"
+android:layout_marginTop="40px"
+ />
+</TableRow>
+
+<TableRow>
 <TextView
-android:id="@+id/aboutText2"
+android:id="@+id/simNumeric"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:layout_marginTop="10px"
-android:text="http://androidiani.com \nhttp://2030.tk/android"
-/>
-<TextView
-android:id="@+id/aboutText3"
+android:text="gsm.sim.operator.numeric"
+ />
+<EditText
+android:id="@+id/simNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:layout_marginTop="10px"
-android:text="Project Page with source and APK \n is at http://market-enabler.googlecode.com"
-/>
+android:textSize="9sp"
+ />
+</TableRow>
+
+<TableRow>
 <TextView
-android:id="@+id/credits"
+android:id="@+id/operatorNumeric"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="Reverse engineering by vekexasia and Tim \nhttp://strazzere.com"
+android:text="gsm.operator.numeric"
 />
+<EditText
+android:id="@+id/operatorNumericValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="9sp"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/simISO"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.sim.operator.iso-country"
+/>
+<EditText
+android:id="@+id/simISOValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="9sp"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/operatorISO"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.operator.iso-country"
+/>
+<EditText
+android:id="@+id/operatorISOValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="9sp"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/simAlpha"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.sim.operator.alpha"
+/>
+<EditText
+android:id="@+id/simAlphaValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="9sp"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/operatorAlpha"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.operator.alpha"
+/>
+<EditText
+android:id="@+id/operatorAlphaValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="9sp"
+/>
+</TableRow>
+
+
 </TableLayout>
 
 </ScrollView>
