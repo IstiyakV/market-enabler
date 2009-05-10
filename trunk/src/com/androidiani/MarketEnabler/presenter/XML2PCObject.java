@@ -1,4 +1,4 @@
-package com.androidiani.MarketEnabler.model;
+package com.androidiani.MarketEnabler.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
+
+import com.androidiani.MarketEnabler.model.ProviderConfig;
 
 
 public class XML2PCObject extends DefaultHandler {
