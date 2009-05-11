@@ -12,7 +12,7 @@ import com.androidiani.MarketEnabler.presenter.IActualView;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private IActualView viewActual = null;
-	private Object viewCustom = null; // TODO create custom view
+	private Object viewCustom = null;
 	private Object viewList = null; // TODO create list view
 	
 	
@@ -34,7 +34,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		mTabHost.setCurrentTabByTag("actual");
 		
 		viewActual = new ActualView(this); 
-		
+		viewCustom = new CustomView(this);
 		
 	}
 
