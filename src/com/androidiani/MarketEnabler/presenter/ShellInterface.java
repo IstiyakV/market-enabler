@@ -36,7 +36,7 @@ public class ShellInterface {
 			os.writeBytes("exit\n");
 			os.flush();
 
-			Thread.currentThread().sleep(3000);
+			// Thread.currentThread().sleep(3000);
 
 			process.waitFor();
 

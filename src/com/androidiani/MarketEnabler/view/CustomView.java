@@ -12,6 +12,7 @@ public class CustomView implements ICustomView {
 	/** UI elements **/
 	private TextView simNumeric, operatorNumeric, simISO, operatorISO,
 			simAlpha, operatorAlpha;
+	// private Button
 
 	private StartUpView startup;
 	private CustomPresenter presenter;
@@ -31,6 +32,16 @@ public class CustomView implements ICustomView {
 		operatorAlpha = (TextView) startup
 				.findViewById(R.id.customoperatorAlphaValue);
 		presenter = new CustomPresenter(this);
+		
+		/*
+		 * Button bd= (Button) this.findViewById(R.id.Button02);
+		 * bd.setOnClickListener(new View.OnClickListener() { public void
+		 * onClick(View view) {
+		 * 
+		 * restoreValue();
+		 * 
+		 * } });
+		 */
 	}
 
 	public void displayError(String error) {

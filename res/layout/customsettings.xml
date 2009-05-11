@@ -12,16 +12,6 @@ android:layout_height="fill_parent"
 android:orientation="vertical"
 >
 <!--editable area -->
-<TableRow>
-<TextView
-android:id="@+id/customTitle"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Set to:"
-android:layout_span="2"
-android:layout_marginTop="40px"
- />
-</TableRow>
 
 <TableRow>
 <TextView
@@ -108,7 +98,15 @@ android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 />
 </TableRow>
-
+<TableRow>
+<Button
+android:id="@+id/customsetValues"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="Set to this values"
+android:layout_span="2"
+/>
+</TableRow>
 
 </TableLayout>
 
