@@ -57,13 +57,11 @@ public class ActualView implements IActualView {
 		this.operatorAlpha.setText(operatorAlpha);
 	}
 
-	@Override
 	public void displayError(String error) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void updateView() {
 		presenter.updateView();
 	}

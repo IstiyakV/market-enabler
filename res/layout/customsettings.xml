@@ -14,7 +14,7 @@ android:orientation="vertical"
 <!--editable area -->
 <TableRow>
 <TextView
-android:id="@+id/actualTitle"
+android:id="@+id/customTitle"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="Set to:"
@@ -25,91 +25,87 @@ android:layout_marginTop="40px"
 
 <TableRow>
 <TextView
-android:id="@+id/simNumeric"
+android:id="@+id/customsimNumeric"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.sim.operator.numeric"
  />
 <EditText
-android:id="@+id/simNumericValue"
-android:layout_width="wrap_content"
+android:id="@+id/customsimNumericValue"
+android:layout_width="100sp"
 android:layout_height="wrap_content"
-android:textSize="4sp"
+
  />
+ <!-- android:textSize="4sp" -->
 </TableRow>
 
 <TableRow>
 <TextView
-android:id="@+id/operatorNumeric"
+android:id="@+id/customoperatorNumeric"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.operator.numeric"
 />
 <EditText
-android:id="@+id/operatorNumericValue"
+android:id="@+id/customoperatorNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="4sp"
 />
 </TableRow>
 
 <TableRow>
 <TextView
-android:id="@+id/simISO"
+android:id="@+id/customsimISO"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.sim.operator.iso-country"
 />
 <EditText
-android:id="@+id/simISOValue"
+android:id="@+id/customsimISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="4sp"
 />
 </TableRow>
 
 <TableRow>
 <TextView
-android:id="@+id/operatorISO"
+android:id="@+id/customoperatorISO"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.operator.iso-country"
 />
 <EditText
-android:id="@+id/operatorISOValue"
+android:id="@+id/customoperatorISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="4sp"
 />
 </TableRow>
 
 <TableRow>
 <TextView
-android:id="@+id/simAlpha"
+android:id="@+id/customsimAlpha"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.sim.operator.alpha"
 />
 <EditText
-android:id="@+id/simAlphaValue"
+android:id="@+id/customsimAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="4sp"
 />
 </TableRow>
 
 <TableRow>
 <TextView
-android:id="@+id/operatorAlpha"
+android:id="@+id/customoperatorAlpha"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.operator.alpha"
 />
 <EditText
-android:id="@+id/operatorAlphaValue"
+android:id="@+id/customoperatorAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:textSize="4sp"
 />
 </TableRow>
 
