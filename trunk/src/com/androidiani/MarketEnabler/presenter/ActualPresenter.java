@@ -3,8 +3,8 @@ package com.androidiani.MarketEnabler.presenter;
 import java.util.List;
 
 
-public class StartUp {
-	private IStartUp view;
+public class ActualPresenter {
+	private IActualView view;
 	List<String> shellRes;
 
 	String[] readPropCommand = { "getprop gsm.sim.operator.numeric",
@@ -13,8 +13,12 @@ public class StartUp {
 			"getprop gsm.operator.iso-country", "getprop gsm.operator.alpha",
 			"getprop gsm.sim.operator.alpha" };
 
-	public StartUp(IStartUp viewIn) {
+	public ActualPresenter(IActualView viewIn) {
 		view = viewIn;
+		updateView();
+	}
+
+	public void updateView() {
 		shellRes = ShellInterface.doExec(readPropCommand, false);
 		if (shellRes.size() != 6) {
 			String errorMsg = "";

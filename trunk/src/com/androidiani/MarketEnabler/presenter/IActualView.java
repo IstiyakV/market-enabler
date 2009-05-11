@@ -1,6 +1,6 @@
 package com.androidiani.MarketEnabler.presenter;
 
-public interface IStartUp {
+public interface IActualView {
 	void setSimNumeric(String simNumeric);
 
 	void setOperatorNumeric(String operatorNumeric);
@@ -14,4 +14,6 @@ public interface IStartUp {
 	void setOperatorAlpha(String operatorAlpha);
 	
 	void displayError(String error);
+	
+	void updateView();
 }
