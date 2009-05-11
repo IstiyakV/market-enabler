@@ -36,12 +36,10 @@ public class ShellInterface {
 			os.writeBytes("exit\n");
 			os.flush();
 
-			// Thread.currentThread().sleep(3000);
-
 			process.waitFor();
 
         } catch (Exception e) {
-			Log.d("*** DEBUG ***", "Unexpected error - Here is what I know: "
+			Log.d("marketenabler", "Unexpected error - Here is what I know: "
 					+ e.getMessage());
 			res.add(e.getMessage());
 			return res;

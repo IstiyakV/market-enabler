@@ -2,6 +2,8 @@ package com.androidiani.MarketEnabler.presenter;
 
 import java.util.List;
 
+import android.util.Log;
+
 public class CustomPresenter {
 	private ICustomView view;
 	List<String> shellRes;
@@ -22,8 +24,12 @@ public class CustomPresenter {
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
 		// Executing command in su mode
+		Log.i("MarketEnabler", "dropping shell commands for custom values");
 		shellRes = ShellInterface.doExec(writePropCommand, true);
 		// TODO: how to check result? doing readprop again?
+		for (String tmp : shellRes) {
+			Log.d("MarketEnabler", "readprop result [" + tmp + "]");
+		}
 		view.displayResult(true);
 	}
 }

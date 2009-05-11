@@ -1,6 +1,8 @@
 package com.androidiani.MarketEnabler.view;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.androidiani.MarketEnabler.R;
@@ -12,7 +14,7 @@ public class CustomView implements ICustomView {
 	/** UI elements **/
 	private TextView simNumeric, operatorNumeric, simISO, operatorISO,
 			simAlpha, operatorAlpha;
-	// private Button
+	private Button setValues;
 
 	private StartUpView startup;
 	private CustomPresenter presenter;
@@ -33,15 +35,15 @@ public class CustomView implements ICustomView {
 				.findViewById(R.id.customoperatorAlphaValue);
 		presenter = new CustomPresenter(this);
 		
-		/*
-		 * Button bd= (Button) this.findViewById(R.id.Button02);
-		 * bd.setOnClickListener(new View.OnClickListener() { public void
-		 * onClick(View view) {
-		 * 
-		 * restoreValue();
-		 * 
-		 * } });
-		 */
+		
+		setValues = (Button) startup.findViewById(R.id.customsetValues);
+		setValues.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Log.i("MarketEnabler", "calling CustomPresenter.setValues()");
+				presenter.setValues();
+			}
+		});
+		 
 	}
 
 	public void displayError(String error) {
