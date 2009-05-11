@@ -51,13 +51,11 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		if (tabId.equals("actual")) {
 			viewActual.updateView();
 		} else if (tabId.equals("custom")) {
-			if (viewCustom == null) {
-				// creaete customview object
-				// TODO
-			} else {
-				// is it really needed to update custom view? I don't think so!
-				// viewCustom.updateView();
-			}
+			/*
+			 * if (viewCustom == null) { // creaete customview object // TODO }
+			 * else { // is it really needed to update custom view? I don't
+			 * think so! // viewCustom.updateView(); }
+			 */
 		} else if (tabId.equals("list")) {
 			// TODO viewList.updateView();
 		}
