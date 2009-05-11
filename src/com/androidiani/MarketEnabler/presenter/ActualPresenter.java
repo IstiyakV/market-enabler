@@ -2,6 +2,8 @@ package com.androidiani.MarketEnabler.presenter;
 
 import java.util.List;
 
+import android.util.Log;
+
 
 public class ActualPresenter {
 	private IActualView view;
@@ -19,6 +21,7 @@ public class ActualPresenter {
 	}
 
 	public void updateView() {
+		Log.i("MarketEnabler", "dropping shell commands to update actual view");
 		shellRes = ShellInterface.doExec(readPropCommand, false);
 		if (shellRes.size() != 6) {
 			String errorMsg = "";
