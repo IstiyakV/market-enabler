@@ -21,7 +21,7 @@
     <!-- include the tab content views -->
 	<include android:id="@+id/actual" layout="@layout/actualsettings" />
 	<include android:id="@+id/custom" layout="@layout/customsettings" />
-	<include android:id="@+id/old" layout="@layout/main" />
+	<!-- <include android:id="@+id/old" layout="@layout/main" />  -->
 </FrameLayout>
     </LinearLayout>
 </TabHost>

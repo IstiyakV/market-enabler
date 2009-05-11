@@ -5,24 +5,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.TabHost.OnTabChangeListener;
 
 import com.androidiani.MarketEnabler.R;
-import com.androidiani.MarketEnabler.presenter.IStartUp;
-import com.androidiani.MarketEnabler.presenter.StartUp;
+import com.androidiani.MarketEnabler.presenter.IActualView;
 
-public class StartUpView extends TabActivity implements IStartUp {
-	private StartUp presenter;
+public class StartUpView extends TabActivity implements OnTabChangeListener {
+	private IActualView viewActual = null;
+	private Object viewCustom = null; // TODO create custom view
+	private Object viewList = null; // TODO create list view
 	
-	/** UI elements **/
-	private TextView simNumeric, operatorNumeric, simISO, operatorISO,
-			simAlpha, operatorAlpha;
 	
 	public void onCreate(Bundle savedInstanceState) {
-		Log.d("*** DEBUG ***", "Start app");
+		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
-		Log.d("*** DEBUG ***", "Start setting up tabs");
+		Log.i("MarketEnabler", "Start setting up tabs");
 		/** setup tabs **/
 		TabHost mTabHost = getTabHost();
 		/** add tabs **/
@@ -30,57 +28,40 @@ public class StartUpView extends TabActivity implements IStartUp {
 				.setContent(R.id.actual));
 		mTabHost.addTab(mTabHost.newTabSpec("custom")
 				.setIndicator("Set custom").setContent(R.id.custom));
-		mTabHost.addTab(mTabHost.newTabSpec("old").setIndicator("Old")
-				.setContent(R.id.old));
+		mTabHost.setOnTabChangedListener(this);
+		
 		/** set current tab */
 		mTabHost.setCurrentTabByTag("actual");
 		
-		Log.d("*** DEBUG ***", "Start getting UI elements");
-		/** get UI elements **/
-		simNumeric = (TextView) findViewById(R.id.actualsimNumericValue);
-		operatorNumeric = (TextView) findViewById(R.id.actualoperatorNumericValue);
-		simISO = (TextView) findViewById(R.id.actualsimISOValue);
-		operatorISO = (TextView) findViewById(R.id.actualoperatorISOValue);
-		simAlpha = (TextView) findViewById(R.id.actualsimAlphaValue);
-		operatorAlpha = (TextView) findViewById(R.id.actualoperatorAlphaValue);
+		viewActual = new ActualView(this); 
 		
-		presenter = new StartUp(this);
 		
 	}
 
-	public void setSimNumeric(String simNumeric) {
-		this.simNumeric.setText(simNumeric);
-	}
-
-	public void setOperatorNumeric(String operatorNumeric) {
-		this.operatorNumeric.setText(operatorNumeric);
-	}
-
-	public void setSimISO(String simISO) {
-		this.simISO.setText(simISO);
-	}
-
-	public void setOperatorISO(String operatorISO) {
-		this.operatorISO.setText(operatorISO);
-	}
-
-	public void setSimAlpha(String simAlpha) {
-		this.simAlpha.setText(simAlpha);
-	}
-
-	public void setOperatorAlpha(String operatorAlpha) {
-		this.operatorAlpha.setText(operatorAlpha);
-	}
-
-	@Override
-	public void displayError(String error) {
-		// TODO Auto-generated method stub
-
-	}
+	
 	
 	public View createTabContent(String tag) {
 		
 		return null;
+	}
+
+	@Override
+	public void onTabChanged(String tabId) {
+		Log.i("MarketEnabler", "Changed to tab initiated [" + tabId + "]");
+		if (tabId.equals("actual")) {
+			viewActual.updateView();
+		} else if (tabId.equals("custom")) {
+			if (viewCustom == null) {
+				// creaete customview object
+				// TODO
+			} else {
+				// is it really needed to update custom view? I don't think so!
+				// viewCustom.updateView();
+			}
+		} else if (tabId.equals("list")) {
+			// TODO viewList.updateView();
+		}
+
 	}
 	
 }
