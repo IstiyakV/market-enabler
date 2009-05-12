@@ -66,6 +66,7 @@ android.telephony.ServiceState.setOperatorName(String longName, String shortName
 }}}
 Getting SIM values:
 {{{
+TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 android.telephony.TelephonyManager.getNetworkCountryIso()
 android.telephony.TelephonyManager.getNetworkOperator()
 android.telephony.TelephonyManager.getNetworkOperatorName()
