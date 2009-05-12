@@ -1,0 +1,39 @@
+#summary How to drop the shell commands
+#labels Phase-Design
+
+= Problem =
+There exist certain ways how to drop a shell command from an application.
+Some of them end in force close on some circumstances.
+
+= Existing solution =
+{{{
+Process process = Runtime.getRuntime().exec("su");
+DataOutputStream os = new DataOutputStream(process.getOutputStream());
+DataInputStream osRes = new DataInputStream(process.getInputStream());
+for (String single : commands) {
+   os.writeBytes(single + "\n");
+   os.flush();
+   res.add(osRes.readLine());
+}
+os.writeBytes("exit\n");
+os.flush();
+process.waitFor();
+}}}
+
+= ideas =
+== Execute trough a shell script ==
+The application ships with a generic shell script and a normal shell command will be dropped.
+{{{
+#!/system/bin/sh
+# MarketEnabler example set script
+# Usage: has to be called with all the values as arguments
+setprop gsm.sim.operator.numeric $1
+setprop gsm.operator.numeric $2
+setprop gsm.sim.operator.iso-country $3
+setprop gsm.operator.iso-country $4
+setprop gsm.operator.alpha $5
+setprop gsm.sim.operator.alpha $6
+kill $(ps | grep vending | tr -s ' ' | cut -d ' ' -f2)
+rm -rf /data/data/com.android.vending/cache/* 
+}}}
+As I played on my phone with different ways to execute this commands, this was the only way that executed the commands all times and very fast.
