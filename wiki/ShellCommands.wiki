@@ -52,3 +52,24 @@ kill $(ps | grep vending | tr -s ' ' | cut -d ' ' -f2)
 rm -rf /data/data/com.android.vending/cache/* 
 }}}
 As I played on my phone with different ways to execute this commands, this was the only way that executed the commands all times and very fast.
+== Using API for getting values and setting of some values ==
+This is the stuff I found until now
+Getting operator values:
+{{{
+android.telephony.ServiceState.getOperatorAlphaLong()
+android.telephony.ServiceState.getOperatorAlphaShort()
+android.telephony.ServiceState.getOperatorNumeric()
+}}}
+Setting operator values:
+{{{
+android.telephony.ServiceState.setOperatorName(String longName, String shortName, String numeric)
+}}}
+Getting SIM values:
+{{{
+android.telephony.TelephonyManager.getNetworkCountryIso()
+android.telephony.TelephonyManager.getNetworkOperator()
+android.telephony.TelephonyManager.getNetworkOperatorName()
+android.telephony.TelephonyManager.getSimCountryIso()
+android.telephony.TelephonyManager.getSimOperator()
+android.telephony.TelephonyManager.getSimOperatorName()
+}}}
