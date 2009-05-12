@@ -73,3 +73,4 @@ android.telephony.TelephonyManager.getSimCountryIso()
 android.telephony.TelephonyManager.getSimOperator()
 android.telephony.TelephonyManager.getSimOperatorName()
 }}}
+Maybe [http://lamp.epfl.ch/~linuxsoft/android/android-m5-rc15/docs/reference/android/telephony/TelephonyProperties.html here] are some more info how to get and set this stuff...
