@@ -13,12 +13,6 @@ public class CustomPresenter {
 	}
 
 	public void setValues() {
-		// android.os.SystemProperties.set(String key, String val)
-		
-		view.displayResult(true);
-	}
-
-	public void setValuesOld() {
 		// getting values from view and creating shell command
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric " + view.getSimNumeric(),
@@ -29,6 +23,7 @@ public class CustomPresenter {
 				"setprop gsm.sim.operator.alpha " + view.getSimAlpha(),
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
+
 		// Executing command in su mode
 		Log.i("MarketEnabler", "dropping shell commands for custom values");
 		shellRes = ShellInterface.doExec(writePropCommand, true);
