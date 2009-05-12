@@ -20,6 +20,21 @@ os.flush();
 process.waitFor();
 }}}
 
+= prior solution from rac =
+found this [http://gimite.net/en/index.php?Run%20native%20executable%20in%20Android%20App here]
+{{{
+Class<?> execClass = Class.forName("android.os.Exec");
+Method createSubprocess = execClass.getMethod("createSubprocess",
+	String.class, String.class, String.class, int[].class);
+Method waitFor = execClass.getMethod("waitFor", int.class);
+// Executes the command.
+// NOTE: createSubprocess() is asynchronous.
+int[] pid = new int[1];
+FileDescriptor fd = (FileDescriptor)createSubprocess.invoke(
+        		null, arg0, arg1, arg2, pid);
+// Waits for the command to finish.
+waitFor.invoke(null, pid[0]);
+}}}
 = ideas =
 == Execute trough a shell script ==
 The application ships with a generic shell script and a normal shell command will be dropped.
