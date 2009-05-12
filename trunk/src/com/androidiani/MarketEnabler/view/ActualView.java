@@ -14,6 +14,7 @@ public class ActualView implements IActualView {
 			simAlpha, operatorAlpha;
 	
 	private StartUpView startup;
+	
 	private ActualPresenter presenter;
 
 	public ActualView(StartUpView startup) {
@@ -64,6 +65,10 @@ public class ActualView implements IActualView {
 
 	public void updateView() {
 		presenter.updateView();
+	}
+	
+	public StartUpView getStartup() {
+		return startup;
 	}
 
 }

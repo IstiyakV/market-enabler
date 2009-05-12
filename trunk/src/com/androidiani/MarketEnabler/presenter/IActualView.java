@@ -1,5 +1,7 @@
 package com.androidiani.MarketEnabler.presenter;
 
+import com.androidiani.MarketEnabler.view.StartUpView;
+
 public interface IActualView {
 	void setSimNumeric(String simNumeric);
 
@@ -16,4 +18,6 @@ public interface IActualView {
 	void displayError(String error);
 	
 	void updateView();
+	
+	public StartUpView getStartup();
 }

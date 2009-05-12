@@ -2,6 +2,7 @@ package com.androidiani.MarketEnabler.view;
 
 import android.app.TabActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
@@ -14,9 +15,13 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private IActualView viewActual = null;
 	private Object viewCustom = null;
 	private Object viewList = null; // TODO create list view
+	private TelephonyManager tm = null;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
+		/** get telephony manager **/
+		tm = (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
+
 		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
@@ -60,6 +65,10 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 			// TODO viewList.updateView();
 		}
 
+	}
+
+	public TelephonyManager getTelephonyManager() {
+		return tm;
 	}
 	
 }
