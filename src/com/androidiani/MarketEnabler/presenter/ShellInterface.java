@@ -16,10 +16,13 @@ public class ShellInterface {
 		DataInputStream osRes = null;
 
 		try {
+			
 			if (suNeeded) {
 				// Getting Root ;)
+				Log.i("MarketEnabler", "Starting exec of su");
 				process = Runtime.getRuntime().exec("su");
 			} else {
+				Log.i("MarketEnabler", "Starting exec of sh");
 				process = Runtime.getRuntime().exec("sh");
 			}
 
@@ -27,10 +30,13 @@ public class ShellInterface {
 			osRes = new DataInputStream(process.getInputStream());
 			
 			// Doing Stuff ;)
+			Log.i("MarketEnabler", "Starting command loop");
 			for (String single : commands) {
+				Log.i("MarketEnabler", "Executing [" + single + "]");
 				os.writeBytes(single + "\n");
+				Log.i("MarketEnabler", "Executing [" + single + "] os.flush()");
 				os.flush();
-				res.add(osRes.readLine());
+				// res.add(osRes.readLine());
 			}
 
 			os.writeBytes("exit\n");
@@ -39,7 +45,7 @@ public class ShellInterface {
 			process.waitFor();
 
         } catch (Exception e) {
-			Log.d("marketenabler", "Unexpected error - Here is what I know: "
+			Log.d("MarketEnabler", "Unexpected error - Here is what I know: "
 					+ e.getMessage());
 			res.add(e.getMessage());
 			return res;
