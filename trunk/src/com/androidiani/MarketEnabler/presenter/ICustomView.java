@@ -1,5 +1,7 @@
 package com.androidiani.MarketEnabler.presenter;
 
+import com.androidiani.MarketEnabler.view.StartUpView;
+
 public interface ICustomView {
 	String getSimNumeric();
 
@@ -16,4 +18,6 @@ public interface ICustomView {
 	void displayError(String error);
 	
 	void displayResult(boolean result);
+	
+	StartUpView getStartup();
 }

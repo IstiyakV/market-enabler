@@ -19,5 +19,5 @@ public interface IActualView {
 	
 	void updateView();
 	
-	public StartUpView getStartup();
+	StartUpView getStartup();
 }

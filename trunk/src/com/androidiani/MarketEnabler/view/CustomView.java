@@ -87,10 +87,13 @@ public class CustomView implements ICustomView {
 		return simNumeric.getText().toString();
 	}
 
-	@Override
 	public void displayResult(boolean result) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public StartUpView getStartup() {
+		return startup;
 	}
 
 }
