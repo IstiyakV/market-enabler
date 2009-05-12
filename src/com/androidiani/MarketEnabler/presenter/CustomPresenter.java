@@ -13,6 +13,12 @@ public class CustomPresenter {
 	}
 
 	public void setValues() {
+		// android.os.SystemProperties.set(String key, String val)
+		
+		view.displayResult(true);
+	}
+
+	public void setValuesOld() {
 		// getting values from view and creating shell command
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric " + view.getSimNumeric(),

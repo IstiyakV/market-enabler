@@ -21,7 +21,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	public void onCreate(Bundle savedInstanceState) {
 		/** get telephony manager **/
 		tm = (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
-
+		
 		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
