@@ -33,6 +33,18 @@ public class CustomView implements ICustomView {
 		simAlpha = (TextView) startup.findViewById(R.id.customsimAlphaValue);
 		operatorAlpha = (TextView) startup
 				.findViewById(R.id.customoperatorAlphaValue);
+		
+		/** setting actual values as default text **/
+		simNumeric.setText(startup.getTelephonyManager().getSimOperator());
+		operatorNumeric.setText(startup.getTelephonyManager()
+				.getNetworkOperator());
+		simISO.setText(startup.getTelephonyManager().getSimCountryIso());
+		operatorISO.setText(startup.getTelephonyManager()
+				.getNetworkCountryIso());
+		operatorAlpha.setText(startup.getTelephonyManager()
+				.getNetworkOperatorName());
+		simAlpha.setText(startup.getTelephonyManager().getSimOperatorName());
+		
 		presenter = new CustomPresenter(this);
 		
 		
