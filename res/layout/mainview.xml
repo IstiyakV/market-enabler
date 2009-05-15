@@ -20,6 +20,7 @@
                     	
     <!-- include the tab content views -->
 	<include android:id="@+id/actual" layout="@layout/actualsettings" />
+	<include android:id="@+id/list" layout="@layout/listofsettings" />
 	<include android:id="@+id/custom" layout="@layout/customsettings" />
 	<!-- <include android:id="@+id/old" layout="@layout/main" />  -->
 </FrameLayout>
