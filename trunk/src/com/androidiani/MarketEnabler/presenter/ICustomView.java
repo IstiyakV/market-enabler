@@ -1,5 +1,7 @@
 package com.androidiani.MarketEnabler.presenter;
 
+import android.os.Handler;
+
 import com.androidiani.MarketEnabler.view.StartUpView;
 
 public interface ICustomView {
@@ -20,4 +22,6 @@ public interface ICustomView {
 	void displayResult(boolean result);
 	
 	StartUpView getStartup();
+	Handler getHandler();
+	void startProgress(int max, String titel, String message);
 }

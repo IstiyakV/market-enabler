@@ -1,9 +1,13 @@
 package com.androidiani.MarketEnabler.view;
 
+import android.app.ProgressDialog;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidiani.MarketEnabler.R;
 import com.androidiani.MarketEnabler.presenter.CustomPresenter;
@@ -18,6 +22,42 @@ public class CustomView implements ICustomView {
 
 	private StartUpView startup;
 	private CustomPresenter presenter;
+	
+	private ProgressDialog pd;
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			// This Means that we've not finished the work ..
+
+			if (msg.arg2 != 0) {
+				pd.incrementProgressBy(msg.arg1 - pd.getProgress());
+
+			} else {
+				pd.dismiss();
+				Toast.makeText(startup, "Done ;)", Toast.LENGTH_LONG).show();
+				if (msg.arg1 == 0)
+					Toast.makeText(startup, "All set", Toast.LENGTH_LONG)
+							.show();
+				else
+					Toast.makeText(startup, "We Got a Problem Houston :(",
+							Toast.LENGTH_LONG).show();
+
+			}
+
+		}
+	};
+	
+	public Handler getHandler() {
+		return handler;
+	}
+
+	public void startProgress(int max, String titel, String message) {
+		pd = new ProgressDialog(startup);
+		pd.setMax(max);
+		pd.setProgress(1);
+		pd.setTitle(titel);
+		pd.setMessage(message);
+		pd.show();
+	}
 
 	public CustomView(StartUpView startup) {
 		this.startup = startup;
