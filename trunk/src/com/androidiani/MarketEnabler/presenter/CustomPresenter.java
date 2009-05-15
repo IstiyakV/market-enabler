@@ -8,13 +8,21 @@ import android.util.Log;
 
 public class CustomPresenter implements Runnable {
 	private ICustomView view;
-	List<String> shellRes;
-	static Handler handler;
-	private String[] writePropCommand;
+	private static Handler handler;
+	private static String[] writePropCommand;
+	private ProgressDialog pd;
+	
+	public ProgressDialog getPd() {
+		return pd;
+	}
 
 	public CustomPresenter(ICustomView viewIn) {
 		view = viewIn;
 		handler = view.getHandler();
+	}
+	
+	private static void setCommand(String[] cmd) {
+		writePropCommand = cmd;
 	}
 
 	public void setValues() {
@@ -29,12 +37,13 @@ public class CustomPresenter implements Runnable {
 				"setprop gsm.sim.operator.alpha " + view.getSimAlpha(),
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
-
+		
+		setCommand(writePropCommand);
 		// Executing command in su mode
 		Log.i("MarketEnabler", "dropping shell commands for custom values");
 		// view.startProgress(10, "working", "executing setprop commands");
-		ProgressDialog pd = new ProgressDialog(view.getStartup());
-		pd.setMax(10);
+		pd = new ProgressDialog(view.getStartup());
+		pd.setMax(writePropCommand.length);
 		pd.setProgress(1);
 		pd.setTitle("working");
 		pd.setMessage("executing setprop commands");
