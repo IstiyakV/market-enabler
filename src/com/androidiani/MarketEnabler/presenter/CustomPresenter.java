@@ -2,17 +2,23 @@ package com.androidiani.MarketEnabler.presenter;
 
 import java.util.List;
 
+import android.app.ProgressDialog;
+import android.os.Handler;
 import android.util.Log;
 
-public class CustomPresenter {
+public class CustomPresenter implements Runnable {
 	private ICustomView view;
 	List<String> shellRes;
+	static Handler handler;
+	private String[] writePropCommand;
 
 	public CustomPresenter(ICustomView viewIn) {
 		view = viewIn;
+		handler = view.getHandler();
 	}
 
 	public void setValues() {
+		Log.d("MarketEnabler", "starting setValues");
 		// getting values from view and creating shell command
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric " + view.getSimNumeric(),
@@ -26,11 +32,28 @@ public class CustomPresenter {
 
 		// Executing command in su mode
 		Log.i("MarketEnabler", "dropping shell commands for custom values");
-		shellRes = ShellInterface.doExec(writePropCommand, true);
-		// TODO: how to check result? doing readprop again?
-		for (String tmp : shellRes) {
-			Log.d("MarketEnabler", "readprop result [" + tmp + "]");
-		}
-		view.displayResult(true);
+		// view.startProgress(10, "working", "executing setprop commands");
+		ProgressDialog pd = new ProgressDialog(view.getStartup());
+		pd.setMax(10);
+		pd.setProgress(1);
+		pd.setTitle("working");
+		pd.setMessage("executing setprop commands");
+		pd.show();
+		
+		Thread thread = new Thread(this);
+		thread.start();
+
+		// // TODO: how to check result? doing readprop again?
+		// for (String tmp : shellRes) {
+		// Log.d("MarketEnabler", "readprop result [" + tmp + "]");
+		// }
+		// view.displayResult(true);
+	}
+
+	@Override
+	public void run() {
+		Log.d("MarketEnabler", "Starting shell thread with ["
+				+ writePropCommand.length + "] commands");
+		ShellInterface.doExec(writePropCommand, true, handler);
 	}
 }

@@ -5,15 +5,20 @@ import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 public class ShellInterface {
 
-	public static List<String> doExec(String[] commands, boolean suNeeded) {
+	public static void doExec(String[] commands, boolean suNeeded,
+			Handler handler) {
 		List<String> res = new ArrayList<String>();
 		Process process = null;
 		DataOutputStream os = null;
 		DataInputStream osRes = null;
+		Message msg = null;
+		int i = 1;
 
 		try {
 			
@@ -36,6 +41,11 @@ public class ShellInterface {
 				os.writeBytes(single + "\n");
 				Log.i("MarketEnabler", "Executing [" + single + "] os.flush()");
 				os.flush();
+				msg = Message.obtain();
+				msg.arg1 = i++;
+				msg.arg2 = -1;// This because when 0 i will dismiss the
+								// progressbar.
+				handler.sendMessage(msg);
 				// res.add(osRes.readLine());
 			}
 
@@ -43,12 +53,20 @@ public class ShellInterface {
 			os.flush();
 
 			process.waitFor();
+			msg = Message.obtain();
+			msg.arg1 = 0;
+			msg.arg2 = 0;
+			handler.sendMessage(msg);
 
         } catch (Exception e) {
 			Log.d("MarketEnabler", "Unexpected error - Here is what I know: "
 					+ e.getMessage());
+			msg = Message.obtain();
+			msg.arg1 = 1;
+			msg.arg2 = 0;
+			handler.sendMessage(msg);
 			res.add(e.getMessage());
-			return res;
+			// return res;
 		} finally {
 			try {
 				if (os != null) {
@@ -62,6 +80,6 @@ public class ShellInterface {
 				// nothing
 			}
 		}
-		return res;
+		// return res;
 	}
 }
