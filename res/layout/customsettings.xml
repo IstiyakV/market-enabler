@@ -24,7 +24,8 @@ android:text="gsm.sim.operator.numeric"
 android:id="@+id/customsimNumericValue"
 android:layout_width="100sp"
 android:layout_height="wrap_content"
-
+android:inputType="number"
+android:maxLength="6"
  />
  <!-- android:textSize="4sp" -->
 </TableRow>
@@ -40,6 +41,8 @@ android:text="gsm.operator.numeric"
 android:id="@+id/customoperatorNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
+android:inputType="number"
+android:maxLength="6"
 />
 </TableRow>
 
@@ -54,6 +57,7 @@ android:text="gsm.sim.operator.iso-country"
 android:id="@+id/customsimISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
+android:maxLength="2"
 />
 </TableRow>
 
@@ -68,6 +72,7 @@ android:text="gsm.operator.iso-country"
 android:id="@+id/customoperatorISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
+android:maxLength="2"
 />
 </TableRow>
 

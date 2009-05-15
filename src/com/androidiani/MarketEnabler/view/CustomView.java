@@ -23,23 +23,27 @@ public class CustomView implements ICustomView {
 	private StartUpView startup;
 	private CustomPresenter presenter;
 	
-	private ProgressDialog pd;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			// This Means that we've not finished the work ..
-
+			Log.d("MarketEnabler", "progress msg["+ msg.arg1 + ", "+ msg.arg2 + "] getprogress["+presenter.getPd().getProgress()+"]");
+			
 			if (msg.arg2 != 0) {
-				pd.incrementProgressBy(msg.arg1 - pd.getProgress());
-
+				Log.d("MarketEnabler", "increment progress msg["+ msg.arg1 + ", "+ msg.arg2 + "] getprogress["+presenter.getPd().getProgress()+"]");
+				//presenter.getPd().incrementProgressBy(msg.arg1 - pd.getProgress());
+				presenter.getPd().setProgress(msg.arg1);
 			} else {
-				pd.dismiss();
-				Toast.makeText(startup, "Done ;)", Toast.LENGTH_LONG).show();
-				if (msg.arg1 == 0)
-					Toast.makeText(startup, "All set", Toast.LENGTH_LONG)
+				Log.d("MarketEnabler", "dismiss progress msg["+ msg.arg1 + ", "+ msg.arg2 + "] getprogress["+presenter.getPd().getProgress()+"]");
+				//pd.setProgress(8);
+				presenter.getPd().dismiss();
+				//Toast.makeText(startup, "Done ;)", Toast.LENGTH_LONG).show();
+				if (msg.arg1 == 0) 
+					Toast.makeText(startup, " Done and all set", Toast.LENGTH_LONG)
 							.show();
 				else
 					Toast.makeText(startup, "We Got a Problem Houston :(",
 							Toast.LENGTH_LONG).show();
+				startup.getTabHost().setCurrentTabByTag("actual");
 
 			}
 
@@ -50,17 +54,9 @@ public class CustomView implements ICustomView {
 		return handler;
 	}
 
-	public void startProgress(int max, String titel, String message) {
-		pd = new ProgressDialog(startup);
-		pd.setMax(max);
-		pd.setProgress(1);
-		pd.setTitle(titel);
-		pd.setMessage(message);
-		pd.show();
-	}
-
 	public CustomView(StartUpView startup) {
 		this.startup = startup;
+		
 		Log.i("MarketEnabler", "Start getting UI elements");
 		/** get UI elements **/
 		simNumeric = (TextView) startup

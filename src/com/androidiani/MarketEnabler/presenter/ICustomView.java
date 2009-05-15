@@ -23,5 +23,5 @@ public interface ICustomView {
 	
 	StartUpView getStartup();
 	Handler getHandler();
-	void startProgress(int max, String titel, String message);
+
 }

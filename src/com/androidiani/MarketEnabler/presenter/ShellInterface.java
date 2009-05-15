@@ -32,7 +32,6 @@ public class ShellInterface {
 			}
 
 			os = new DataOutputStream(process.getOutputStream());
-			osRes = new DataInputStream(process.getInputStream());
 			
 			// Doing Stuff ;)
 			Log.i("MarketEnabler", "Starting command loop");
@@ -46,9 +45,8 @@ public class ShellInterface {
 				msg.arg2 = -1;// This because when 0 i will dismiss the
 								// progressbar.
 				handler.sendMessage(msg);
-				// res.add(osRes.readLine());
 			}
-
+			
 			os.writeBytes("exit\n");
 			os.flush();
 
@@ -61,12 +59,12 @@ public class ShellInterface {
         } catch (Exception e) {
 			Log.d("MarketEnabler", "Unexpected error - Here is what I know: "
 					+ e.getMessage());
+			e.printStackTrace();
 			msg = Message.obtain();
 			msg.arg1 = 1;
 			msg.arg2 = 0;
 			handler.sendMessage(msg);
 			res.add(e.getMessage());
-			// return res;
 		} finally {
 			try {
 				if (os != null) {
@@ -80,6 +78,5 @@ public class ShellInterface {
 				// nothing
 			}
 		}
-		// return res;
 	}
 }

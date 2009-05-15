@@ -33,6 +33,7 @@ android:id="@+id/actualsimNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
  />
 </TableRow>
 
@@ -48,6 +49,7 @@ android:id="@+id/actualoperatorNumericValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
 />
 </TableRow>
 
@@ -63,6 +65,7 @@ android:id="@+id/actualsimISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
 />
 </TableRow>
 
@@ -78,6 +81,7 @@ android:id="@+id/actualoperatorISOValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
 />
 </TableRow>
 
@@ -93,6 +97,7 @@ android:id="@+id/actualsimAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
 />
 </TableRow>
 
@@ -108,6 +113,7 @@ android:id="@+id/actualoperatorAlphaValue"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="nothing"
+android:layout_marginLeft="20px"
 />
 </TableRow>
 <TextView
