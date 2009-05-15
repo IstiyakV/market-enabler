@@ -13,8 +13,8 @@ import com.androidiani.MarketEnabler.presenter.IActualView;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private IActualView viewActual = null;
-	private Object viewCustom = null;
-	private Object viewList = null; // TODO create list view
+	private CustomView viewCustom = null;
+	private ListView viewList = null;
 	private TelephonyManager tm = null;
 	
 	
@@ -31,6 +31,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		/** add tabs **/
 		mTabHost.addTab(mTabHost.newTabSpec("actual").setIndicator("Actual")
 				.setContent(R.id.actual));
+		mTabHost.addTab(mTabHost.newTabSpec("list").setIndicator("Settings list")
+				.setContent(R.id.list));
 		mTabHost.addTab(mTabHost.newTabSpec("custom")
 				.setIndicator("Set custom").setContent(R.id.custom));
 		mTabHost.setOnTabChangedListener(this);
@@ -40,6 +42,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		
 		viewActual = new ActualView(this); 
 		viewCustom = new CustomView(this);
+		viewList = new ListView(this);
 		
 	}
 
@@ -56,10 +59,9 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		if (tabId.equals("actual")) {
 			viewActual.updateView();
 		} else if (tabId.equals("custom")) {
-			/*
-			 * if (viewCustom == null) { // creaete customview object // TODO }
-			 * else { // is it really needed to update custom view? I don't
-			 * think so! // viewCustom.updateView(); }
+			/* is it really needed to update custom view? I don't
+			 * think so! 
+			 * // viewCustom.updateView(); }
 			 */
 		} else if (tabId.equals("list")) {
 			// TODO viewList.updateView();
