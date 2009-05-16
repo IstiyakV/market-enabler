@@ -86,7 +86,7 @@ public class ListPresenter implements Runnable {
 		pd.setMax(writePropCommand.length);
 		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		pd.setProgress(1);
-		pd.setTitle("Working :)");
+		pd.setTitle("Working");
 		pd.setMessage("We Are Faking: " + settings.getGsmSimOperatorAlpha()
 				+ "(" + settings.getGsmOperatorAlpha() + ")");
 		pd.show();
