@@ -39,8 +39,8 @@ public class ListView extends ListActivity implements IListView {
 		// of strings to TextViews
 		setListAdapter(new ArrayAdapter<ProviderConfig>(this,
 				android.R.layout.simple_list_item_1, providerlist));
-
-		getListView().setTextFilterEnabled(true);
+		// whats this?
+	//	getListView().setTextFilterEnabled(true);
 
 		registerForContextMenu(getListView());
 
