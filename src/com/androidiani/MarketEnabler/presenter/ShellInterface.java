@@ -45,6 +45,7 @@ public class ShellInterface {
 				msg.arg2 = -1;// This because when 0 i will dismiss the
 								// progressbar.
 				handler.sendMessage(msg);
+				Thread.sleep(200);
 			}
 			
 			os.writeBytes("exit\n");

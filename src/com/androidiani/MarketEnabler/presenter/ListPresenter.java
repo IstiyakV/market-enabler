@@ -37,6 +37,15 @@ public class ListPresenter implements Runnable {
 						"E-Plus"));
 		list.add(new ProviderConfig(31026, 31026, "us", "us", "T-Mobile",
 				"T-Mobile"));
+		list.add(new ProviderConfig(31026, 31026, "us", "us", "T-Mobile",
+		"T-Mobile"));
+		list.add(new ProviderConfig(31026, 31026, "us", "us", "T-Mobile",
+		"T-Mobile"));
+		list.add(new ProviderConfig(31026, 31026, "us", "us", "T-Mobile",
+		"T-Mobile"));
+		list.add(new ProviderConfig(31026, 31026, "us", "us", "T-Mobile",
+		"T-Mobile"));
+		
 		return list;
 	}
 	
@@ -75,9 +84,10 @@ public class ListPresenter implements Runnable {
 		// pd = new ProgressDialog(view.getStartup());
 		pd = new ProgressDialog((Context) view);
 		pd.setMax(writePropCommand.length);
+		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		pd.setProgress(1);
-		pd.setTitle("working");
-		pd.setMessage("Setting to fake " + settings.getGsmSimOperatorAlpha()
+		pd.setTitle("Working :)");
+		pd.setMessage("We Are Faking: " + settings.getGsmSimOperatorAlpha()
 				+ "(" + settings.getGsmOperatorAlpha() + ")");
 		pd.show();
 		
