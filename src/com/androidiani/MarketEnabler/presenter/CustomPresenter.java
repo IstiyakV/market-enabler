@@ -1,7 +1,5 @@
 package com.androidiani.MarketEnabler.presenter;
 
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.util.Log;
@@ -33,8 +31,9 @@ public class CustomPresenter implements Runnable {
 				"setprop gsm.operator.numeric " + view.getOperatorNumeric(),
 				"setprop gsm.sim.operator.iso-country " + view.getSimISO(),
 				"setprop gsm.operator.iso-country " + view.getOperatorISO(),
-				"setprop gsm.operator.alpha " + view.getOperatorAlpha(),
-				"setprop gsm.sim.operator.alpha " + view.getSimAlpha(),
+				"setprop gsm.operator.alpha \"" + view.getOperatorAlpha()
+						+ "\"",
+				"setprop gsm.sim.operator.alpha \"" + view.getSimAlpha() + "\"",
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
 		
@@ -46,7 +45,7 @@ public class CustomPresenter implements Runnable {
 		pd.setMax(writePropCommand.length);
 		pd.setProgress(1);
 		pd.setTitle("working");
-		pd.setMessage("executing setprop commands");
+		pd.setMessage("Setting to fake custom provider");
 		pd.show();
 		
 		Thread thread = new Thread(this);
