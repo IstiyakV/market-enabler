@@ -20,17 +20,16 @@ import com.androidiani.MarketEnabler.model.ProviderConfig;
 import com.androidiani.MarketEnabler.presenter.IListView;
 import com.androidiani.MarketEnabler.presenter.ListPresenter;
 
-public class ListView extends ListActivity implements IListView {
+public class List1 extends ListActivity implements IListView {
 
 	protected ArrayList<ProviderConfig> providerlist; // = new
-	// ArrayList<String>();
+														// ArrayList<String>();
 	private Context ctx;
 	private ListPresenter presenter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// ctx = getApplicationContext();
-		ctx = (Context) this;
+		ctx = getApplicationContext();
 		presenter = new ListPresenter(this);
 		providerlist = presenter.createDefaultList();
 		
@@ -39,11 +38,11 @@ public class ListView extends ListActivity implements IListView {
 		// of strings to TextViews
 		setListAdapter(new ArrayAdapter<ProviderConfig>(this,
 				android.R.layout.simple_list_item_1, providerlist));
-
+		
 		getListView().setTextFilterEnabled(true);
-
+		
 		registerForContextMenu(getListView());
-
+		
 	}
 	
     public boolean onContextItemSelected(MenuItem item) {
@@ -62,11 +61,11 @@ public class ListView extends ListActivity implements IListView {
 		int selPos = info.position;
 
 		menu.add("fake this provider now");
-	}
-
+	} 
+	
 	private StartUpView startup;
 
-	private Handler handler = new Handler() {
+    private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			// This Means that we've not finished the work ..
 			Log.d("MarketEnabler", "progress msg[" + msg.arg1 + ", " + msg.arg2
@@ -87,10 +86,8 @@ public class ListView extends ListActivity implements IListView {
 				presenter.getPd().dismiss();
 				// Toast.makeText(startup, "Done ;)", Toast.LENGTH_LONG).show();
 				if (msg.arg1 == 0)
-					Toast
-							.makeText(ctx, " Done and all set",
-									Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(ctx, " Done and all set",
+							Toast.LENGTH_LONG).show();
 				else
 					Toast.makeText(ctx, "We Got a Problem Houston :(",
 							Toast.LENGTH_LONG).show();

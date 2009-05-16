@@ -13,6 +13,7 @@ public class ProviderConfig {
 	private String gsmOperatorAlpha;
 	private String SettingsHash;
 	private boolean hashValid;
+	private String market;
 
 	public ProviderConfig(int gsmSimOperatorNumeric, int gsmOperatorNumeric,
 			String gsmSimOperatorIsoCountry, String gsmOperatorIsoCountry,
@@ -82,6 +83,15 @@ public class ProviderConfig {
 		this.gsmOperatorAlpha = gsmOperatorAlpha;
 		invalidateHash();
 	}
+	
+	public String getMarket() {
+		return market;
+	}
+
+	public void setMarket(String market) {
+		this.market = market;
+	}
+	
 	private void invalidateHash() {
 		hashValid=false;
 	}
@@ -109,4 +119,9 @@ public class ProviderConfig {
 
 	}
 
+	/** The ListView is going to display the toString() return-value! */
+	public String toString() {
+		return "[" + gsmSimOperatorIsoCountry + "] " + gsmSimOperatorAlpha
+				+ " (" + gsmOperatorAlpha + ")";
+	} 
 }
