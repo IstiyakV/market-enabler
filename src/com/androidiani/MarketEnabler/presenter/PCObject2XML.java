@@ -37,11 +37,11 @@ public class PCObject2XML {
 			ret += "<gsmSimOperatorAlpha>" + pc.getGsmSimOperatorAlpha()
 					+ "</gsmSimOperatorAlpha>\n";
 			ret += "<gsmOperatorNumeric>" + pc.getGsmOperatorNumeric()
-					+ "</gsmSimOperatorNumeric>\n";
+					+ "</gsmOperatorNumeric>\n";
 			ret += "<gsmOperatorIso-Country>" + pc.getGsmOperatorIsoCountry()
-					+ "</gsmSimOperatorIso-Country>\n";
+					+ "</gsmOperatorIso-Country>\n";
 			ret += "<gsmOperatorAlpha>" + pc.getGsmOperatorAlpha()
-					+ "</gsmSimOperatorAlpha>\n";
+					+ "</gsmOperatorAlpha>\n";
 			ret += "<SettingsHash>" + pc.getSettingsHash()
 					+ "</SettingsHash>\n";
 			ret += "</configuration>";
