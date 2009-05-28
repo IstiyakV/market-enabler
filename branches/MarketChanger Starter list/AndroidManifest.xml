@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.androidiani.MarketEnabler"
+      android:versionName="3.0 beta" android:versionCode="3">
+       <uses-sdk android:minSdkVersion="1" />
+    <application android:icon="@drawable/me348" android:label="@string/app_name">
+    	<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion" android:value="same value as android:versionCode" />
+    	<meta-data android:name="com.a0soft.gphone.aTrackDog.webURL" android:value="http://code.google.com/p/market-enabler" />
+		<meta-data android:name="com.a0soft.gphone.aTrackDog.dlURL" android:value="http://code.google.com/p/market-enabler/downloads/list" />
+		<meta-data android:name="com.a0soft.gphone.aTrackDog.noMarket" android:value="true" />
+        <activity android:name=".view.StartUpView"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.ListView"
+                  android:label="@string/app_name" />
+                            
+    </application>
+   
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+</manifest> 

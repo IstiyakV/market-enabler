@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<version>1</version>
+<configuration>
+<gsmSimOperatorNumeric>22802</gsmSimOperatorNumeric>
+<gsmSimOperatorIso-Country>ch</gsmSimOperatorIso-Country>
+<gsmSimOperatorAlpha>sunrise</gsmSimOperatorAlpha>
+<gsmOperatorNumeric>22802</gsmOperatorNumeric>
+<gsmOperatorIso-Country>ch</gsmOperatorIso-Country>
+<gsmOperatorAlpha>sunrise</gsmOperatorAlpha>
+<SettingsHash>8ad9fcf1cc531fd6ac235289cf000069</SettingsHash>
+</configuration>
+<configuration>
+<gsmSimOperatorNumeric>26207</gsmSimOperatorNumeric>
+<gsmSimOperatorIso-Country>de</gsmSimOperatorIso-Country>
+<gsmSimOperatorAlpha>o2 - de</gsmSimOperatorAlpha>
+<gsmOperatorNumeric>26207</gsmOperatorNumeric>
+<gsmOperatorIso-Country>de</gsmOperatorIso-Country>
+<gsmOperatorAlpha>o2 - de</gsmOperatorAlpha>
+<SettingsHash>12e41cf2cf5cd18efa668b0bae1915ab</SettingsHash>
+</configuration>
+<configuration>
+<gsmSimOperatorNumeric>26203</gsmSimOperatorNumeric>
+<gsmSimOperatorIso-Country>de</gsmSimOperatorIso-Country>
+<gsmSimOperatorAlpha>simyo</gsmSimOperatorAlpha>
+<gsmOperatorNumeric>26203</gsmOperatorNumeric>
+<gsmOperatorIso-Country>de</gsmOperatorIso-Country>
+<gsmOperatorAlpha>E-Plus</gsmOperatorAlpha>
+<SettingsHash>2681b6775ea81a2c76c95064b965537a</SettingsHash>
+</configuration>
+<configuration>
+<gsmSimOperatorNumeric>31026</gsmSimOperatorNumeric>
+<gsmSimOperatorIso-Country>us</gsmSimOperatorIso-Country>
+<gsmSimOperatorAlpha>T-Mobile</gsmSimOperatorAlpha>
+<gsmOperatorNumeric>31026</gsmOperatorNumeric>
+<gsmOperatorIso-Country>us</gsmOperatorIso-Country>
+<gsmOperatorAlpha>T-Mobile</gsmOperatorAlpha>
+<SettingsHash>97279dbfb7d9c4cfcf0562e006cb6c6e</SettingsHash>
+</configuration>
