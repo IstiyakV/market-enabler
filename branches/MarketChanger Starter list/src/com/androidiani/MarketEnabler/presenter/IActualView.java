@@ -1,5 +1,7 @@
 package com.androidiani.MarketEnabler.presenter;
 
+import android.os.Handler;
+
 import com.androidiani.MarketEnabler.view.StartUpView;
 
 public interface IActualView {
@@ -20,4 +22,6 @@ public interface IActualView {
 	void updateView();
 	
 	StartUpView getStartup();
+
+	Handler getHandler();
 }

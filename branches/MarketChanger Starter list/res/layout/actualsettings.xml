@@ -116,6 +116,16 @@ android:text="nothing"
 android:layout_marginLeft="20px"
 />
 </TableRow>
+<TableRow>
+<Button android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save current settings" />
+<Button android:id="@+id/buttonRestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restore settings" />
+</TableRow>
 <TextView
 android:id="@+id/actualaboutText"
 android:layout_width="wrap_content"
@@ -128,7 +138,7 @@ android:id="@+id/actualaboutText2"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_marginTop="10px"
-android:text="http://androidiani.com \nhttp://2030.tk/android"
+android:text="http://androidiani.com \nhttp://2030.tk/donate"
 />
 <TextView
 android:id="@+id/actualaboutText3"
