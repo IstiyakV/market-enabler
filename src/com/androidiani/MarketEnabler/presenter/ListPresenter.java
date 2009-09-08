@@ -37,6 +37,11 @@ public class ListPresenter implements Runnable {
 						"E-Plus"));
 		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
 				"T-Mobile"));
+		list.add(new ProviderConfig(22201, 22201, "it", "it", "TIM", "TIM"));
+		list.add(new ProviderConfig(50501, 50501, "au", "au", "Telstra",
+				"Telstra"));
+		list.add(new ProviderConfig(23203, 23203, "at", "at", "T-Mobile",
+				"T-Mobile Austria"));
 		
 		return list;
 	}
