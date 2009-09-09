@@ -2,5 +2,5 @@
 #labels Featured
 
 = People who donated to this Project or the coders =
-|| *Date* || *Who* || *Reason / Comment* ||
-|| ? || ? || ? ||
+|| *Date* || *Who* || *Reason / Comment* || *Ammount* ||
+|| ? || ? || ? || ? ||
