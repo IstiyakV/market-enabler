@@ -17,3 +17,8 @@ Using reflection it would work but just if the app has been compiled with the sy
 
 = Killing the Vending process (removing busybox dependencies)=
 Can easily be done with the restart application permission
+{{{
+<uses-permission android:name="android.permission.GET_TASKS"/>
+<uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+}}}
+[http://code.google.com/p/andrac/source/browse/trunk/racTasks/src/ch/racic/android/ractasks/ractasks.java Example of how to get the task list and restart (kill) an application]
