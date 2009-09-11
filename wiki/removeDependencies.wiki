@@ -1,5 +1,5 @@
-#labels Phase-Design
-#Ideas to get rid of dependencies
+#labels Phase-Implementation
+#ideas to get rid of dependencies
 
 
 = Clearing the cache trough API (one step in removing su app dependencies)=
