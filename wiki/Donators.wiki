@@ -2,5 +2,7 @@
 #labels Featured
 
 = People who donated to this Project or the coders =
-|| *Date* || *Who* || *Reason / Comment* || *Ammount* ||
-|| 07.10.09 || ? || ? || ? ||
+|| *Date* || *Who* || *Reason / Comment* || *Ammount* || Collector
+|| 12.09.09 ||  lmjabreu || ? || 10 Euro || Andrea
+|| 15.09.09 ||  Anonymous || To A.G. Please respond to our mail to get listed here || 3 Euro || Andrea
+|| 07.10.09 ||  lmjabreu || ? || 10 Euro || rac
