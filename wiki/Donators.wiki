@@ -3,4 +3,4 @@
 
 = People who donated to this Project or the coders =
 || *Date* || *Who* || *Reason / Comment* || *Ammount* ||
-|| ? || ? || ? || ? ||
+|| 07.10.09 || ? || ? || ? ||
