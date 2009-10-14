@@ -1,7 +1,10 @@
 #summary Table of Device / ROM working or non working reports
 #labels Featured,Phase-QA
 
+Please feel free to post your info in the comments and I will add it to the table.
 
-|| Device || ROM || fully working || comment ||
-|| ADP || jf4c 0.6 (almost same as JF 1.5)  || yes ||  ||
-|| ||   || ||  ||
+|| Device || Android Version || ROM || fully working || comment ||
+|| ADP || 1.5 || jf4c 0.6 (almost same as JF 1.5)  || yes ||  ||
+|| ADP || 1.6 || dwang modified adp1 1.6  || partially || http://code.google.com/p/market-enabler/issues/detail?id=24#c3 ||
+|| Hero || 1.5 || Modaco 2.2  || no || Phone will reboot because grep command has different output (see Issue #21 ||
+|| || ||   || ||  ||
