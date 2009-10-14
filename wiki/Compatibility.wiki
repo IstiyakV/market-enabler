@@ -1,0 +1,7 @@
+#summary Table of Device / ROM working or non working reports
+#labels Featured,Phase-QA
+
+
+|| Device || ROM || fully working || comment ||
+|| ADP || jf4c 0.6 (almost same as JF 1.5)  || yes ||  ||
+|| ||   || ||  ||
