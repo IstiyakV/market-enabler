@@ -13,3 +13,4 @@ Please feel free to post your info in the comments and I will add it to the tabl
 || ? || 1.6 || Cyanogenmod  || <font color='green'>yes</font> ||  ||
 || Magic || 1.6 || Cyanogen 4.1.999 || <font color='green'>yes</font> || http://code.google.com/p/market-enabler/issues/detail?id=24#c8 ||
 || G1 || 1.6 || CyanogenMod-4.1.10.1 || <font color='green'>yes</font> || by mail ||
+|| Magic || 1.6 || RAv1.6.2 || <font color='green'>yes</font> || http://forum.xda-developers.com/showthread.php?t=538645 ||
