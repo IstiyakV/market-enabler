@@ -10,6 +10,13 @@ Allows an application to delete cache files.
 Constant Value: "android.permission.DELETE_CACHE_FILES"
 }}}
 
+or
+
+{{{
+Allows an application to clear the caches of all installed applications on the device.
+Constant Value: "android.permission.CLEAR_APP_CACHE"
+}}}
+
 Have to test and see if this permissions can be used without the need of the system certificate.
 
 = Using the setprop commands trough API (one step in removing su app dependencies)=
