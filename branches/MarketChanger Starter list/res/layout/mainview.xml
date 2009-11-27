@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:admobsdk="http://schemas.android.com/apk/res/com.admob.android.ads"
+	xmlns:app="http://schemas.android.com/apk/res/com.androidiani.MarketEnabler"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -8,7 +11,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         
-
+<com.admob.android.ads.AdView 
+        	android:id="@+id/ad" 
+        	android:layout_width="fill_parent" 
+        	android:layout_height="wrap_content" 
+        	android:layout_alignParentBottom="true"
+        	android:visibility="visible"  
+        	app:keywords="Market fake buy" 
+        	app:testing="false" 
+        	app:refreshInterval="25"
+          app:isGoneWithoutAd="false" 
+        	/>
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"

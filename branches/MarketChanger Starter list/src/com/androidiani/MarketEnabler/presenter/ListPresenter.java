@@ -65,14 +65,14 @@ public class ListPresenter implements Runnable {
 						+ settings.getGsmSimOperatorNumeric(),
 				"setprop gsm.operator.numeric "
 						+ settings.getGsmOperatorNumeric(),
-				"setprop gsm.sim.operator.iso-country "
-						+ settings.getGsmSimOperatorIsoCountry(),
-				"setprop gsm.operator.iso-country "
-						+ settings.getGsmOperatorIsoCountry(),
-				"setprop gsm.operator.alpha \""
-						+ settings.getGsmOperatorAlpha() + "\"",
-				"setprop gsm.sim.operator.alpha \""
-						+ settings.getGsmSimOperatorAlpha() + "\"",
+				// "setprop gsm.sim.operator.iso-country "
+				// + settings.getGsmSimOperatorIsoCountry(),
+				// "setprop gsm.operator.iso-country "
+				// + settings.getGsmOperatorIsoCountry(),
+				// "setprop gsm.operator.alpha \""
+				// + settings.getGsmOperatorAlpha() + "\"",
+				// "setprop gsm.sim.operator.alpha \""
+				// + settings.getGsmSimOperatorAlpha() + "\"",
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
 		

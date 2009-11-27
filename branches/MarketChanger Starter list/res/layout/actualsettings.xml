@@ -36,7 +36,7 @@ android:text="nothing"
 android:layout_marginLeft="20px"
  />
 </TableRow>
-
+<!-- 
 <TableRow>
 <TextView
 android:id="@+id/actualoperatorNumeric"
@@ -116,6 +116,8 @@ android:text="nothing"
 android:layout_marginLeft="20px"
 />
 </TableRow>
+ -->
+ 
 <TableRow>
 <Button android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
