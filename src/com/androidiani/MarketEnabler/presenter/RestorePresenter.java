@@ -39,15 +39,17 @@ public class RestorePresenter implements Runnable {
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric "
 						+ settings.getString(SIMNUM, ""),
-				"setprop gsm.operator.numeric " + settings.getString(OPNUM, ""),
-				"setprop gsm.sim.operator.iso-country "
-						+ settings.getString(SIMISO, ""),
-				"setprop gsm.operator.iso-country "
-						+ settings.getString(OPISO, ""),
-				"setprop gsm.operator.alpha \"" + settings.getString(OPAL, "")
-						+ "\"",
-				"setprop gsm.sim.operator.alpha \""
-						+ settings.getString(SIMAL, "") + "\"",
+				// "setprop gsm.operator.numeric " + settings.getString(OPNUM,
+				// ""),
+				// "setprop gsm.sim.operator.iso-country "
+				// + settings.getString(SIMISO, ""),
+				// "setprop gsm.operator.iso-country "
+				// + settings.getString(OPISO, ""),
+				// "setprop gsm.operator.alpha \"" + settings.getString(OPAL,
+				// "")
+				// + "\"",
+				// "setprop gsm.sim.operator.alpha \""
+				// + settings.getString(SIMAL, "") + "\"",
 				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
 				"rm -rf /data/data/com.android.vending/cache/*" };
 		

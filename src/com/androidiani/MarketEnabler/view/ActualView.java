@@ -38,14 +38,14 @@ public class ActualView implements IActualView {
 		/** get UI elements **/
 		simNumeric = (TextView) startup
 				.findViewById(R.id.actualsimNumericValue);
-		operatorNumeric = (TextView) startup
-				.findViewById(R.id.actualoperatorNumericValue);
-		simISO = (TextView) startup.findViewById(R.id.actualsimISOValue);
-		operatorISO = (TextView) startup
-				.findViewById(R.id.actualoperatorISOValue);
-		simAlpha = (TextView) startup.findViewById(R.id.actualsimAlphaValue);
-		operatorAlpha = (TextView) startup
-				.findViewById(R.id.actualoperatorAlphaValue);
+		// operatorNumeric = (TextView) startup
+		// .findViewById(R.id.actualoperatorNumericValue);
+		// simISO = (TextView) startup.findViewById(R.id.actualsimISOValue);
+		// operatorISO = (TextView) startup
+		// .findViewById(R.id.actualoperatorISOValue);
+		// simAlpha = (TextView) startup.findViewById(R.id.actualsimAlphaValue);
+		// operatorAlpha = (TextView) startup
+		// .findViewById(R.id.actualoperatorAlphaValue);
 		presenter = new ActualPresenter(this);
 		save = (Button) startup.findViewById(R.id.buttonSave);
 		save.setOnClickListener(new View.OnClickListener() {
