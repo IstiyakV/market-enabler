@@ -63,7 +63,7 @@ public class ActualView implements IActualView {
 			restore.setEnabled(false);
 			SharedPreferences settings = startup.getSharedPreferences(
 					PREF_NAME, 0);
-			restore.setText("Restore " + settings.getString(SIMISO, ""));
+			restore.setText("Restore");
 		}
 
 	}
@@ -78,14 +78,14 @@ public class ActualView implements IActualView {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(BACKUPAV, true);
 		editor.putString(SIMNUM, simNumeric.getText().toString());
-		editor.putString(OPNUM, operatorNumeric.getText().toString());
-		editor.putString(SIMISO, simISO.getText().toString());
-		editor.putString(OPISO, operatorISO.getText().toString());
-		editor.putString(SIMAL, simAlpha.getText().toString());
-		editor.putString(OPAL, operatorAlpha.getText().toString());
+		// editor.putString(OPNUM, operatorNumeric.getText().toString());
+		// editor.putString(SIMISO, simISO.getText().toString());
+		// editor.putString(OPISO, operatorISO.getText().toString());
+		// editor.putString(SIMAL, simAlpha.getText().toString());
+		// editor.putString(OPAL, operatorAlpha.getText().toString());
 		editor.commit();
 		restore.setEnabled(true);
-		restore.setText("Restore " + simAlpha.getText().toString());
+		restore.setText("Restore");
 	}
 
 	private void restoreSettings() {
