@@ -11,3 +11,6 @@
 || 05.11.09 || Anonymous || ND || 8 USD <wiki:comment>collected by rac</wiki:comment>|| SlideME.org ||
 || 21.11.09 || Anonymous || TU || 2 USD <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
 || 07.12.09 || cikebom || AndAppStore just another great site for Android addicted like me lol || 5 USD <wiki:comment>collected by rac</wiki:comment>|| AndAppStore ||
+
+TODO: update the donators page with the data from last 2 months and implement autoupdate with paypal API ;-)
+Sorry for the ones that aren't listed on this page, feel free to write your comments
