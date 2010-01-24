@@ -6,11 +6,26 @@
 || 12.09.09 ||  Luís Abreu ( lmjabreu ) || 'cos it's a really handy app || 10 Euro <wiki:comment>collected by Andrea</wiki:comment>|| Paypal ||
 || 15.09.09 ||  Anonymous || To A.G. Please respond to our mail to get listed here || 3 Euro <wiki:comment>collected by Andrea</wiki:comment>|| Paypal ||
 || 07.10.09 ||  Luís Abreu ( lmjabreu ) || 'cos it's a really handy app || 10 Euro <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
-|| 12.10.09 || Anonymous || NH || 5 Euro <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
+|| 12.10.09 || NH ||  || 5 Euro <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
 || 12.10.09 || Raphael || http://savina.net/blog/?p=84 || {{{[censored]}}} <wiki:comment>5 Euro collected by rac</wiki:comment>|| Paypal ||
-|| 05.11.09 || Anonymous || ND || 8 USD <wiki:comment>collected by rac</wiki:comment>|| SlideME.org ||
-|| 21.11.09 || Anonymous || TU || 2 USD <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
+|| 05.11.09 || ND ||  || 8 USD <wiki:comment>collected by rac</wiki:comment>|| SlideME.org ||
+|| 21.11.09 || TU ||  || 2 USD <wiki:comment>collected by rac</wiki:comment>|| Paypal ||
+|| 28.11.09 || IW ||  || 5 USD || AndAppStore ||
+|| 02.12.09 || MM ||  || 5 Euro || AndAppStore ||
+|| 03.12.09 || SB ||  || 5 USD || AndAppStore ||
+|| 04.12.09 || LD ||  || 8 Euro || PayPal ||
+|| 06.12.09 || DA ||  || 5 Euro || AndAppStore ||
 || 07.12.09 || cikebom || AndAppStore just another great site for Android addicted like me lol || 5 USD <wiki:comment>collected by rac</wiki:comment>|| AndAppStore ||
+|| 10.12.09 || DW ||  || 10 USD || AndAppStore ||
+|| 11.12.09 || ZW ||  || 5 USD || AndAppStore ||
+|| 21.12.09 || PEM ||  || 5 Euro || AndAppStore ||
+|| 22.12.09 || NEJ ||  || 10 USD || AndAppStore ||
+|| 29.12.09 || RB ||  || 5 USD || AndAppStore ||
+|| 12.01.10 || NEJ ||  || 5 USD || AndAppStore ||
+|| 17.01.10 || MP ||  || 5 USD || AndAppStore ||
+|| 19.01.10 || TM ||  || 5 USD || AndAppStore ||
+|| 21.01.10 || ES ||  || 10 USD || AndAppStore ||
+|| 23.01.10 || CS ||  || 10 Euro || PayPal ||
 
-TODO: update the donators page with the data from last 2 months and implement autoupdate with paypal API ;-)
-Sorry for the ones that aren't listed on this page, feel free to write your comments
+
+TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
