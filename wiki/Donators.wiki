@@ -27,5 +27,6 @@
 || 21.01.10 || ES ||  || 10 USD || AndAppStore ||
 || 23.01.10 || CS ||  || 10 Euro || PayPal ||
 || 26.01.10 || kangkai ||  || 5 USD || AndAppStore ||
+|| 30.01.10 || OD ||  || 10 USD || AndAppStore ||
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
