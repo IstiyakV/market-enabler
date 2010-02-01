@@ -12,6 +12,7 @@ import android.widget.TabHost.TabSpec;
 
 import com.androidiani.MarketEnabler.R;
 import com.androidiani.MarketEnabler.presenter.IActualView;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private IActualView viewActual = null;
@@ -19,20 +20,22 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private ListView viewList = null;
 	private TelephonyManager tm = null;
 	private android.widget.ListView list;
-	
+	private GoogleAnalyticsTracker tracker;
 	public android.widget.ListView getList() {
 		return list;
 	}
 
-	private static final int CONTEXTMENU_SETITEM = 0;
-	private static final int CONTEXTMENU_MAKEDEFAULT = 1;
+
 	
-	private String[] mStrings = new String[] { "Android", "Google", "Eclipse",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa" }; 
+
 	
 	public void onCreate(Bundle savedInstanceState) {
+		
+		tracker = GoogleAnalyticsTracker.getInstance();
+		tracker.start("UA-10016187-3", this);
+		tracker.setDispatchPeriod(10);//5 secondi
+		
+		tracker.trackPageView("/");
 		/** get telephony manager **/
 		tm = (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
 		
@@ -118,6 +121,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
 	@Override
 	public void onTabChanged(String tabId) {
+		tracker.trackPageView("/tab_"+tabId);
 		Log.i("MarketEnabler", "Changed to tab initiated [" + tabId + "]");
 		if (tabId.equals("actual")) {
 			viewActual.updateView();
@@ -134,6 +138,11 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
 	public TelephonyManager getTelephonyManager() {
 		return tm;
+	}
+	
+	public void onPause() {
+		tracker.dispatch();
+		super.onPause();
 	}
 	
 }
