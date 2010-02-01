@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.androidiani.MarketEnabler.model.ProviderConfig;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class ListPresenter implements Runnable {
 	private IListView view;
@@ -53,11 +54,16 @@ public class ListPresenter implements Runnable {
 		writePropCommand = cmd;
 	}
 	public void setValues(int i) {
+		
+		
 		Log.d("MarketEnabler", "starting setValues with list item[" + i + "]");
 		ProviderConfig tmp = list.get(i);
 		Log.d("MarketEnabler", "starting setValues with list item[" + i
 				+ "] provider config[" + tmp.getGsmOperatorAlpha() + "]");
 		setValues(tmp);
+		
+		GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
+		tracker.trackPageView("/fake_provider/"+tmp.getGsmOperatorAlpha());
 	}
 	public void setValues(ProviderConfig settings) {
 		Log.d("MarketEnabler", "starting setValues");

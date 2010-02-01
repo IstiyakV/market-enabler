@@ -19,7 +19,7 @@ android:id="@+id/customsimNumeric"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="gsm.sim.operator.numeric"
- />
+ /> 
 <EditText
 android:id="@+id/customsimNumericValue"
 android:layout_width="100sp"

@@ -90,6 +90,8 @@ public class CustomView implements ICustomView {
 				presenter.setValues();
 			}
 		});
+		
+		
 		 
 	}
 
