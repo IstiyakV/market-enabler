@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -36,13 +37,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	public void onCreate(Bundle savedInstanceState) {
 		/** start update service **/
 		ctx = getApplicationContext();
-		new Thread() {
-			@Override
-			public void run() {
-				startService(new Intent(ctx, Update.class));
-			}
-
-		}.start();
+		
+		
 		tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.start("UA-10016187-3", this);
 		tracker.setDispatchPeriod(10);// 5 secondi
@@ -105,8 +101,20 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		// }
 		//
 		// });
-
-
+		
+		//Timer that will start the update thread in 500ms from Activity rendering :)
+		CountDownTimer ctimer = new CountDownTimer(500, 500) {
+	    	public void onTick(long muf) {
+	    		
+	    	}
+	    	
+	    	public void onFinish()  {
+	    		
+	    		ctx.startService(new Intent(ctx, Update.class));
+	    		
+	    	} 
+	    };
+	    ctimer.start();
 	}
 
 	// public boolean onContextItemSelected(MenuItem aItem) {
