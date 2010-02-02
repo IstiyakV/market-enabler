@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.androidiani.MarketEnabler"
-      android:versionName="3.0.5" android:versionCode="305">
+      android:versionName="3.0.6" android:versionCode="306">
        <uses-sdk android:minSdkVersion="1" />
     <application android:icon="@drawable/me348" android:label="@string/app_name">
     	<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion" android:value="same value as android:versionCode" />
@@ -19,7 +19,10 @@
                   android:label="@string/app_name" />
    
         <!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14b0f31c6c9c79" android:name="ADMOB_PUBLISHER_ID" />             
+		<meta-data android:value="a14b0f31c6c9c79" android:name="ADMOB_PUBLISHER_ID" /> 
+		
+		<!-- Update service -->        
+        <service android:name=".update.Update" />            
     </application>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 

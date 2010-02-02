@@ -17,9 +17,9 @@
         	android:layout_height="wrap_content" 
         	android:layout_alignParentBottom="true"
         	android:visibility="visible"  
-        	app:keywords="Market fake buy" 
+        	app:keywords="Market fake buy application" 
         	app:testing="false" 
-        	app:refreshInterval="25"
+        	app:refreshInterval="60"
           app:isGoneWithoutAd="false" 
         	/>
         <TabWidget
