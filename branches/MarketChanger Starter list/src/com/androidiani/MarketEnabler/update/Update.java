@@ -32,6 +32,8 @@ import com.androidiani.MarketEnabler.R;
  */
 public class Update extends Service {
 
+	private static final String EXTRA_NOTIFY = "EXTRA_NOTIFY";
+	private static final String DOWNLOAD_URL = "DOWNLOAD_URL";
 	/** Constants **/
 	private static String urlLatestVersion = "http://market-enabler.googlecode.com/svn/branches/MarketChanger%20Starter%20list/update/latestversion";
 	private static String urlLatestUrl = "http://market-enabler.googlecode.com/svn/branches/MarketChanger%20Starter%20list/update/latesturl";
@@ -48,6 +50,18 @@ public class Update extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
+		// check if the intent contains notification data :)
+		if (intent.getBooleanExtra(EXTRA_NOTIFY, false) && intent.hasExtra(DOWNLOAD_URL)) {
+			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+			//remove the notification icon :)
+			notificationManager.cancel(UPDATE_NOTIFICATION_ID);
+			
+			//launching the browser
+			Intent downloadIntent = new Intent(		android.content.Intent.ACTION_VIEW	, Uri.parse(intent.getStringExtra(DOWNLOAD_URL)));
+			downloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			this.startActivity(downloadIntent);
+			return;
+		} 
 		/** get me my preferences **/
 		settings = PreferenceManager
 		.getDefaultSharedPreferences(getBaseContext());
@@ -106,17 +120,24 @@ public class Update extends Service {
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		int icon = R.drawable.me348;
 		long when = System.currentTimeMillis();
-		Notification notification = new Notification(icon,
-				"MarketEnabler update available", when);
-		Intent notifyIntent = new Intent(android.content.Intent.ACTION_VIEW,
-				Uri.parse(latestUrl));
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-				notifyIntent,
-				android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-		notification.setLatestEventInfo(getApplicationContext(),
-				"MarketEnabler update available",
-				"Version " + latestVersion + " is ready, click to download",
+		Notification notification = new Notification(icon,"MarketEnabler update available", when);
+		//Intent notifyIntent = new Intent(		android.content.Intent.ACTION_VIEW	, Uri.parse(latestUrl));
+		Intent notifyIntent = new Intent(this, Update.class);
+		notifyIntent.putExtra(Update.EXTRA_NOTIFY, true);
+		notifyIntent.putExtra(Update.DOWNLOAD_URL, latestUrl);
+		
+		PendingIntent pendingIntent =  PendingIntent.getService(
+				this, 
+				0, 
+				notifyIntent, 
+				android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS); 
+			
+
+		notification.setLatestEventInfo(
+				getApplicationContext(),
+				"MarketEnabler update available","Version " + latestVersion + " is ready, click to download",
 				pendingIntent);
+		
 		notificationManager.notify(UPDATE_NOTIFICATION_ID, notification);
 	}
 
