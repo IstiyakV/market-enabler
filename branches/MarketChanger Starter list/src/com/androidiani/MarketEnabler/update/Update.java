@@ -111,9 +111,10 @@ public class Update extends Service {
 		Intent notifyIntent = new Intent(android.content.Intent.ACTION_VIEW,
 				Uri.parse(latestUrl));
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-				notifyIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+				notifyIntent,
+				android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 		notification.setLatestEventInfo(getApplicationContext(),
-				"MarketEnabler updtae available",
+				"MarketEnabler update available",
 				"Version " + latestVersion + " is ready, click to download",
 				pendingIntent);
 		notificationManager.notify(UPDATE_NOTIFICATION_ID, notification);
