@@ -1,6 +1,7 @@
 package com.androidiani.MarketEnabler.view;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -22,6 +23,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private TelephonyManager tm = null;
 	private android.widget.ListView list;
 	private GoogleAnalyticsTracker tracker;
+	private Context ctx;
 	public android.widget.ListView getList() {
 		return list;
 	}
@@ -33,7 +35,14 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		/** start update service **/
-		startService(new Intent(this, Update.class));
+		ctx = getApplicationContext();
+		new Thread() {
+			@Override
+			public void run() {
+				startService(new Intent(ctx, Update.class));
+			}
+
+		}.start();
 		tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.start("UA-10016187-3", this);
 		tracker.setDispatchPeriod(10);// 5 secondi
