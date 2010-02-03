@@ -53,13 +53,14 @@ public class Update extends Service {
 		// check if the intent contains notification data :)
 		if (intent.getBooleanExtra(EXTRA_NOTIFY, false) && intent.hasExtra(DOWNLOAD_URL)) {
 			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-			//remove the notification icon :)
+			
 			notificationManager.cancel(UPDATE_NOTIFICATION_ID);
 			
 			//launching the browser
 			Intent downloadIntent = new Intent(		android.content.Intent.ACTION_VIEW	, Uri.parse(intent.getStringExtra(DOWNLOAD_URL)));
 			downloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			this.startActivity(downloadIntent);
+			this.stopSelf();
 			return;
 		} 
 		/** get me my preferences **/
@@ -83,6 +84,7 @@ public class Update extends Service {
 			Log.i(logName,
 			"you have the latest version of MarketEnabler running");
 		}
+		this.stopSelf();
 	}
 
 	/* (non-Javadoc)
@@ -139,6 +141,7 @@ public class Update extends Service {
 				pendingIntent);
 		
 		notificationManager.notify(UPDATE_NOTIFICATION_ID, notification);
+		
 	}
 
 	/**
