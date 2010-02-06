@@ -29,5 +29,6 @@
 || 26.01.10 || kangkai ||  || 5 USD || AndAppStore ||
 || 30.01.10 || OD ||  || 10 USD || AndAppStore ||
 || 05.02.10 || MK ||  || 5 Euro || PayPal ||
+|| 06.02.10 || KD || thanks for MarketEnabler || 3 CHF || PayPal ||
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
