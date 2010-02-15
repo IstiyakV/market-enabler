@@ -11,12 +11,12 @@ import com.androidiani.MarketEnabler.model.ProviderConfig;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class ListPresenter implements Runnable {
-	private IListView view;
+	private final IListView view;
 	private static Handler handler;
 	private static String[] writePropCommand;
 	private ProgressDialog pd;
 	private ArrayList<ProviderConfig> list;
-	
+
 	public ProgressDialog getPd() {
 		return pd;
 	}
@@ -26,42 +26,42 @@ public class ListPresenter implements Runnable {
 		handler = view.getHandler();
 		createDefaultList();
 	}
-	
+
 	public ArrayList<ProviderConfig> createDefaultList() {
 		list = new ArrayList<ProviderConfig>();
 		list.add(new ProviderConfig(22802, 22802, "ch", "ch", "sunrise",
-				"sunrise"));
+		"sunrise"));
 		list.add(new ProviderConfig(26207, 26207, "de", "de", "o2 - de",
-				"o2 - de"));
+		"o2 - de"));
 		list
-				.add(new ProviderConfig(26203, 26203, "de", "de", "simyo",
-						"E-Plus"));
+		.add(new ProviderConfig(26203, 26203, "de", "de", "simyo",
+		"E-Plus"));
 		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
-				"T-Mobile"));
+		"T-Mobile"));
 		list.add(new ProviderConfig(22201, 22201, "it", "it", "TIM", "TIM"));
 		list.add(new ProviderConfig(50501, 50501, "au", "au", "Telstra",
-				"Telstra"));
+		"Telstra"));
 		list.add(new ProviderConfig(23203, 23203, "at", "at", "T-Mobile",
-				"T-Mobile"));
+		"T-Mobile"));
 		list.add(new ProviderConfig(20416, 20416, "nl", "nl", "T-Mobile",
-				"T-Mobile"));
+		"T-Mobile"));
 		list.add(new ProviderConfig(27203, 27203, "ie", "ie", "", "Meteor"));
 
 		return list;
 	}
-	
+
 	private static void setCommand(String[] cmd) {
 		writePropCommand = cmd;
 	}
 	public void setValues(int i) {
-		
-		
+
+
 		Log.d("MarketEnabler", "starting setValues with list item[" + i + "]");
 		ProviderConfig tmp = list.get(i);
 		Log.d("MarketEnabler", "starting setValues with list item[" + i
 				+ "] provider config[" + tmp.getGsmOperatorAlpha() + "]");
 		setValues(tmp);
-		
+
 		GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.trackPageView("/fake_provider/"+tmp.getGsmOperatorAlpha());
 	}
@@ -70,9 +70,9 @@ public class ListPresenter implements Runnable {
 		// getting values from view and creating shell command
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric "
-						+ settings.getGsmSimOperatorNumeric(),
+				+ settings.getGsmSimOperatorNumeric(),
 				"setprop gsm.operator.numeric "
-						+ settings.getGsmOperatorNumeric(),
+				+ settings.getGsmOperatorNumeric(),
 				// "setprop gsm.sim.operator.iso-country "
 				// + settings.getGsmSimOperatorIsoCountry(),
 				// "setprop gsm.operator.iso-country "
@@ -81,11 +81,12 @@ public class ListPresenter implements Runnable {
 				// + settings.getGsmOperatorAlpha() + "\"",
 				// "setprop gsm.sim.operator.alpha \""
 				// + settings.getGsmSimOperatorAlpha() + "\"",
-				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
-				"rm -rf /data/data/com.android.vending/cache/*" };
-		
+				// "kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
+				"killall com.android.vending",
+		"rm -rf /data/data/com.android.vending/cache/*" };
+
 		setCommand(writePropCommand);
-		
+
 		Log.i("MarketEnabler", "dropping shell commands for list values");
 		// pd = new ProgressDialog(view.getStartup());
 		pd = new ProgressDialog((Context) view);
@@ -96,7 +97,7 @@ public class ListPresenter implements Runnable {
 		pd.setMessage("We Are Faking: " + settings.getGsmSimOperatorAlpha()
 				+ "(" + settings.getGsmOperatorAlpha() + ")");
 		pd.show();
-		
+
 		Thread thread = new Thread(this);
 		thread.start();
 

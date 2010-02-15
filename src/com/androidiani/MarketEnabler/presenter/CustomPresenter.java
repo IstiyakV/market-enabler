@@ -5,11 +5,11 @@ import android.os.Handler;
 import android.util.Log;
 
 public class CustomPresenter implements Runnable {
-	private ICustomView view;
+	private final ICustomView view;
 	private static Handler handler;
 	private static String[] writePropCommand;
 	private ProgressDialog pd;
-	
+
 	public ProgressDialog getPd() {
 		return pd;
 	}
@@ -18,7 +18,7 @@ public class CustomPresenter implements Runnable {
 		view = viewIn;
 		handler = view.getHandler();
 	}
-	
+
 	private static void setCommand(String[] cmd) {
 		writePropCommand = cmd;
 	}
@@ -35,9 +35,10 @@ public class CustomPresenter implements Runnable {
 				// + "\"",
 				// "setprop gsm.sim.operator.alpha \"" + view.getSimAlpha() +
 				// "\"",
-				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
-				"rm -rf /data/data/com.android.vending/cache/*" };
-		
+				// "kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
+				"killall com.android.vending",
+		"rm -rf /data/data/com.android.vending/cache/*" };
+
 		setCommand(writePropCommand);
 		// Executing command in su mode
 		Log.i("MarketEnabler", "dropping shell commands for custom values");
@@ -48,7 +49,7 @@ public class CustomPresenter implements Runnable {
 		pd.setTitle("working");
 		pd.setMessage("Setting to fake custom provider");
 		pd.show();
-		
+
 		Thread thread = new Thread(this);
 		thread.start();
 
