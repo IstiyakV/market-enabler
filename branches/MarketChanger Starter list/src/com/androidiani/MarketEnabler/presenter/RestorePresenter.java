@@ -6,16 +6,16 @@ import android.os.Handler;
 import android.util.Log;
 
 public class RestorePresenter implements Runnable {
-	private IActualView view;
+	private final IActualView view;
 	private static Handler handler;
 	private static String[] writePropCommand;
 	private ProgressDialog pd;
-	
+
 	private static final String SIMNUM = "simNumeric",
-			OPNUM = "operatorNumeric", SIMISO = "simISO",
-			OPISO = "operatorISO", SIMAL = "simAlpha", OPAL = "operatorAlpha",
-			BACKUPAV = "BackupAvailable", PREF_NAME = "MarketEnablerBackup";
-	
+	OPNUM = "operatorNumeric", SIMISO = "simISO",
+	OPISO = "operatorISO", SIMAL = "simAlpha", OPAL = "operatorAlpha",
+	BACKUPAV = "BackupAvailable", PREF_NAME = "MarketEnablerBackup";
+
 	public ProgressDialog getPd() {
 		return pd;
 	}
@@ -24,7 +24,7 @@ public class RestorePresenter implements Runnable {
 		view = viewIn;
 		handler = view.getHandler();
 	}
-	
+
 	private static void setCommand(String[] cmd) {
 		writePropCommand = cmd;
 	}
@@ -32,13 +32,13 @@ public class RestorePresenter implements Runnable {
 	public void setValues() {
 		Log.d("MarketEnabler", "starting setValues");
 		// getting values from view and creating shell command
-		
+
 		SharedPreferences settings = view.getStartup().getSharedPreferences(
 				PREF_NAME, 0);
-		
+
 		String[] writePropCommand = {
 				"setprop gsm.sim.operator.numeric "
-						+ settings.getString(SIMNUM, ""),
+				+ settings.getString(SIMNUM, ""),
 				// "setprop gsm.operator.numeric " + settings.getString(OPNUM,
 				// ""),
 				// "setprop gsm.sim.operator.iso-country "
@@ -50,9 +50,10 @@ public class RestorePresenter implements Runnable {
 				// + "\"",
 				// "setprop gsm.sim.operator.alpha \""
 				// + settings.getString(SIMAL, "") + "\"",
-				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
-				"rm -rf /data/data/com.android.vending/cache/*" };
-		
+				// "kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
+				"killall com.android.vending",
+		"rm -rf /data/data/com.android.vending/cache/*" };
+
 		setCommand(writePropCommand);
 		// Executing command in su mode
 		Log.i("MarketEnabler", "dropping shell commands for custom values");
@@ -63,7 +64,7 @@ public class RestorePresenter implements Runnable {
 		pd.setTitle("working");
 		pd.setMessage("Restore saved settings");
 		pd.show();
-		
+
 		Thread thread = new Thread(this);
 		thread.start();
 
