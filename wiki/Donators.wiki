@@ -25,7 +25,7 @@
 || 17.01.10 || MP ||  || 5 USD || AndAppStore ||
 || 19.01.10 || TM ||  || 5 USD || AndAppStore ||
 || 21.01.10 || ES ||  || 10 USD || AndAppStore ||
-|| 23.01.10 || CS ||  || 10 Euro || PayPal ||
+|| 23.01.10 || CS || Good work guys, can't give more, sorry. || 10 Euro || PayPal ||
 || 26.01.10 || kangkai ||  || 5 USD || AndAppStore ||
 || 30.01.10 || OD ||  || 10 USD || AndAppStore ||
 || 05.02.10 || MK ||  || 5 Euro || PayPal ||
