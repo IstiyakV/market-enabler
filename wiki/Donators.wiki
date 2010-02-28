@@ -33,7 +33,7 @@
 || 12.02.10 || ML||  || 10 USD || AndAppStore ||
 || 21.02.10 || KJ ||  || 5 Euro || PayPal ||
 || 22.02.10 || TS||  || 5 USD || AndAppStore ||
-
+|| 27.02.10 || OP ||  || 16 Euro || PayPal ||
 
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
