@@ -34,6 +34,6 @@
 || 21.02.10 || KJ ||  || 5 Euro || PayPal ||
 || 22.02.10 || TS||  || 5 USD || AndAppStore ||
 || 27.02.10 || OP ||  || 16 Euro || PayPal ||
-
+|| 03.03.10 || All users || Advertising || 27.77 USD || AdMob ||
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
