@@ -18,24 +18,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="admob-sdk-android.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/admob-sdk-android.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="libGoogleAnalytics.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/libGoogleAnalytics.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Android 1.5 Platform" level="application" />
   </component>
 </module>
