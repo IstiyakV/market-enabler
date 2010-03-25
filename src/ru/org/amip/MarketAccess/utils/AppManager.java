@@ -36,8 +36,8 @@ public class AppManager {
   }
 
   public boolean isRunning(String app) {
-    refreshList();
     if (activityManager == null) return false;
+    refreshList();
     for (ActivityManager.RunningAppProcessInfo process : processes) {
       if (process.processName.startsWith(app)) return true;
     }
