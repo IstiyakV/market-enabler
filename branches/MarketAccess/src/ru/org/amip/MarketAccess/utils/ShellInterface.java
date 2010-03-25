@@ -38,25 +38,7 @@ public class ShellInterface {
       for (String single : commands) {
         if (single.startsWith(KILL_ALL)) {
           // special treatment for killall command, use java to kill the process
-          if (single.indexOf(' ') > 0) {
-            final String app = single.substring(single.indexOf(' ') + 1);
-            final AppManager am = AppManager.getInstance(null);
-            int count = 0;
-            while (am.isRunning(app)) {
-              count++;
-              am.kill(app);
-              if (am.isRunning(app)) {
-                Log.w(StartUpView.MARKET_ACCESS, "Failed to kill " + app);
-                Thread.sleep(200);
-              } else {
-                break;
-              }
-              if (count >= 5) {
-                Log.e(StartUpView.MARKET_ACCESS, "Failed to kill " + app + " 5 times, aborting");
-                throw new Exception("Can't kill app: " + app);
-              }
-            }
-          }
+          handleKill(single);
         } else {
           os.writeBytes(single + '\n');
           os.flush();
@@ -93,6 +75,28 @@ public class ShellInterface {
           process.destroy();
         }
       } catch (Exception ignored) {}
+    }
+  }
+
+  private static void handleKill(String single) throws Exception {
+    if (single.indexOf(' ') > 0) {
+      final String app = single.substring(single.indexOf(' ') + 1);
+      final AppManager am = AppManager.getInstance(null);
+      int count = 0;
+      while (am.isRunning(app)) {
+        count++;
+        am.kill(app);
+        if (am.isRunning(app)) {
+          Log.w(StartUpView.MARKET_ACCESS, "Failed to kill " + app);
+          Thread.sleep(200);
+        } else {
+          break;
+        }
+        if (count >= 5) {
+          Log.e(StartUpView.MARKET_ACCESS, "Failed to kill " + app + " 5 times, aborting");
+          throw new Exception("Can't kill app: " + app);
+        }
+      }
     }
   }
 
