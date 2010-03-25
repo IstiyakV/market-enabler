@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="actual">Текущие</string>
+  <string name="settings">Список ОСС</string>
+  <string name="custom">Вручную</string>
+
+  <string name="tap_hint">Используйте долгое нажатие для выбора оператора</string>
+
+  <string name="applied">Настройки успешно применены</string>
+  <string name="error">Ошибка применения настроек</string>
+  <string name="no_root">Для работы данного приложения нужны права root (superuser). Скорее всего программа \'su\' не
+    установлена на вашем устройстве.\n\nПожалуйста получите root и убедитесь что \'su\' работает нормально.
+  </string>
+  <string name="no_root_ok">OK, я понял</string>
+  <string name="working">Выполняю...</string>
+
+  <string name="restoring">Восстановление сохраненных настроек</string>
+  <string name="emulating">Эмуляция оператора</string>
+  <string name="emulate">Эмулировать оператора</string>
+  <string name="emulating_name">Эмулирую</string>
+
+  <string name="boot_emulation_off">Эмуляция при загрузке отключена</string>
+  <string name="boot_emulation_for">Эмуляция при загрузке для</string>
+
+  <string name="show_notification">Показывать нотификации</string>
+  <string name="emulate_on_boot">Эмулировать при загрузке</string>
+
+  <string name="backup">Сохранить текущие</string>
+  <string name="restore">Восстановить</string>
+  <string name="confirm_restore">Вы действительно хотите восстановить</string>
+  <string name="yes">Да</string>
+  <string name="no">Нет</string>
+  <string name="nothing">пусто</string>
+  <string name="about_1">MarketAccess — форк программы MarketEnabler 3.0.8, написанной vekexasia и rac.</string>
+  <string name="about_2">Изменения включают: отсутствие рекламы, новые возможности, оптимизированный, переписанный с
+    нуля код.\n\nhttp://amip.org.ru/wiki/android/MarketAccess
+  </string>
+  <string name="confirmation">Подтверждение</string>
+  <string name="boot_warning">Имейте в виду, эмуляция оператора может влиять на другие приложения. Если у вас возникнут
+    какие-либо проблемы, отключите автоматическую эмуляцию при загрузке и включайте ее вручную, когда хотите
+    купить что-то в Маркете. Вы все еще хотите включить эмуляцию при загрузке?
+  </string>
+  <string name="set_to_this">Установить выбранное значение</string>
+</resources>

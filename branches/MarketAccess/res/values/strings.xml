@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">MarketAccess</string>
+
+  <string name="actual">Actual</string>
+  <string name="settings">Settings list</string>
+  <string name="custom">Set custom</string>
+
+  <string name="tap_hint">Long tap on the provider to emulate</string>
+
+  <string name="applied">Settings applied</string>
+  <string name="error">Error applying settings</string>
+  <string name="no_root">You need root (superuser) to use this application. It looks like \'su\' is not available on
+    your device.\n\nPlease root your phone and ensure that \'su\' works fine.
+  </string>
+  <string name="no_root_ok">OK, I understand</string>
+  <string name="working">Working...</string>
+
+  <string name="restoring">Restoring saved settings</string>
+  <string name="emulating">Emulating custom provider</string>
+  <string name="emulate">Emulate this provider</string>
+  <string name="emulating_name">Emulating</string>
+
+  <string name="boot_emulation_off">Boot emulation disabled</string>
+  <string name="boot_emulation_for">Boot emulation for</string>
+
+  <string name="show_notification">Show notification</string>
+  <string name="emulate_on_boot">Emulate on boot</string>
+
+  <string name="backup">Backup settings</string>
+  <string name="restore">Restore settings</string>
+  <string name="confirm_restore">Do you want to restore</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+  <string name="nothing">nothing</string>
+  <string name="about_1">MarketAccess is a fork of MarketEnabler 3.0.8 developed by vekexasia and rac.</string>
+  <string name="about_2">Changes include no ads, new features and optimized, almost rewritten from scratch
+    code.\n\nhttp://amip.org.ru/wiki/android/MarketAccess
+  </string>
+  <string name="confirmation">Confirmation</string>
+  <string name="boot_warning">Please note that emulating a provider may affect other applications. In case
+    you\'ll have any issues, disable emulation on boot and enable it manually when you want to buy from Market. Do
+    you still want to emulate on boot?
+  </string>
+  <string name="set_to_this">Set to this value</string>
+</resources>

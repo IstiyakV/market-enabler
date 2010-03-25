@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  android:id="@+id/customsettings"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+  <TableLayout
+    android:id="@+id/widget54"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+    <!--editable area -->
+
+    <TableRow>
+      <TextView
+        android:id="@+id/customsimNumeric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gsm.sim.operator.numeric"
+        />
+      <EditText
+        android:id="@+id/customsimNumericValue"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="6"
+        android:layout_marginLeft="20px"
+        />
+      <!-- android:textSize="4sp" -->
+    </TableRow>
+
+    <TableRow>
+      <Button
+        android:id="@+id/customsetValues"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_to_this"
+        android:layout_span="2"
+        />
+    </TableRow>
+
+  </TableLayout>
+
+</ScrollView>

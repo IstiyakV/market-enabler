@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  android:id="@+id/actualsettings"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+  <TableLayout
+    android:id="@+id/widget54"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+    <TableRow>
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15px">
+        <TextView
+          android:id="@+id/actualsimNumeric"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="gsm.sim.operator.numeric"
+          />
+        <TextView
+          android:id="@+id/actualsimNumericValue"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/nothing"
+          android:layout_marginLeft="20px"
+          android:layout_marginBottom="15px"
+          />
+      </LinearLayout>
+    </TableRow>
+    <TableRow>
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+        <Button android:id="@+id/buttonSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/backup"/>
+        <Button android:id="@+id/buttonRestore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restore"/>
+      </LinearLayout>
+    </TableRow>
+    <TableRow>
+      <CheckBox android:id="@+id/bootCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emulate_on_boot"/>
+    </TableRow>
+    <TableRow>
+      <CheckBox android:id="@+id/notificationCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_notification"/>
+    </TableRow>
+    <TextView
+      android:id="@+id/aboutText1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30px"
+      android:text="@string/about_1"
+      />
+    <TextView
+      android:id="@+id/aboutText2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10px"
+      android:text="@string/about_2"
+      />
+    <TextView
+      android:id="@+id/aboutText2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="15px"
+      android:gravity="center"
+      android:text="© CrazyCoder, 2010"
+      />
+  </TableLayout>
+</ScrollView>
