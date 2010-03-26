@@ -19,25 +19,22 @@ import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
-  private TelephonyManager tm;
-
-  public static final String ACTUAL = "actual";
-  private static final String CUSTOM = "custom";
-  private static final String LIST = "list";
-
-  private static final String SIM_NUM = "simNumeric";
-  private static final String BACKUP_AVAILABLE = "backupAvailable";
-
+  public static final String MARKET_ACCESS = "MarketAccess";
   public static final String APPLY_ON_BOOT = "applyOnBoot";
   public static final String APPLY_SIM_NUM = "applySimNumeric";
   public static final String SHOW_NOTIFICATION = "showNotification";
+  public static final String ACTUAL = "actual";
+  private static final String CUSTOM = "custom";
+  private static final String LIST = "list";
+  private static final String SIM_NUM = "simNumeric";
+  private static final String BACKUP_AVAILABLE = "backupAvailable";
 
+  private TelephonyManager tm;
   private TextView simNumeric;
   private Button restore;
   private CheckBox bootCheckbox;
   private CheckBox notificationCheckbox;
   private SharedPreferences preferences;
-  public static final String MARKET_ACCESS = "MarketAccess";
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -216,14 +213,6 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
       final Toast toast = Toast.makeText(this, getString(R.string.tap_hint), Toast.LENGTH_SHORT);
       toast.setGravity(Gravity.BOTTOM, 0, 0);
       toast.show();
-    }
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == 123) {
-      finish();
     }
   }
 }

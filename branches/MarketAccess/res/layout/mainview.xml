@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TabHost
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res/com.androidiani.MarketEnabler"
   android:id="@android:id/tabhost"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
@@ -9,7 +8,6 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
     <TabWidget
       android:id="@android:id/tabs"
       android:layout_width="fill_parent"
@@ -18,8 +16,6 @@
       android:id="@android:id/tabcontent"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent">
-
-      <!-- include the tab content views -->
       <include android:id="@+id/actual" layout="@layout/actualsettings"/>
       <include android:id="@+id/list" layout="@layout/listofsettings"/>
       <include android:id="@+id/custom" layout="@layout/customsettings"/>

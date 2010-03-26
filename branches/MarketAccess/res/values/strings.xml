@@ -16,7 +16,7 @@
   <string name="no_root_ok">OK, I understand</string>
   <string name="working">Working...</string>
 
-  <string name="restoring">Restoring saved settings</string>
+  <string name="restoring">Restoring saved value</string>
   <string name="emulating">Emulating custom provider</string>
   <string name="emulate">Emulate this provider</string>
   <string name="emulating_name">Emulating</string>
@@ -27,15 +27,14 @@
   <string name="show_notification">Show notification</string>
   <string name="emulate_on_boot">Emulate on boot</string>
 
-  <string name="backup">Backup settings</string>
-  <string name="restore">Restore settings</string>
+  <string name="backup">Backup value</string>
+  <string name="restore">Restore value</string>
   <string name="confirm_restore">Do you want to restore</string>
   <string name="yes">Yes</string>
   <string name="no">No</string>
   <string name="nothing">nothing</string>
   <string name="about_1">MarketAccess is a fork of MarketEnabler 3.0.8 developed by vekexasia and rac.</string>
-  <string name="about_2">Changes include no ads, new features and optimized, almost rewritten from scratch
-    code.\n\nhttp://amip.org.ru/wiki/android/MarketAccess
+  <string name="about_2">Changes include no ads, new features and optimized, almost rewritten from scratch code.
   </string>
   <string name="confirmation">Confirmation</string>
   <string name="boot_warning">Please note that emulating a provider may affect other applications. In case
