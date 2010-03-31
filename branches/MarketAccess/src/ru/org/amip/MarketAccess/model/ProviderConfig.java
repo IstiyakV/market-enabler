@@ -19,7 +19,7 @@ public class ProviderConfig {
     return gsmSimOperatorAlpha;
   }
 
-  public String toString() {
-    return '[' + gsmSimOperatorIsoCountry + "] " + gsmSimOperatorAlpha + " (" + gsmSimOperatorNumeric + ')';
+  public String getGsmSimOperatorIsoCountry() {
+    return gsmSimOperatorIsoCountry;
   }
 }

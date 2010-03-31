@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
 import ru.org.amip.MarketAccess.R;
-import ru.org.amip.MarketAccess.view.StartUpView;
 
 /**
  * Date: Mar 24, 2010
@@ -49,12 +47,11 @@ public class RunWithProgress implements Runnable {
 
   public void showProgress(Message msg) {
     if (msg.arg2 != 0) {
-      Log.i(StartUpView.MARKET_ACCESS, "progress: " + msg.arg1);
       pd.setProgress(msg.arg1);
     } else {
       pd.dismiss();
       if (msg.arg1 == 0) {
-        Toast.makeText(ctx, R.string.applied, Toast.LENGTH_LONG).show();
+        Toast.makeText(ctx, R.string.applied, Toast.LENGTH_SHORT).show();
       } else if (msg.arg1 == 1) {
         Toast.makeText(ctx, R.string.error, Toast.LENGTH_LONG).show();
       } else {
@@ -64,16 +61,15 @@ public class RunWithProgress implements Runnable {
   }
 
   private void showNoRootAlert() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-    builder.setMessage(R.string.no_root)
+    new AlertDialog.Builder(ctx)
+      .setMessage(R.string.no_root)
       .setCancelable(false)
       .setPositiveButton(R.string.no_root_ok, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int id) {
           dialog.cancel();
         }
-      });
-    builder.create().show();
+      }).create().show();
   }
 
   public static String[] makeCommand(String numeric) {
@@ -97,9 +93,7 @@ public class RunWithProgress implements Runnable {
       pd.setMessage(message);
       pd.show();
     }
-
-    Thread thread = new Thread(this);
-    thread.start();
+    new Thread(this).start();
   }
 
   @Override

@@ -9,31 +9,35 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="5px"
-    android:paddingRight="5px">
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip">
     <LinearLayout
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:orientation="horizontal"
-      android:layout_marginTop="15px"
-      android:layout_marginBottom="15px">
+      android:layout_marginTop="15dip"
+      android:layout_marginBottom="15dip">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="gsm.sim.operator.numeric"
+        android:text="@string/numeric"
+        android:textSize="20sp"
+        android:layout_marginLeft="5sp"
         />
       <TextView
         android:id="@+id/actualsimNumericValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nothing"
-        android:layout_marginLeft="20px"/>
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10sp"/>
     </LinearLayout>
     <TableLayout
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:orientation="horizontal"
-      android:layout_marginBottom="15px"
+      android:layout_marginBottom="15dip"
       android:stretchColumns="0,1">
       <TableRow>
         <Button
@@ -61,21 +65,21 @@
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="30px"
+      android:layout_marginTop="20dip"
       android:text="@string/about_1"
       />
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="10px"
+      android:layout_marginTop="10dip"
       android:text="@string/about_2"
       />
     <TextView
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="15px"
+      android:layout_marginTop="15dip"
       android:gravity="center"
-      android:text="http://amip.org.ru/wiki/android/MarketAccess"
+      android:text="@string/url"
       />
     <TextView
       android:layout_width="fill_parent"
