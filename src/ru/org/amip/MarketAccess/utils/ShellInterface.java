@@ -7,6 +7,8 @@ import ru.org.amip.MarketAccess.view.StartUpView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ShellInterface {
   private static String suBinary;
@@ -34,8 +36,10 @@ public class ShellInterface {
       }
 
       os = new DataOutputStream(process.getOutputStream());
+      sinkProcessOutput(process);
 
       for (String single : commands) {
+        Log.i(StartUpView.MARKET_ACCESS, single);
         if (single.startsWith(KILL_ALL)) {
           // special treatment for killall command, use java to kill the process
           handleKill(single);
@@ -48,7 +52,6 @@ public class ShellInterface {
         msg.arg1 = i;
         msg.arg2 = -1; // 0 will dismiss the progress bar
         handler.sendMessage(msg);
-        Thread.sleep(50);
       }
       os.writeBytes(EXIT);
       os.flush();
@@ -78,7 +81,7 @@ public class ShellInterface {
     }
   }
 
-  private static void handleKill(String single) throws Exception {
+  private static void handleKill(String single) throws IOException {
     if (single.indexOf(' ') > 0) {
       final String app = single.substring(single.indexOf(' ') + 1);
       final AppManager am = AppManager.getInstance(null);
@@ -88,13 +91,17 @@ public class ShellInterface {
         am.kill(app);
         if (am.isRunning(app)) {
           Log.w(StartUpView.MARKET_ACCESS, "Failed to kill " + app);
-          Thread.sleep(200);
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException ignored) {
+            break;
+          }
         } else {
           break;
         }
         if (count >= 5) {
           Log.e(StartUpView.MARKET_ACCESS, "Failed to kill " + app + " 5 times, aborting");
-          throw new Exception("Can't kill app: " + app);
+          throw new IOException("Can't kill app: " + app);
         }
       }
     }
@@ -125,13 +132,15 @@ public class ShellInterface {
     try {
       process = Runtime.getRuntime().exec(suBinary);
       os = new DataOutputStream(process.getOutputStream());
+      sinkProcessOutput(process);
       os.writeBytes(command + '\n');
       os.flush();
       os.writeBytes(EXIT);
       os.flush();
       process.waitFor();
       return true;
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      e.printStackTrace();
     } finally {
       try {
         if (os != null) {
@@ -140,8 +149,28 @@ public class ShellInterface {
         if (process != null) {
           process.destroy();
         }
-      } catch (Exception ignored) { }
+      } catch (Exception ignored) {}
     }
     return false;
+  }
+
+  public static void sinkProcessOutput(Process p) {
+    new InputStreamHandler(p.getInputStream());
+    new InputStreamHandler(p.getErrorStream());
+  }
+}
+
+class InputStreamHandler extends Thread {
+  private final InputStream stream;
+
+  InputStreamHandler(InputStream stream) {
+    setName("SinkThread");
+    this.stream = stream;
+    start();
+  }
+
+  @Override
+  public void run() {
+    try { while (stream.read() != -1) {} } catch (IOException ignored) {}
   }
 }

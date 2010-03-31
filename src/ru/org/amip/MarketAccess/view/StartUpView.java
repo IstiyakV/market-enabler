@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import android.widget.TabHost.OnTabChangeListener;
@@ -35,11 +34,16 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   private CheckBox bootCheckbox;
   private CheckBox notificationCheckbox;
   private SharedPreferences preferences;
+  private ListView list;
+
+  public void setList(ListView list) {
+    this.list = list;
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     super.onCreate(savedInstanceState);
+    tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     setContentView(R.layout.mainview);
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -65,15 +69,14 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
       @Override
       public void onClick(View view) {
         if (((CheckBox) view).isChecked()) {
-          AlertDialog.Builder builder = new AlertDialog.Builder(StartUpView.this);
-          builder
+          new AlertDialog.Builder(StartUpView.this)
             .setMessage(R.string.boot_warning)
             .setCancelable(false)
             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int id) {
                 final String sim = simNumeric.getText().toString();
-                final String msg = getString(R.string.boot_emulation_for) + ' ' + sim;
+                final String msg = String.format(getString(R.string.boot_emulation_for), sim);
                 saveBootSettings();
                 Toast.makeText(StartUpView.this, msg, Toast.LENGTH_SHORT).show();
                 notificationCheckbox.setEnabled(true);
@@ -85,8 +88,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
                 dialog.cancel();
                 bootCheckbox.setChecked(false);
               }
-            });
-          builder.create().show();
+            }).create().show();
         } else {
           saveBootSettings();
           Toast.makeText(StartUpView.this, R.string.boot_emulation_off, Toast.LENGTH_SHORT).show();
@@ -142,12 +144,19 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
   private void setupCustomTab() {
     final TextView simNumeric = (TextView) findViewById(R.id.customsimNumericValue);
-    simNumeric.setText(tm.getSimOperator());
+    simNumeric.setText(getSimOperator());
     Button setValues = (Button) findViewById(R.id.customsetValues);
     setValues.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        new RunWithProgress(StartUpView.this, simNumeric.getText().toString(), getString(R.string.emulating)).doRun();
+        final RunWithProgress rwp = new RunWithProgress(StartUpView.this, simNumeric.getText().toString(), getString(R.string.emulating));
+        rwp.setCompleteListener(new CompleteListener() {
+          @Override
+          public void onComplete() {
+            if (list != null) list.invalidate();
+          }
+        });
+        rwp.doRun();
       }
     });
   }
@@ -175,9 +184,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
   private void restoreSettings() {
     final String sim = preferences.getString(SIM_NUM, "");
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setMessage(getString(R.string.confirm_restore) + " '" + sim + "'?")
+    new AlertDialog.Builder(this)
+      .setMessage(String.format(getString(R.string.confirm_restore), sim))
       .setCancelable(false)
       .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
         @Override
@@ -187,6 +195,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
             @Override
             public void onComplete() {
               updateActualView();
+              if (list != null) list.invalidate();
             }
           });
           rwp.doRun();
@@ -197,22 +206,19 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
         public void onClick(DialogInterface dialog, int i) {
           dialog.cancel();
         }
-      });
-    builder.create().show();
+      }).create().show();
   }
 
   public void updateActualView() {
-    simNumeric.setText(tm.getSimOperator());
+    simNumeric.setText(getSimOperator());
   }
+
+  public String getSimOperator() {return tm.getSimOperator();}
 
   @Override
   public void onTabChanged(String tabId) {
     if (tabId.equals(ACTUAL)) {
       updateActualView();
-    } else if (tabId.equals(LIST)) {
-      final Toast toast = Toast.makeText(this, getString(R.string.tap_hint), Toast.LENGTH_SHORT);
-      toast.setGravity(Gravity.BOTTOM, 0, 0);
-      toast.show();
     }
   }
 }
