@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="ru.org.amip.MarketAccess"
-          android:versionName="1.0.1" android:versionCode="1">
+          android:versionName="1.0.2" android:versionCode="2">
   <uses-sdk android:minSdkVersion="3"/>
   <application android:icon="@drawable/icon" android:label="@string/app_name">
     <!--<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion"
                android:value="1"/>-->
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
-               android:value="http://amip.org.ru/wiki/android/marketaccess"/>
+               android:value="http://amip.org.ru/android/marketaccess"/>
     <meta-data android:name="com.a0soft.gphone.aTrackDog.dlURL"
                android:value="http://amip.org.ru/ds/dl.php?f=/files/MarketAccess.apk"/>
     <meta-data android:name="com.a0soft.gphone.aTrackDog.noMarket" android:value="true"/>
