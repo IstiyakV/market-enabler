@@ -28,7 +28,7 @@ public class BootReceiver extends BroadcastReceiver {
       if (sim.length() == 0) return;
       // init with current context
       AppManager.getInstance(ctx);
-      final RunWithProgress run = new RunWithProgress(ctx, sim, ctx.getString(R.string.emulating_name) + sim);
+      final RunWithProgress run = new RunWithProgress(ctx, sim, "");
       run.setSilent(true);
       if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
         run.setCompleteListener(new CompleteListener() {
@@ -44,7 +44,7 @@ public class BootReceiver extends BroadcastReceiver {
 
   private static void showNotification(Context ctx, String msg) {
     CharSequence appName = ctx.getText(R.string.app_name);
-    final String fullText = ctx.getString(R.string.emulating_name) + ' ' + msg;
+    final String fullText = String.format(ctx.getString(R.string.emulating_name), msg);
     Notification notification = new Notification(R.drawable.icon, fullText, System.currentTimeMillis());
     notification.flags = 0;
     PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, new Intent(ctx, StartUpView.class), 0);

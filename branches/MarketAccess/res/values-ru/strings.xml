@@ -15,7 +15,7 @@
   <string name="restoring">Восстановление сохраненного значения</string>
   <string name="emulating">Эмуляция оператора</string>
   <string name="emulate">Эмулировать SIM карту\n\"%1$s\" (%2$s)?</string>
-  <string name="emulating_name">Эмулирую %1$s...</string>
+  <string name="emulating_name">Эмуляция SIM: %1$s</string>
 
   <string name="boot_emulation_off">Эмуляция при загрузке отключена</string>
   <string name="boot_emulation_for">Эмуляция при загрузке для \"%1$s\"</string>

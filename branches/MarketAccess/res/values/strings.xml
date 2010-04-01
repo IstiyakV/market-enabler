@@ -17,7 +17,7 @@
   <string name="restoring">Restoring saved value</string>
   <string name="emulating">Emulating custom provider</string>
   <string name="emulate">Emulate \"%1$s\" (%2$s) SIM?</string>
-  <string name="emulating_name">Emulating %1$s...</string>
+  <string name="emulating_name">Emulating SIM: %1$s</string>
 
   <string name="boot_emulation_off">Boot emulation disabled</string>
   <string name="boot_emulation_for">Boot emulation for \"%1$s\"</string>
