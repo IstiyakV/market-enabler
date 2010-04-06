@@ -35,5 +35,11 @@
 || 22.02.10 || TS||  || 5 USD || AndAppStore ||
 || 27.02.10 || OP ||  || 16 Euro || PayPal ||
 || 03.03.10 || All users || Advertising 26.11.09 - 31.01.10|| 27.77 USD || AdMob ||
+|| 09.03.10 || EA||  || 10 USD || AndAppStore ||
+|| 11.03.10 || MS||  || 5 USD || AndAppStore ||
+|| 19.03.10 || ML||  || 5 USD || AndAppStore ||
+|| 25.03.10 || SN||  || 5 EUR || AndAppStore ||
+|| 05.04.10 || LSC||  || 5 USD || AndAppStore ||
+|| 05.04.10 || MU||  || 5 USD || AndAppStore ||
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
