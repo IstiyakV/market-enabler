@@ -25,6 +25,7 @@ public class ShellInterface {
   private static final String EXIT = "exit\n";
   private static final String SETPREF = "setpref";
   private static final Pattern PATTERN = Pattern.compile(" ");
+  private static final String SETOWN = "setown";
 
   public static void doExec(String[] commands, boolean suNeeded, Handler handler) {
     Process process = null;
@@ -51,6 +52,8 @@ public class ShellInterface {
         } else if (single.startsWith(SETPREF)) {
           // setting preferences requires some context, get one from AppManager
           handlePref(single, AppManager.getInstance());
+        } else if (single.startsWith(SETOWN)) {
+          handleOwn(single, AppManager.getInstance());
         } else {
           os.writeBytes(single + '\n');
           os.flush();
@@ -60,6 +63,7 @@ public class ShellInterface {
         msg.arg1 = i;
         msg.arg2 = -1; // 0 will dismiss the progress bar
         handler.sendMessage(msg);
+        Thread.sleep(200);
       }
       os.writeBytes(EXIT);
       os.flush();
@@ -89,10 +93,21 @@ public class ShellInterface {
     }
   }
 
+  private static void handleOwn(String single, Context ctx) {
+    final String[] parts = PATTERN.split(single, 3);
+    try {
+      final int uid = ctx.getPackageManager().getApplicationInfo(parts[1], 0).uid;
+      Log.i(StartUpView.MARKET_ACCESS, "setting owner: " + uid);
+      runCommand("chown " + uid + '.' + uid + ' ' + parts[2]);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   private static void handlePref(String single, Context ctx) {
     final String[] parts = PATTERN.split(single, 6);
     try {
-      Context app = ctx.createPackageContext(parts[1], Context.CONTEXT_IGNORE_SECURITY);
+      Context app = ctx.createPackageContext(parts[1], 0);
       final SharedPreferences.Editor editor =
         app.getSharedPreferences(parts[2], Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE).edit();
       //TODO add support for other types if you want it to be universal
