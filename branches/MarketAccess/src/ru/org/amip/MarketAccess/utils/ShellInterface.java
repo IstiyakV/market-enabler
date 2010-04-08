@@ -108,13 +108,15 @@ public class ShellInterface {
     final String[] parts = PATTERN.split(single, 6);
     try {
       Context app = ctx.createPackageContext(parts[1], 0);
-      final SharedPreferences.Editor editor =
-        app.getSharedPreferences(parts[2], Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE).edit();
-      //TODO add support for other types if you want it to be universal
-      if (parts[3].equals("boolean")) {
+      final SharedPreferences preferences =
+        app.getSharedPreferences(parts[2], Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
+      // TODO add support for other types if you want it to be universal
+      // only change if set to false, don't add new preference or overwrite if already true
+      if (parts[3].equals("boolean") && !preferences.getBoolean(parts[4], true)) {
+        final SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(parts[4], Boolean.parseBoolean(parts[5]));
+        editor.commit();
       }
-      editor.commit();
     } catch (Exception e) {
       e.printStackTrace();
     }
