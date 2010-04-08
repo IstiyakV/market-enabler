@@ -29,7 +29,10 @@ public class RunWithProgress implements Runnable {
     "rm -rf /data/data/com.android.vending/cache/*",
     "chmod 777 /data/data/com.android.vending/shared_prefs",
     "chmod 666 /data/data/com.android.vending/shared_prefs/vending_preferences.xml",
-    "setpref com.android.vending vending_preferences boolean metadata_paid_apps_enabled true"
+    "setpref com.android.vending vending_preferences boolean metadata_paid_apps_enabled true",
+    "chmod 660 /data/data/com.android.vending/shared_prefs/vending_preferences.xml",
+    "chmod 771 /data/data/com.android.vending/shared_prefs",
+    "setown com.android.vending /data/data/com.android.vending/shared_prefs/vending_preferences.xml"
   };
 
   private final Handler handler = new Handler() {
