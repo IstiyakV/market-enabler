@@ -24,6 +24,7 @@
   <string name="emulate_on_boot">Эмулировать при загрузке</string>
 
   <string name="backup">Резервная копия</string>
+  <string name="backup_ok">SIM значение \"%1$s\" сохранено</string>
   <string name="restore">Восстановить</string>
   <string name="confirm_restore">Вы действительно хотите восстановить \"%1$s\"?</string>
   <string name="yes">Да</string>

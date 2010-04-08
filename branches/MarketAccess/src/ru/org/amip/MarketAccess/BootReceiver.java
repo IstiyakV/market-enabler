@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import ru.org.amip.MarketAccess.utils.AppManager;
 import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 import ru.org.amip.MarketAccess.view.StartUpView;
@@ -26,8 +25,6 @@ public class BootReceiver extends BroadcastReceiver {
     if (settings.getBoolean(StartUpView.APPLY_ON_BOOT, false)) {
       final String sim = settings.getString(StartUpView.APPLY_SIM_NUM, "");
       if (sim.length() == 0) return;
-      // init with current context
-      AppManager.getInstance(ctx);
       final RunWithProgress run = new RunWithProgress(ctx, sim, "");
       run.setSilent(true);
       if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
@@ -39,6 +36,8 @@ public class BootReceiver extends BroadcastReceiver {
         });
       }
       run.doRun();
+    } else {
+      StartUpView.suicide();
     }
   }
 
