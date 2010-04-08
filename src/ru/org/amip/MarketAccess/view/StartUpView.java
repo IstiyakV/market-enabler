@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import android.widget.TabHost.OnTabChangeListener;
@@ -50,9 +51,6 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     setupActualTab();
     setupCustomTab();
     setupListAndTabs();
-
-    // init process manager
-    AppManager.getInstance(this);
   }
 
   private void setupCheckboxes() {
@@ -149,7 +147,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     setValues.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        final RunWithProgress rwp = new RunWithProgress(StartUpView.this, simNumeric.getText().toString(), getString(R.string.emulating));
+        final RunWithProgress rwp =
+          new RunWithProgress(StartUpView.this, simNumeric.getText().toString(), getString(R.string.emulating));
         rwp.setCompleteListener(new CompleteListener() {
           @Override
           public void onComplete() {
@@ -175,11 +174,13 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   }
 
   private void backupSettings() {
+    final String sim = simNumeric.getText().toString();
     SharedPreferences.Editor editor = preferences.edit();
     editor.putBoolean(BACKUP_AVAILABLE, true);
-    editor.putString(SIM_NUM, simNumeric.getText().toString());
+    editor.putString(SIM_NUM, sim);
     editor.commit();
     restore.setEnabled(true);
+    Toast.makeText(this, String.format(getString(R.string.backup_ok), sim), Toast.LENGTH_SHORT).show();
   }
 
   private void restoreSettings() {
@@ -220,5 +221,17 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     if (tabId.equals(ACTUAL)) {
       updateActualView();
     }
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+      suicide();
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  public static void suicide() {
+    AppManager.getInstance().kill("ru.org.amip.MarketAccess");
   }
 }

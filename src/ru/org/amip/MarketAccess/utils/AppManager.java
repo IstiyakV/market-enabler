@@ -1,11 +1,11 @@
 package ru.org.amip.MarketAccess.utils;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import ru.org.amip.MarketAccess.view.StartUpView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,29 +14,26 @@ import java.util.List;
  *
  * @author serge
  */
-public class AppManager {
+public class AppManager extends Application {
   private static AppManager instance;
-  @SuppressWarnings({"FieldMayBeFinal"})
   private ActivityManager activityManager;
-  private List<ActivityManager.RunningAppProcessInfo> processes = new ArrayList<ActivityManager.RunningAppProcessInfo>();
+  private List<ActivityManager.RunningAppProcessInfo> processes;
 
-  public static synchronized AppManager getInstance(Context ctx) {
-    if (instance == null) instance = new AppManager(ctx);
+  @Override
+  public void onCreate() {
+    instance = this;
+    activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+  }
+
+  public static AppManager getInstance() {
     return instance;
   }
 
-  private AppManager(Context ctx) {
-    if (ctx == null) return;
-    activityManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
-  }
-
   public void refreshList() {
-    if (activityManager == null) return;
     processes = activityManager.getRunningAppProcesses();
   }
 
   public boolean isRunning(String app) {
-    if (activityManager == null) return false;
     refreshList();
     for (ActivityManager.RunningAppProcessInfo process : processes) {
       if (process.processName.startsWith(app)) return true;
@@ -45,7 +42,6 @@ public class AppManager {
   }
 
   public boolean kill(String app) {
-    if (activityManager == null) return false;
     refreshList();
     for (ActivityManager.RunningAppProcessInfo process : processes) {
       if (process.processName.startsWith(app)) {

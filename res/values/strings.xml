@@ -26,6 +26,7 @@
   <string name="emulate_on_boot">Emulate on boot</string>
 
   <string name="backup">Backup value</string>
+  <string name="backup_ok">SIM numeric \"%1$s\" saved</string>
   <string name="restore">Restore value</string>
   <string name="confirm_restore">Do you want to restore \"%1$s\"?</string>
   <string name="yes">Yes</string>

@@ -1,5 +1,7 @@
 package ru.org.amip.MarketAccess.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -9,6 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Pattern;
 
 public class ShellInterface {
   private static String suBinary;
@@ -20,6 +23,8 @@ public class ShellInterface {
   private static final String TEST_COMMAND = "echo";
   private static final String KILL_ALL = "killall";
   private static final String EXIT = "exit\n";
+  private static final String SETPREF = "setpref";
+  private static final Pattern PATTERN = Pattern.compile(" ");
 
   public static void doExec(String[] commands, boolean suNeeded, Handler handler) {
     Process process = null;
@@ -43,6 +48,9 @@ public class ShellInterface {
         if (single.startsWith(KILL_ALL)) {
           // special treatment for killall command, use java to kill the process
           handleKill(single);
+        } else if (single.startsWith(SETPREF)) {
+          // setting preferences requires some context, get one from AppManager
+          handlePref(single, AppManager.getInstance());
         } else {
           os.writeBytes(single + '\n');
           os.flush();
@@ -81,10 +89,26 @@ public class ShellInterface {
     }
   }
 
+  private static void handlePref(String single, Context ctx) {
+    final String[] parts = PATTERN.split(single, 6);
+    try {
+      Context app = ctx.createPackageContext(parts[1], Context.CONTEXT_IGNORE_SECURITY);
+      final SharedPreferences.Editor editor =
+        app.getSharedPreferences(parts[2], Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE).edit();
+      //TODO add support for other types if you want it to be universal
+      if (parts[3].equals("boolean")) {
+        editor.putBoolean(parts[4], Boolean.parseBoolean(parts[5]));
+      }
+      editor.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   private static void handleKill(String single) throws IOException {
     if (single.indexOf(' ') > 0) {
       final String app = single.substring(single.indexOf(' ') + 1);
-      final AppManager am = AppManager.getInstance(null);
+      final AppManager am = AppManager.getInstance();
       int count = 0;
       while (am.isRunning(app)) {
         count++;

@@ -23,9 +23,14 @@ public class RunWithProgress implements Runnable {
   private CompleteListener completeListener;
   private boolean silent;
 
-  private static final String cmd_1 = "setprop gsm.sim.operator.numeric";
-  private static final String cmd_2 = "killall com.android.vending";
-  private static final String cmd_3 = "rm -rf /data/data/com.android.vending/cache/*";
+  private static final String[] COMMANDS = new String[]{
+    "setprop gsm.sim.operator.numeric",
+    "killall com.android.vending",
+    "rm -rf /data/data/com.android.vending/cache/*",
+    "chmod 777 /data/data/com.android.vending/shared_prefs",
+    "chmod 666 /data/data/com.android.vending/shared_prefs/vending_preferences.xml",
+    "setpref com.android.vending vending_preferences boolean metadata_paid_apps_enabled true"
+  };
 
   private final Handler handler = new Handler() {
     @Override
@@ -73,7 +78,10 @@ public class RunWithProgress implements Runnable {
   }
 
   public static String[] makeCommand(String numeric) {
-    return new String[]{cmd_1 + ' ' + numeric, cmd_2, cmd_3};
+    final String[] strings = new String[COMMANDS.length];
+    System.arraycopy(COMMANDS, 0, strings, 0, COMMANDS.length);
+    strings[0] = strings[0] + ' ' + numeric;
+    return strings;
   }
 
   public RunWithProgress(Context ctx, String value, String message) {

@@ -33,25 +33,24 @@
         android:textColor="@android:color/primary_text_dark"
         android:layout_marginLeft="10sp"/>
     </LinearLayout>
-    <TableLayout
+    <LinearLayout
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:orientation="horizontal"
-      android:layout_marginBottom="15dip"
-      android:stretchColumns="0,1">
-      <TableRow>
-        <Button
-          android:id="@+id/buttonSave"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/backup"/>
-        <Button
-          android:id="@+id/buttonRestore"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/restore"/>
-      </TableRow>
-    </TableLayout>
+      android:layout_marginBottom="15dip">
+      <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/backup"
+        android:layout_weight="1"/>
+      <Button
+        android:id="@+id/buttonRestore"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/restore"
+        android:layout_weight="1"/>
+    </LinearLayout>
     <CheckBox
       android:id="@+id/bootCheckbox"
       android:layout_width="wrap_content"
