@@ -199,19 +199,18 @@ public class ShellInterface {
     new InputStreamHandler(p.getInputStream());
     new InputStreamHandler(p.getErrorStream());
   }
-}
 
-class InputStreamHandler extends Thread {
-  private final InputStream stream;
+  private static class InputStreamHandler extends Thread {
+    private final InputStream stream;
 
-  InputStreamHandler(InputStream stream) {
-    setName("SinkThread");
-    this.stream = stream;
-    start();
-  }
+    InputStreamHandler(InputStream stream) {
+      this.stream = stream;
+      start();
+    }
 
-  @Override
-  public void run() {
-    try { while (stream.read() != -1) {} } catch (IOException ignored) {}
+    @Override
+    public void run() {
+      try { while (stream.read() != -1) {} } catch (IOException ignored) {}
+    }
   }
 }
