@@ -21,20 +21,21 @@ import ru.org.amip.MarketAccess.view.StartUpView;
 public class BootReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(final Context ctx, Intent intent) {
-    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
-    if (settings.getBoolean(StartUpView.APPLY_ON_BOOT, false)) {
-      final String sim = settings.getString(StartUpView.APPLY_SIM_NUM, "");
-      if (sim.length() == 0) return;
+    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
+    final String sim = settings.getString(StartUpView.APPLY_SIM_NUM, "");
+    if (settings.getBoolean(StartUpView.APPLY_ON_BOOT, false) && sim.length() > 0) {
       final RunWithProgress run = new RunWithProgress(ctx, sim, "");
       run.setSilent(true);
-      if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
-        run.setCompleteListener(new CompleteListener() {
-          @Override
-          public void onComplete() {
+      run.setCompleteListener(new CompleteListener() {
+        @Override
+        public void onComplete() {
+          if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
             showNotification(ctx, sim);
+          } else {
+            StartUpView.suicide();
           }
-        });
-      }
+        }
+      });
       run.doRun();
     } else {
       StartUpView.suicide();

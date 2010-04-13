@@ -64,7 +64,7 @@
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dip"
+      android:layout_marginTop="15dip"
       android:text="@string/about_1"
       />
     <TextView
