@@ -29,7 +29,7 @@ public class AppManager extends Application {
     return instance;
   }
 
-  public void refreshList() {
+  private void refreshList() {
     processes = activityManager.getRunningAppProcesses();
   }
 
@@ -51,5 +51,9 @@ public class AppManager extends Application {
       }
     }
     return false;
+  }
+
+  public void suicide() {
+    kill(getApplicationInfo().packageName);
   }
 }

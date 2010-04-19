@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import ru.org.amip.MarketAccess.model.ProviderAdapter;
 import ru.org.amip.MarketAccess.model.ProviderConfig;
@@ -89,5 +90,10 @@ public class ListView extends ListActivity {
     adapter.setOperator(String.valueOf(startup.getSimOperator()));
     adapter.clearCache();
     getListView().invalidateViews();
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    return getParent().onKeyDown(keyCode, event);
   }
 }

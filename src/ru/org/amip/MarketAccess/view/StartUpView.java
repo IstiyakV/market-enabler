@@ -226,12 +226,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      suicide();
+      AppManager.getInstance().suicide();
     }
     return super.onKeyDown(keyCode, event);
-  }
-
-  public static void suicide() {
-    AppManager.getInstance().kill("ru.org.amip.MarketAccess");
   }
 }
