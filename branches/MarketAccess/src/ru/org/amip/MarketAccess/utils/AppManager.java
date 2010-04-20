@@ -54,6 +54,6 @@ public class AppManager extends Application {
   }
 
   public void suicide() {
-    kill(getApplicationInfo().packageName);
+    kill(getPackageName());
   }
 }
