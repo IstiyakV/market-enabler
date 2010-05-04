@@ -38,14 +38,15 @@ public class ListView extends ListActivity {
     list.add(new ProviderConfig(310260, "us", "T-Mobile"));
     list.add(new ProviderConfig(23203, "au", "T-Mobile"));
     list.add(new ProviderConfig(20416, "nl", "T-Mobile"));
-    list.add(new ProviderConfig(26207, "de", "o2 - de"));
-    list.add(new ProviderConfig(26203, "de", "simyo"));
+    list.add(new ProviderConfig(26207, "de", "O2"));
+    list.add(new ProviderConfig(26203, "de", "E-Plus"));
     list.add(new ProviderConfig(22802, "ch", "sunrise"));
     list.add(new ProviderConfig(22201, "it", "TIM"));
     list.add(new ProviderConfig(27203, "ie", "Meteor"));
     list.add(new ProviderConfig(25001, "ru", "MTS"));
     list.add(new ProviderConfig(25002, "ru", "MegaFon"));
-    list.add(new ProviderConfig(25028, "ru", "Beeline"));
+    list.add(new ProviderConfig(25099, "ru", "Beeline"));
+    list.add(new ProviderConfig(25020, "ru", "Tele2"));
     return list;
   }
 
