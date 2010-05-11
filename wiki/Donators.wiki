@@ -79,5 +79,14 @@
 || 06.05.10 || All users || Advertising 01.02.10 - 31.03.10|| 32.17 USD || AdMob ||
 || 10.05.10 || NL||  || 5 Eur || AndAppStore ||
 
+I summed up all donations up to this point (paypal comissions, 2.9% + $0.30 USD per transaction and this is for 5$ about 10% and for 5 EUR it's about 11%,  are still included):
+
+|| *USD* || *EUR* || *CHF* ||
+|| 314.91 || 106 || 3||
+
+This makes a total of about ~450 USD since we published the first version (that was about March 2009)
+
+|| *Date* || *Who* || *Reason / Comment* || *Ammount* || Via ||
+
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
