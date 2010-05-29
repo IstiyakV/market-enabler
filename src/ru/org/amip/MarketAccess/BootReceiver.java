@@ -47,8 +47,9 @@ public class BootReceiver extends BroadcastReceiver {
     CharSequence appName = ctx.getText(R.string.app_name);
     final String fullText = String.format(ctx.getString(R.string.emulating_name), msg);
     Notification notification = new Notification(R.drawable.icon, fullText, System.currentTimeMillis());
-    notification.flags = 0;
-    PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, new Intent(ctx, StartUpView.class), 0);
+    notification.flags = Notification.FLAG_AUTO_CANCEL;
+    PendingIntent contentIntent =
+      PendingIntent.getActivity(ctx, 0, new Intent(ctx, StartUpView.class), Intent.FLAG_ACTIVITY_NEW_TASK);
     notification.setLatestEventInfo(ctx, appName, fullText, contentIntent);
     NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
     nm.notify(R.string.app_name, notification);
