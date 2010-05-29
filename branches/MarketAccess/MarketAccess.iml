@@ -18,7 +18,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Android 1.5 Platform" level="application" />
+    <orderEntry type="library" name="Android 1.5 Platform" level="application" />
   </component>
 </module>
 
