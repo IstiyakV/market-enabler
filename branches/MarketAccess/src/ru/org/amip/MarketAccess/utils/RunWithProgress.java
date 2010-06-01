@@ -22,18 +22,18 @@ import java.util.regex.Pattern;
  * @author serge
  */
 public class RunWithProgress implements Runnable {
-  private static String[] writePropCommand;
-  private ProgressDialog pd;
-  private final Context ctx;
-  private final String message;
-  private CompleteListener completeListener;
-  private boolean silent;
+  private static String[]         commands;
+  private        ProgressDialog   pd;
+  private final  Context          ctx;
+  private final  String           message;
+  private        CompleteListener completeListener;
+  private        boolean          silent;
 
   private static final Pattern PATTERN = Pattern.compile(" ");
 
   private static final String KILL_ALL = "killall";
-  private static final String SETPREF = "setpref";
-  private static final String SETOWN = "setown";
+  private static final String SETPREF  = "setpref";
+  private static final String SETOWN   = "setown";
 
   private static final String[] COMMANDS = new String[]{
     "setprop gsm.sim.operator.numeric",
@@ -46,6 +46,9 @@ public class RunWithProgress implements Runnable {
     "chmod 771 /data/data/com.android.vending/shared_prefs",
     "setown com.android.vending /data/data/com.android.vending/shared_prefs/vending_preferences.xml"
   };
+
+  private String errorMessage;
+  private String okMessage;
 
   private final Handler handler = new Handler() {
     @Override
@@ -61,6 +64,14 @@ public class RunWithProgress implements Runnable {
     this.silent = silent;
   }
 
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+  public void setOkMessage(String okMessage) {
+    this.okMessage = okMessage;
+  }
+
   public void setCompleteListener(CompleteListener completeListener) {
     this.completeListener = completeListener;
   }
@@ -71,9 +82,9 @@ public class RunWithProgress implements Runnable {
     } else {
       pd.dismiss();
       if (msg.arg1 == 0) {
-        Toast.makeText(ctx, R.string.applied, Toast.LENGTH_SHORT).show();
+        if (okMessage != null) Toast.makeText(ctx, okMessage, Toast.LENGTH_SHORT).show();
       } else if (msg.arg1 == 1) {
-        Toast.makeText(ctx, R.string.error, Toast.LENGTH_LONG).show();
+        if (errorMessage != null) Toast.makeText(ctx, errorMessage, Toast.LENGTH_LONG).show();
       } else {
         showNoRootAlert();
       }
@@ -103,13 +114,23 @@ public class RunWithProgress implements Runnable {
     this.ctx = ctx;
     this.message = message;
 
-    writePropCommand = makeCommand(value);
+    setErrorMessage(ctx.getString(R.string.error));
+    setOkMessage(ctx.getString(R.string.applied));
+
+    commands = makeCommand(value);
+  }
+
+  public RunWithProgress(Context ctx, String[] runCommands, String message) {
+    this.ctx = ctx;
+    this.message = message;
+
+    commands = runCommands;
   }
 
   public void doRun() {
     if (!silent) {
       pd = new ProgressDialog(ctx);
-      pd.setMax(writePropCommand.length);
+      pd.setMax(commands.length);
       pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
       pd.setProgress(1);
       pd.setTitle(R.string.working);
@@ -128,7 +149,7 @@ public class RunWithProgress implements Runnable {
       handler.sendMessage(msg);
       return;
     }
-    doExec(writePropCommand, handler);
+    doExec(commands, handler);
   }
 
   private static void doExec(String[] commands, Handler handler) {
@@ -137,7 +158,7 @@ public class RunWithProgress implements Runnable {
 
     try {
       for (String cmd : commands) {
-        Log.i(StartUpView.MARKET_ACCESS, cmd);
+        Log.i(StartUpView.TAG, cmd);
         if (cmd.startsWith(KILL_ALL)) {
           // special treatment for killall command, use java to kill the process
           handleKill(cmd);
@@ -172,7 +193,7 @@ public class RunWithProgress implements Runnable {
     final String[] parts = PATTERN.split(single, 3);
     try {
       final int uid = ctx.getPackageManager().getApplicationInfo(parts[1], 0).uid;
-      Log.i(StartUpView.MARKET_ACCESS, "setting owner: " + uid);
+      Log.i(StartUpView.TAG, "setting owner: " + uid);
       ShellInterface.runCommand("chown " + uid + '.' + uid + ' ' + parts[2]);
     } catch (Exception e) {
       e.printStackTrace();
@@ -206,7 +227,7 @@ public class RunWithProgress implements Runnable {
         count++;
         am.kill(app);
         if (am.isRunning(app)) {
-          Log.w(StartUpView.MARKET_ACCESS, "Failed to kill " + app);
+          Log.w(StartUpView.TAG, "Failed to kill " + app);
           try {
             Thread.sleep(200);
           } catch (InterruptedException ignored) {
@@ -216,7 +237,7 @@ public class RunWithProgress implements Runnable {
           break;
         }
         if (count >= 5) {
-          Log.e(StartUpView.MARKET_ACCESS, "Failed to kill " + app + " 5 times, aborting");
+          Log.e(StartUpView.TAG, "Failed to kill " + app + " 5 times, aborting");
           throw new IOException("Can't kill app: " + app);
         }
       }

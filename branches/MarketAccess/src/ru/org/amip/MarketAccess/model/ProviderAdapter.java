@@ -19,11 +19,10 @@ import java.util.List;
  */
 public class ProviderAdapter extends BaseAdapter {
   private final List<ProviderConfig> elements;
-  private final Context c;
-  // cache
-  private final List<View> views;
-  private final int count;
-  private String operator;
+  private final Context              c;
+  private final List<View>           views;
+  private final int                  count;
+  private       String               operator;
 
   public ProviderAdapter(List<ProviderConfig> elements, Context c, String operator) {
     count = elements.size();

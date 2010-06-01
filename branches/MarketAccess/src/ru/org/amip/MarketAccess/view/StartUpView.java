@@ -5,6 +5,7 @@ import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -19,23 +20,27 @@ import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
-  public static final String MARKET_ACCESS = "MarketAccess";
-  public static final String APPLY_ON_BOOT = "applyOnBoot";
-  public static final String APPLY_SIM_NUM = "applySimNumeric";
+  public static final String TAG = "MarketAccess";
+
+  public static final String APPLY_ON_BOOT     = "applyOnBoot";
+  public static final String APPLY_SIM_NUM     = "applySimNumeric";
   public static final String SHOW_NOTIFICATION = "showNotification";
-  public static final String ACTUAL = "actual";
-  private static final String CUSTOM = "custom";
-  private static final String LIST = "list";
-  private static final String SIM_NUM = "simNumeric";
+  public static final String ACTUAL            = "actual";
+
+  private static final String CUSTOM           = "custom";
+  private static final String LIST             = "list";
+  private static final String SIM_NUM          = "simNumeric";
   private static final String BACKUP_AVAILABLE = "backupAvailable";
 
-  private TelephonyManager tm;
-  private TextView simNumeric;
-  private Button restore;
-  private CheckBox bootCheckbox;
-  private CheckBox notificationCheckbox;
+  private TelephonyManager  tm;
+  private TextView          simNumeric;
+  private Button            restore;
+  private CheckBox          bootCheckbox;
+  private CheckBox          notificationCheckbox;
   private SharedPreferences preferences;
-  private ListView list;
+  private ListView          list;
+
+  private boolean processSpinnerEvents;
 
   public void setList(ListView list) {
     this.list = list;
@@ -47,6 +52,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     setContentView(R.layout.mainview);
     preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+    processSpinnerEvents = false;
 
     setupActualTab();
     setupCustomTab();
@@ -118,6 +125,45 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   }
 
   private void setupActualTab() {
+    Spinner spinner = (Spinner) findViewById(R.id.location);
+    TextView override = (TextView) findViewById(R.id.override);
+
+    ArrayAdapter<CharSequence> adapter =
+      ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_spinner_item);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    spinner.setAdapter(adapter);
+
+    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      static final String PM_LOCATION = "pm setInstallLocation ";
+
+      @Override
+      public void onItemSelected(final AdapterView<?> parent, final View view, final int pos, long l) {
+        // see http://groups.google.com/group/android-developers/msg/d57008cf370b8051
+        if (!processSpinnerEvents) {
+          processSpinnerEvents = true;
+          return;
+        }
+        final RunWithProgress rwp =
+          new RunWithProgress(StartUpView.this, new String[]{PM_LOCATION + pos}, getString(R.string.msg_loc));
+        final String msg = getString(R.string.install_location) + " - " + parent.getItemAtPosition(pos).toString();
+        rwp.setOkMessage(msg);
+        rwp.setErrorMessage(getString(R.string.msg_loc_failed));
+        rwp.doRun();
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> view) {
+
+      }
+    });
+
+    // Force install location is supported only on FroYo (2.2) and later
+    if (Integer.parseInt(Build.VERSION.SDK) < 8) {
+      override.setEnabled(false);
+      spinner.setEnabled(false);
+    }
+
     simNumeric = (TextView) findViewById(R.id.actualsimNumericValue);
     Button save = (Button) findViewById(R.id.buttonSave);
     save.setOnClickListener(new View.OnClickListener() {

@@ -40,4 +40,9 @@
     сделать покупку в Маркете. Вы все еще хотите включить эмуляцию при загрузке?
   </string>
   <string name="set_to_this">Установить выбранное значение</string>
+
+  <string name="force_location">Место установки (только 2.2+)</string>
+  <string name="install_location">Место установки</string>
+  <string name="msg_loc">Изменение места установки</string>
+  <string name="msg_loc_failed">Не удалось изменить место установки</string>
 </resources>

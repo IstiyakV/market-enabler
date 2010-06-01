@@ -43,4 +43,9 @@
   <string name="set_to_this">Set to this value</string>
   <string name="numeric">SIM numeric:</string>
   <string name="url">http://amip.org.ru/android/MarketAccess</string>
+
+  <string name="force_location">Force install location (2.2+ only)</string>
+  <string name="install_location">Install location</string>
+  <string name="msg_loc">Setting location</string>
+  <string name="msg_loc_failed">Setting location failed</string>
 </resources>
