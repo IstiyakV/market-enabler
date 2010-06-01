@@ -16,6 +16,7 @@
             <option name="USE_RELATIVE_INDENTS" value="false" />
           </value>
         </option>
+        <option name="ALIGN_GROUP_FIELDS_VARIABLES" value="true" />
         <option name="PREFER_LONGER_NAMES" value="false" />
         <option name="CALL_PARAMETERS_WRAP" value="1" />
         <option name="METHOD_PARAMETERS_WRAP" value="1" />

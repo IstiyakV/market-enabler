@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="locations">
+    <item>0: Автоматически</item>
+    <item>1: Внутренняя память</item>
+    <item>2: SD карта</item>
+  </string-array>
+</resources>

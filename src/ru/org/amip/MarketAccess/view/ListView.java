@@ -18,9 +18,9 @@ import static ru.org.amip.MarketAccess.R.string;
 
 public class ListView extends ListActivity {
   private ArrayList<ProviderConfig> providers;
-  private Context ctx;
-  public StartUpView startup;
-  private ProviderAdapter adapter;
+  private Context                   ctx;
+  public  StartUpView               startup;
+  private ProviderAdapter           adapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

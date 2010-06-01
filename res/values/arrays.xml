@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="locations">
+    <item>0: Auto</item>
+    <item>1: Internal memory</item>
+    <item>2: SD card</item>
+  </string-array>
+</resources>

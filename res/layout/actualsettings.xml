@@ -37,7 +37,7 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:orientation="horizontal"
-      android:layout_marginBottom="15dip">
+      android:layout_marginBottom="10dip">
       <Button
         android:id="@+id/buttonSave"
         android:layout_width="fill_parent"
@@ -60,7 +60,24 @@
       android:id="@+id/notificationCheckbox"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/show_notification"/>
+      android:text="@string/show_notification"
+      android:layout_marginBottom="10dip"/>
+    <TextView
+      android:id="@+id/override"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/force_location"
+      android:textSize="20sp"
+      android:layout_marginLeft="5sp"
+      />
+    <Spinner
+      android:id="@+id/location"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:drawSelectorOnTop="true"
+      android:prompt="@string/install_location"
+      />
+    <!--
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -73,6 +90,7 @@
       android:layout_marginTop="10dip"
       android:text="@string/about_2"
       />
+    -->
     <TextView
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"

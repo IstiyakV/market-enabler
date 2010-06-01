@@ -15,9 +15,9 @@ import java.util.List;
  * @author serge
  */
 public class AppManager extends Application {
-  private static AppManager instance;
-  private ActivityManager activityManager;
-  private List<ActivityManager.RunningAppProcessInfo> processes;
+  private static AppManager                                  instance;
+  private        ActivityManager                             activityManager;
+  private        List<ActivityManager.RunningAppProcessInfo> processes;
 
   @Override
   public void onCreate() {
@@ -46,7 +46,7 @@ public class AppManager extends Application {
     for (ActivityManager.RunningAppProcessInfo process : processes) {
       if (process.processName.startsWith(app)) {
         activityManager.restartPackage(process.processName);
-        Log.i(StartUpView.MARKET_ACCESS, "killed: " + process.processName);
+        Log.i(StartUpView.TAG, "killed: " + process.processName);
         return true;
       }
     }

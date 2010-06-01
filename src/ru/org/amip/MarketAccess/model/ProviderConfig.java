@@ -1,7 +1,7 @@
 package ru.org.amip.MarketAccess.model;
 
 public class ProviderConfig {
-  private final int gsmSimOperatorNumeric;
+  private final int    gsmSimOperatorNumeric;
   private final String gsmSimOperatorIsoCountry;
   private final String gsmSimOperatorAlpha;
 
