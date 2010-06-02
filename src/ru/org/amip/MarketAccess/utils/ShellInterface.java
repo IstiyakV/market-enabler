@@ -7,6 +7,12 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Date: Mar 24, 2010
+ * Time: 4:14:07 PM
+ *
+ * @author serge
+ */
 public class ShellInterface {
   private static String  suBinary;
   private static boolean suChecked;
