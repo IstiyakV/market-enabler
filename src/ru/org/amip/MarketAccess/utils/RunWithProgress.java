@@ -219,7 +219,7 @@ public class RunWithProgress {
     @Override
     protected void onProgressUpdate(Integer... values) {
       super.onProgressUpdate(values);
-      pd.setProgress(values[0]);
+      if (!silent) pd.setProgress(values[0]);
     }
 
     @Override
