@@ -5,8 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Message;
+import android.os.AsyncTask;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 import ru.org.amip.MarketAccess.R;
@@ -15,13 +15,15 @@ import ru.org.amip.MarketAccess.view.StartUpView;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import static ru.org.amip.MarketAccess.utils.RunWithProgress.RunResult.*;
+
 /**
  * Date: Mar 24, 2010
  * Time: 4:14:07 PM
  *
  * @author serge
  */
-public class RunWithProgress implements Runnable {
+public class RunWithProgress {
   private static String[]         commands;
   private        ProgressDialog   pd;
   private final  Context          ctx;
@@ -29,14 +31,21 @@ public class RunWithProgress implements Runnable {
   private        CompleteListener completeListener;
   private        boolean          silent;
 
+  enum RunResult {
+    OK,
+    ERROR,
+    NO_ROOT
+  }
+
   private static final Pattern PATTERN = Pattern.compile(" ");
 
   private static final String KILL_ALL = "killall";
   private static final String SETPREF  = "setpref";
   private static final String SETOWN   = "setown";
+  private static final String VERIFY   = "verify_sim_numeric";
 
   private static final String[] COMMANDS = new String[]{
-    "setprop gsm.sim.operator.numeric",
+    "setprop gsm.sim.operator.numeric %n",
     "killall com.android.vending",
     "rm -rf /data/data/com.android.vending/cache/*",
     "chmod 777 /data/data/com.android.vending/shared_prefs",
@@ -44,21 +53,12 @@ public class RunWithProgress implements Runnable {
     "setpref com.android.vending vending_preferences boolean metadata_paid_apps_enabled true",
     "chmod 660 /data/data/com.android.vending/shared_prefs/vending_preferences.xml",
     "chmod 771 /data/data/com.android.vending/shared_prefs",
-    "setown com.android.vending /data/data/com.android.vending/shared_prefs/vending_preferences.xml"
+    "setown com.android.vending /data/data/com.android.vending/shared_prefs/vending_preferences.xml",
+    "verify_sim_numeric %n"
   };
 
   private String errorMessage;
   private String okMessage;
-
-  private final Handler handler = new Handler() {
-    @Override
-    public void handleMessage(Message msg) {
-      if (!silent) showProgress(msg);
-      if (completeListener != null) {
-        completeListener.onComplete();
-      }
-    }
-  };
 
   public void setSilent(boolean silent) {
     this.silent = silent;
@@ -76,21 +76,6 @@ public class RunWithProgress implements Runnable {
     this.completeListener = completeListener;
   }
 
-  public void showProgress(Message msg) {
-    if (msg.arg2 != 0) {
-      pd.setProgress(msg.arg1);
-    } else {
-      pd.dismiss();
-      if (msg.arg1 == 0) {
-        if (okMessage != null) Toast.makeText(ctx, okMessage, Toast.LENGTH_SHORT).show();
-      } else if (msg.arg1 == 1) {
-        if (errorMessage != null) Toast.makeText(ctx, errorMessage, Toast.LENGTH_LONG).show();
-      } else {
-        showNoRootAlert();
-      }
-    }
-  }
-
   private void showNoRootAlert() {
     new AlertDialog.Builder(ctx)
       .setMessage(R.string.no_root)
@@ -106,7 +91,9 @@ public class RunWithProgress implements Runnable {
   public static String[] makeCommand(String numeric) {
     final String[] strings = new String[COMMANDS.length];
     System.arraycopy(COMMANDS, 0, strings, 0, COMMANDS.length);
-    strings[0] = strings[0] + ' ' + numeric;
+    for (int i = 0, stringsLength = strings.length; i < stringsLength; i++) {
+      strings[i] = strings[i].replace("%n", numeric);
+    }
     return strings;
   }
 
@@ -128,79 +115,21 @@ public class RunWithProgress implements Runnable {
   }
 
   public void doRun() {
-    if (!silent) {
-      pd = new ProgressDialog(ctx);
-      pd.setMax(commands.length);
-      pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-      pd.setProgress(1);
-      pd.setTitle(R.string.working);
-      pd.setMessage(message);
-      pd.show();
-    }
-    new Thread(this).start();
+    new RunTask().execute(commands);
   }
 
-  @Override
-  public void run() {
-    if (!ShellInterface.isSuAvailable()) {
-      Message msg = Message.obtain();
-      msg.arg1 = 2;
-      msg.arg2 = 0;
-      handler.sendMessage(msg);
-      return;
-    }
-    doExec(commands, handler);
-  }
-
-  private static void doExec(String[] commands, Handler handler) {
-    Message msg;
-    int i = 0;
-
-    try {
-      for (String cmd : commands) {
-        Log.i(StartUpView.TAG, cmd);
-        if (cmd.startsWith(KILL_ALL)) {
-          // special treatment for killall command, use java to kill the process
-          handleKill(cmd);
-        } else if (cmd.startsWith(SETPREF)) {
-          // setting preferences requires some context, get one from AppManager
-          handlePref(cmd, AppManager.getInstance());
-        } else if (cmd.startsWith(SETOWN)) {
-          handleOwn(cmd, AppManager.getInstance());
-        } else {
-          if (!ShellInterface.runCommand(cmd)) throw new IOException("Shell command failed: " + cmd);
-        }
-        msg = Message.obtain();
-        i++;
-        msg.arg1 = i;
-        msg.arg2 = -1; // 0 will dismiss the progress bar
-        handler.sendMessage(msg);
-      }
-      msg = Message.obtain();
-      msg.arg1 = 0;
-      msg.arg2 = 0;
-      handler.sendMessage(msg);
-    } catch (Exception e) {
-      e.printStackTrace();
-      msg = Message.obtain();
-      msg.arg1 = 1;
-      msg.arg2 = 0;
-      handler.sendMessage(msg);
-    }
-  }
-
-  private static void handleOwn(String single, Context ctx) {
+  private void handleOwn(String single) {
     final String[] parts = PATTERN.split(single, 3);
     try {
       final int uid = ctx.getPackageManager().getApplicationInfo(parts[1], 0).uid;
       Log.i(StartUpView.TAG, "setting owner: " + uid);
       ShellInterface.runCommand("chown " + uid + '.' + uid + ' ' + parts[2]);
     } catch (Exception e) {
-      e.printStackTrace();
+      Log.e(StartUpView.TAG, "error setting owner", e);
     }
   }
 
-  private static void handlePref(String single, Context ctx) {
+  private void handlePref(String single) {
     final String[] parts = PATTERN.split(single, 6);
     try {
       Context app = ctx.createPackageContext(parts[1], 0);
@@ -214,7 +143,7 @@ public class RunWithProgress implements Runnable {
         editor.commit();
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Log.e(StartUpView.TAG, "error setting preference", e);
     }
   }
 
@@ -227,7 +156,7 @@ public class RunWithProgress implements Runnable {
         count++;
         am.kill(app);
         if (am.isRunning(app)) {
-          Log.w(StartUpView.TAG, "Failed to kill " + app);
+          Log.w(StartUpView.TAG, "failed to kill " + app);
           try {
             Thread.sleep(200);
           } catch (InterruptedException ignored) {
@@ -237,9 +166,90 @@ public class RunWithProgress implements Runnable {
           break;
         }
         if (count >= 5) {
-          Log.e(StartUpView.TAG, "Failed to kill " + app + " 5 times, aborting");
-          throw new IOException("Can't kill app: " + app);
+          Log.e(StartUpView.TAG, "failed to kill " + app + " 5 times, aborting");
+          throw new IOException("can't kill app: " + app);
         }
+      }
+    }
+  }
+
+  private boolean handleVerify(String single) {
+    if (single.indexOf(' ') > 0) {
+      final String expectedNumeric = single.substring(single.indexOf(' ') + 1);
+      final TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+      final String currentNumeric = tm.getSimOperator();
+      return expectedNumeric.equals(currentNumeric);
+    }
+    return false;
+  }
+
+  class RunTask extends AsyncTask<String[], Integer, RunResult> {
+    @Override
+    protected void onPreExecute() {
+      super.onPreExecute();
+      if (!silent) {
+        pd = new ProgressDialog(ctx);
+        pd.setMax(commands.length);
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.setProgress(1);
+        pd.setTitle(R.string.working);
+        pd.setMessage(message);
+        pd.show();
+      }
+    }
+
+    @Override
+    protected void onPostExecute(RunResult result) {
+      super.onPostExecute(result);
+      if (!silent) {
+        pd.dismiss();
+        if (result == OK) {
+          if (okMessage != null) Toast.makeText(ctx, okMessage, Toast.LENGTH_SHORT).show();
+        } else if (result == ERROR) {
+          if (errorMessage != null) Toast.makeText(ctx, errorMessage, Toast.LENGTH_LONG).show();
+        } else {
+          showNoRootAlert();
+        }
+      }
+      if (completeListener != null) {
+        completeListener.onComplete();
+      }
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+      super.onProgressUpdate(values);
+      pd.setProgress(values[0]);
+    }
+
+    @Override
+    protected RunResult doInBackground(String[]... strings) {
+      if (!ShellInterface.isSuAvailable()) {
+        return NO_ROOT;
+      }
+      int i = 0;
+      try {
+        for (String cmd : commands) {
+          Log.i(StartUpView.TAG, cmd);
+          if (cmd.startsWith(KILL_ALL)) {
+            // special treatment for killall command, use java to kill the process
+            handleKill(cmd);
+          } else if (cmd.startsWith(SETPREF)) {
+            handlePref(cmd);
+          } else if (cmd.startsWith(SETOWN)) {
+            handleOwn(cmd);
+          } else if (cmd.startsWith(VERIFY)) {
+            if (!handleVerify(cmd)) return ERROR;
+          } else {
+            if (!ShellInterface.runCommand(cmd)) throw new IOException("Shell command failed: " + cmd);
+          }
+          publishProgress(++i);
+        }
+        publishProgress(++i);
+        return OK;
+      } catch (Exception e) {
+        Log.e(StartUpView.TAG, "RunTask error", e);
+        return ERROR;
       }
     }
   }
