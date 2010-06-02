@@ -118,6 +118,10 @@ public class RunWithProgress {
     new RunTask().execute(commands);
   }
 
+  public void doRunForeground() {
+    new RunTask().runCommands(commands);
+  }
+
   private void handleOwn(String single) {
     final String[] parts = PATTERN.split(single, 3);
     try {
@@ -224,6 +228,11 @@ public class RunWithProgress {
 
     @Override
     protected RunResult doInBackground(String[]... strings) {
+      String[] commands = strings[0];
+      return runCommands(commands);
+    }
+
+    public RunResult runCommands(String[] commands) {
       if (!ShellInterface.isSuAvailable()) {
         return NO_ROOT;
       }
