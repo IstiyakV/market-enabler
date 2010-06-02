@@ -5,6 +5,7 @@ import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import ru.org.amip.MarketAccess.R;
 import ru.org.amip.MarketAccess.utils.AppManager;
 import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
+import ru.org.amip.MarketAccess.utils.ShellInterface;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
   public static final String TAG = "MarketAccess";
@@ -32,6 +34,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   private static final String SIM_NUM          = "simNumeric";
   private static final String BACKUP_AVAILABLE = "backupAvailable";
 
+  public static final int FROYO = 8;
+
   private TelephonyManager  tm;
   private TextView          simNumeric;
   private Button            restore;
@@ -39,6 +43,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   private CheckBox          notificationCheckbox;
   private SharedPreferences preferences;
   private ListView          list;
+  private Spinner           installLocation;
 
   private boolean processSpinnerEvents;
 
@@ -125,16 +130,16 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
   }
 
   private void setupActualTab() {
-    Spinner spinner = (Spinner) findViewById(R.id.location);
+    installLocation = (Spinner) findViewById(R.id.location);
     TextView override = (TextView) findViewById(R.id.override);
 
     ArrayAdapter<CharSequence> adapter =
       ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_spinner_item);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-    spinner.setAdapter(adapter);
+    installLocation.setAdapter(adapter);
 
-    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    installLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       static final String PM_LOCATION = "pm setInstallLocation ";
 
       @Override
@@ -159,9 +164,11 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     });
 
     // Force install location is supported only on FroYo (2.2) and later
-    if (Integer.parseInt(Build.VERSION.SDK) < 8) {
+    if (Integer.parseInt(Build.VERSION.SDK) < FROYO) {
       override.setEnabled(false);
-      spinner.setEnabled(false);
+      installLocation.setEnabled(false);
+    } else {
+      new GetInstallLocation().execute();
     }
 
     simNumeric = (TextView) findViewById(R.id.actualsimNumericValue);
@@ -275,5 +282,37 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
       AppManager.getInstance().suicide();
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  class GetInstallLocation extends AsyncTask<Void, Void, Integer> {
+    @Override
+    protected Integer doInBackground(Void... voids) {
+      int current = 0;
+      if (ShellInterface.isSuAvailable()) {
+        final String out = ShellInterface.getProcessOutput("pm getInstallLocation");
+        if (out != null && out.length() > 0) {
+          try {
+            current = Integer.parseInt(out.substring(0, 1));
+          } catch (NumberFormatException ignored) {}
+        }
+      }
+      return current;
+    }
+
+    @Override
+    protected void onPreExecute() {
+      super.onPreExecute();
+      installLocation.setEnabled(false);
+    }
+
+    @Override
+    protected void onPostExecute(Integer current) {
+      super.onPostExecute(current);
+      installLocation.setEnabled(true);
+      if (installLocation.getSelectedItemPosition() != current) {
+        processSpinnerEvents = false;
+        installLocation.setSelection(current);
+      }
+    }
   }
 }
