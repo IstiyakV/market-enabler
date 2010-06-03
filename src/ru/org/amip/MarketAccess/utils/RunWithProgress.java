@@ -119,6 +119,7 @@ public class RunWithProgress {
   }
 
   public void doRunForeground() {
+    silent = true;
     new RunTask().runCommands(commands);
   }
 
