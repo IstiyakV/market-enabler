@@ -29,7 +29,6 @@ public class EmulateService extends WakefulIntentService {
     final String sim = settings.getString(StartUpView.APPLY_SIM_NUM, "");
 
     final RunWithProgress run = new RunWithProgress(ctx, sim, "");
-    run.setSilent(true);
     run.doRunForeground();
 
     if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
