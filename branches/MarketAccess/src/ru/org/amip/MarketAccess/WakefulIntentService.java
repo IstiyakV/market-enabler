@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.PowerManager;
 
 abstract public class WakefulIntentService extends IntentService {
-  abstract void doWakefulWork(Intent intent);
+  abstract protected void doWakefulWork(Intent intent);
 
   public static final String LOCK_NAME_STATIC = EmulateService.class.getName();
   private static PowerManager.WakeLock lockStatic;
@@ -30,8 +30,19 @@ abstract public class WakefulIntentService extends IntentService {
   }
 
   @Override
+  public void onStart(Intent intent, int startId) {
+    if (!getLock(this).isHeld()) {  // fail-safe for crash restart
+      getLock(this).acquire();
+    }
+    super.onStart(intent, startId);
+  }
+
+  @Override
   final protected void onHandleIntent(Intent intent) {
-    doWakefulWork(intent);
-    getLock(this).release();
+    try {
+      doWakefulWork(intent);
+    } finally {
+      getLock(this).release();
+    }
   }
 }

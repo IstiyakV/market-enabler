@@ -23,7 +23,7 @@ public class EmulateService extends WakefulIntentService {
   }
 
   @Override
-  void doWakefulWork(Intent intent) {
+  protected void doWakefulWork(Intent intent) {
     final Context ctx = getApplicationContext();
     final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
     final String sim = settings.getString(StartUpView.APPLY_SIM_NUM, "");
