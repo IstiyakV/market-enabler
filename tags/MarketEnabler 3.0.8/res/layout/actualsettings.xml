@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+android:id="@+id/actualsettings"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<TableLayout
+android:id="@+id/widget54"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+>
+<TableRow>
+<TextView
+android:id="@+id/actualTitle"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Actual values:"
+android:layout_span="2"
+ />
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/actualsimNumeric"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.sim.operator.numeric"
+ />
+<TextView
+android:id="@+id/actualsimNumericValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+ />
+</TableRow>
+<!-- 
+<TableRow>
+<TextView
+android:id="@+id/actualoperatorNumeric"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.operator.numeric"
+/>
+<TextView
+android:id="@+id/actualoperatorNumericValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/actualsimISO"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.sim.operator.iso-country"
+/>
+<TextView
+android:id="@+id/actualsimISOValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/actualoperatorISO"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.operator.iso-country"
+/>
+<TextView
+android:id="@+id/actualoperatorISOValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/actualsimAlpha"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.sim.operator.alpha"
+/>
+<TextView
+android:id="@+id/actualsimAlphaValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+/>
+</TableRow>
+
+<TableRow>
+<TextView
+android:id="@+id/actualoperatorAlpha"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="gsm.operator.alpha"
+/>
+<TextView
+android:id="@+id/actualoperatorAlphaValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="nothing"
+android:layout_marginLeft="20px"
+/>
+</TableRow>
+ -->
+ 
+<TableRow>
+<Button android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save current settings" />
+<Button android:id="@+id/buttonRestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restore settings" />
+</TableRow>
+<TextView
+android:id="@+id/actualaboutText"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="30px"
+android:text="App developed by vekexasia and rac"
+/>
+<TextView
+android:id="@+id/actualaboutText2"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="10px"
+android:text="http://androidiani.com \nhttp://2030.tk/donate"
+/>
+<TextView
+android:id="@+id/actualaboutText3"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="10px"
+android:text="Project Page with source and APK \n is at http://market-enabler.googlecode.com"
+/>
+<TextView
+android:id="@+id/actualcredits"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Reverse engineering by vekexasia and Tim \nhttp://strazzere.com"
+/>
+</TableLayout>
+
+</ScrollView>
