@@ -1,21 +1,32 @@
 package ru.org.amip.MarketAccess.utils;
 
 import android.util.Log;
-import ru.org.amip.MarketAccess.view.StartUpView;
 
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Interface to the Superuser shell on Android devices with some helper functions.<p/><p/>
+ * Common usage for su shell:<p/>
+ * <code>if(ShellInterface.isSuAvailable()) { ShellInterface.runCommand("reboot"); }</code>
+ * <p/><p/>
+ * To get process output as a String:<p/>
+ * <code>if(ShellInterface.isSuAvailable()) { String date = ShellInterface.getProcessOutput("date"); }</code>
+ * <p/><p/>
+ * To run command with standard shell (no root permissions):
+ * <code>ShellInterface.setShell("sh");</code><p/>
+ * <code>ShellInterface.runCommand("date");</code>
+ * <p/><p/>
  * Date: Mar 24, 2010
  * Time: 4:14:07 PM
  *
  * @author serge
  */
 public class ShellInterface {
-  private static String  suBinary;
-  private static boolean suChecked;
+  private static final String TAG = "ShellInterface";
+
+  private static String shell;
 
   // uid=0(root) gid=0(root)
   private static final Pattern UID_PATTERN = Pattern.compile("^uid=(\\d+).*?");
@@ -26,36 +37,47 @@ public class ShellInterface {
     BOTH
   }
 
-  private static final String XBIN_SU      = "/system/xbin/su";
-  private static final String BIN_SU       = "/system/bin/su";
-  private static final String TEST_COMMAND = "id";
-  private static final String EXIT         = "exit\n";
-  private static final String RUN_ERROR    = "___SHELL_ERROR";
+  private static final String EXIT = "exit\n";
+
+  private static final String[] SU_COMMANDS = new String[]{
+    "su",
+    "/system/xbin/su",
+    "/system/bin/su"
+  };
+
+  private static final String[] TEST_COMMANDS = new String[]{
+    "id",
+    "/system/xbin/id",
+    "/system/bin/id"
+  };
 
   public static synchronized boolean isSuAvailable() {
-    if (!suChecked) {
+    if (shell == null) {
       checkSu();
-      suChecked = true;
     }
-    return suBinary != null;
+    return shell != null;
   }
 
-  public static synchronized void setSuChecked(boolean suChecked) {
-    ShellInterface.suChecked = suChecked;
+  public static synchronized void setShell(String shell) {
+    ShellInterface.shell = shell;
   }
 
   private static boolean checkSu() {
-    suBinary = XBIN_SU;
-    if (isRootUid()) return true;
-    suBinary = BIN_SU;
-    if (isRootUid()) return true;
-    suBinary = null;
+    for (String command : SU_COMMANDS) {
+      shell = command;
+      if (isRootUid()) return true;
+    }
+    shell = null;
     return false;
   }
 
   private static boolean isRootUid() {
-    String out = getProcessOutput(TEST_COMMAND);
-    if (out == null) return false;
+    String out = null;
+    for (String command : TEST_COMMANDS) {
+      out = getProcessOutput(command);
+      if (out != null && out.length() > 0) break;
+    }
+    if (out == null || out.length() == 0) return false;
     Matcher matcher = UID_PATTERN.matcher(out);
     if (matcher.matches()) {
       if ("0".equals(matcher.group(1))) {
@@ -66,21 +88,27 @@ public class ShellInterface {
   }
 
   public static String getProcessOutput(String command) {
-    String out = _runCommand(command, OUTPUT.STDERR);
-    if (RUN_ERROR.equals(out)) return null;
-    return out;
+    try {
+      return _runCommand(command, OUTPUT.STDERR);
+    } catch (IOException ignored) {
+      return null;
+    }
   }
 
   public static boolean runCommand(String command) {
-    String out = _runCommand(command, OUTPUT.BOTH);
-    return out == null;
+    try {
+      _runCommand(command, OUTPUT.BOTH);
+      return true;
+    } catch (IOException ignored) {
+      return false;
+    }
   }
 
-  private static String _runCommand(String command, OUTPUT o) {
+  private static String _runCommand(String command, OUTPUT o) throws IOException {
     DataOutputStream os = null;
     Process process = null;
     try {
-      process = Runtime.getRuntime().exec(suBinary);
+      process = Runtime.getRuntime().exec(shell);
       os = new DataOutputStream(process.getOutputStream());
       InputStreamHandler sh = sinkProcessOutput(process, o);
       os.writeBytes(command + '\n');
@@ -90,13 +118,15 @@ public class ShellInterface {
       process.waitFor();
       if (sh != null) {
         String output = sh.getOutput();
-        Log.d(StartUpView.TAG, command + " output: " + output);
+        Log.d(TAG, command + " output: " + output);
         return output;
       } else {
         return null;
       }
     } catch (Exception e) {
-      Log.e(StartUpView.TAG, "runCommand error: " + e.getMessage());
+      final String msg = e.getMessage();
+      Log.e(TAG, "runCommand error: " + msg);
+      throw new IOException(msg);
     } finally {
       try {
         if (os != null) {
@@ -107,7 +137,6 @@ public class ShellInterface {
         }
       } catch (Exception ignored) {}
     }
-    return RUN_ERROR;
   }
 
   public static InputStreamHandler sinkProcessOutput(Process p, OUTPUT o) {
