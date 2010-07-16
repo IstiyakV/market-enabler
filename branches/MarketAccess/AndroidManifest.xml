@@ -25,14 +25,13 @@
 
     <receiver android:name=".BootReceiver">
       <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.SIM_STATE_CHANGED"/>
       </intent-filter>
     </receiver>
 
     <service android:name=".EmulateService"/>
 
   </application>
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
   <uses-permission android:name="android.permission.GET_TASKS"/>
   <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
