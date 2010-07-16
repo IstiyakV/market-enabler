@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import ru.org.amip.MarketAccess.utils.AppManager;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 import ru.org.amip.MarketAccess.view.StartUpView;
 
@@ -33,8 +32,6 @@ public class EmulateService extends WakefulIntentService {
 
     if (settings.getBoolean(StartUpView.SHOW_NOTIFICATION, false)) {
       showNotification(ctx, sim);
-    } else {
-      AppManager.getInstance().suicide();
     }
   }
 

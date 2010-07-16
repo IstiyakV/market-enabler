@@ -10,13 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import ru.org.amip.MarketAccess.R;
-import ru.org.amip.MarketAccess.utils.AppManager;
 import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 import ru.org.amip.MarketAccess.utils.ShellInterface;
@@ -274,14 +272,6 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
     if (tabId.equals(ACTUAL)) {
       updateActualView();
     }
-  }
-
-  @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      AppManager.getInstance().suicide();
-    }
-    return super.onKeyDown(keyCode, event);
   }
 
   class GetInstallLocation extends AsyncTask<Void, Void, Integer> {

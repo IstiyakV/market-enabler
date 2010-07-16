@@ -120,7 +120,7 @@ public class RunWithProgress {
 
   public void doRunForeground() {
     silent = true;
-    new RunTask().runCommands(commands);
+    doRunCommands(commands, null);
   }
 
   private void handleOwn(String single) {
@@ -188,6 +188,40 @@ public class RunWithProgress {
     return false;
   }
 
+  private RunResult doRunCommands(String[] commands, ProgressCallback callback) {
+    if (!ShellInterface.isSuAvailable()) {
+      return NO_ROOT;
+    }
+    int i = 0;
+    try {
+      for (String cmd : commands) {
+        Log.i(StartUpView.TAG, cmd);
+        if (cmd.startsWith(KILL_ALL)) {
+          // special treatment for killall command, use java to kill the process
+          handleKill(cmd);
+        } else if (cmd.startsWith(SETPREF)) {
+          handlePref(cmd);
+        } else if (cmd.startsWith(SETOWN)) {
+          handleOwn(cmd);
+        } else if (cmd.startsWith(VERIFY)) {
+          if (!handleVerify(cmd)) return ERROR;
+        } else {
+          if (!ShellInterface.runCommand(cmd)) throw new IOException("Shell command failed: " + cmd);
+        }
+        if (!silent) callback.progress(++i);
+      }
+      if (!silent) callback.progress(++i);
+      return OK;
+    } catch (Exception e) {
+      Log.e(StartUpView.TAG, "RunTask error", e);
+      return ERROR;
+    }
+  }
+
+  interface ProgressCallback {
+    void progress(int i);
+  }
+
   class RunTask extends AsyncTask<String[], Integer, RunResult> {
     @Override
     protected void onPreExecute() {
@@ -234,33 +268,12 @@ public class RunWithProgress {
     }
 
     public RunResult runCommands(String[] commands) {
-      if (!ShellInterface.isSuAvailable()) {
-        return NO_ROOT;
-      }
-      int i = 0;
-      try {
-        for (String cmd : commands) {
-          Log.i(StartUpView.TAG, cmd);
-          if (cmd.startsWith(KILL_ALL)) {
-            // special treatment for killall command, use java to kill the process
-            handleKill(cmd);
-          } else if (cmd.startsWith(SETPREF)) {
-            handlePref(cmd);
-          } else if (cmd.startsWith(SETOWN)) {
-            handleOwn(cmd);
-          } else if (cmd.startsWith(VERIFY)) {
-            if (!handleVerify(cmd)) return ERROR;
-          } else {
-            if (!ShellInterface.runCommand(cmd)) throw new IOException("Shell command failed: " + cmd);
-          }
-          publishProgress(++i);
+      return doRunCommands(commands, new ProgressCallback() {
+        @Override
+        public void progress(int i) {
+          publishProgress(i);
         }
-        publishProgress(++i);
-        return OK;
-      } catch (Exception e) {
-        Log.e(StartUpView.TAG, "RunTask error", e);
-        return ERROR;
-      }
+      });
     }
   }
 }
