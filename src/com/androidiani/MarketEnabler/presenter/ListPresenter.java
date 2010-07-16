@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.androidiani.MarketEnabler.model.ProviderConfig;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class ListPresenter implements Runnable {
 	private final IListView view;
@@ -37,6 +38,14 @@ public class ListPresenter implements Runnable {
 		"E-Plus"));
 		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
 		"T-Mobile"));
+		list.add(new ProviderConfig(22201, 22201, "it", "it", "TIM", "TIM"));
+		list.add(new ProviderConfig(50501, 50501, "au", "au", "Telstra",
+		"Telstra"));
+		list.add(new ProviderConfig(23203, 23203, "at", "at", "T-Mobile",
+		"T-Mobile"));
+		list.add(new ProviderConfig(20416, 20416, "nl", "nl", "T-Mobile",
+		"T-Mobile"));
+		list.add(new ProviderConfig(27203, 27203, "ie", "ie", "", "Meteor"));
 
 		return list;
 	}
@@ -45,11 +54,16 @@ public class ListPresenter implements Runnable {
 		writePropCommand = cmd;
 	}
 	public void setValues(int i) {
+
+
 		Log.d("MarketEnabler", "starting setValues with list item[" + i + "]");
 		ProviderConfig tmp = list.get(i);
 		Log.d("MarketEnabler", "starting setValues with list item[" + i
 				+ "] provider config[" + tmp.getGsmOperatorAlpha() + "]");
 		setValues(tmp);
+
+		GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
+		tracker.trackPageView("/fake_provider/"+tmp.getGsmOperatorAlpha());
 	}
 	public void setValues(ProviderConfig settings) {
 		Log.d("MarketEnabler", "starting setValues");
@@ -59,15 +73,16 @@ public class ListPresenter implements Runnable {
 				+ settings.getGsmSimOperatorNumeric(),
 				"setprop gsm.operator.numeric "
 				+ settings.getGsmOperatorNumeric(),
-				"setprop gsm.sim.operator.iso-country "
-				+ settings.getGsmSimOperatorIsoCountry(),
-				"setprop gsm.operator.iso-country "
-				+ settings.getGsmOperatorIsoCountry(),
-				"setprop gsm.operator.alpha \""
-				+ settings.getGsmOperatorAlpha() + "\"",
-				"setprop gsm.sim.operator.alpha \""
-				+ settings.getGsmSimOperatorAlpha() + "\"",
-				"kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
+				// "setprop gsm.sim.operator.iso-country "
+				// + settings.getGsmSimOperatorIsoCountry(),
+				// "setprop gsm.operator.iso-country "
+				// + settings.getGsmOperatorIsoCountry(),
+				// "setprop gsm.operator.alpha \""
+				// + settings.getGsmOperatorAlpha() + "\"",
+				// "setprop gsm.sim.operator.alpha \""
+				// + settings.getGsmSimOperatorAlpha() + "\"",
+				// "kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)",
+				"killall com.android.vending",
 		"rm -rf /data/data/com.android.vending/cache/*" };
 
 		setCommand(writePropCommand);

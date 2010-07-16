@@ -1,8 +1,10 @@
 package com.androidiani.MarketEnabler.view;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -12,30 +14,39 @@ import android.widget.TabHost.TabSpec;
 
 import com.androidiani.MarketEnabler.R;
 import com.androidiani.MarketEnabler.presenter.IActualView;
+import com.androidiani.MarketEnabler.update.Update;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private IActualView viewActual = null;
 	private CustomView viewCustom = null;
-	private ListView viewList = null;
+	private final ListView viewList = null;
 	private TelephonyManager tm = null;
 	private android.widget.ListView list;
-	
+	private GoogleAnalyticsTracker tracker;
+	private Context ctx;
 	public android.widget.ListView getList() {
 		return list;
 	}
 
-	private static final int CONTEXTMENU_SETITEM = 0;
-	private static final int CONTEXTMENU_MAKEDEFAULT = 1;
-	
-	private String[] mStrings = new String[] { "Android", "Google", "Eclipse",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa",
-			"sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa", "sdfa" }; 
-	
+
+
+
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		/** get telephony manager **/
-		tm = (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
+		/** start update service **/
+		ctx = getApplicationContext();
 		
+		
+		tracker = GoogleAnalyticsTracker.getInstance();
+		tracker.start("UA-10016187-3", this);
+		tracker.setDispatchPeriod(10);// 5 secondi
+
+		tracker.trackPageView("/");
+		/** get telephony manager **/
+		tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+
 		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
@@ -48,22 +59,22 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
 		// mTabHost.addTab(mTabHost.newTabSpec("list").setIndicator("Settings list")
 		// .setContent(R.id.list));
-     
+
 		TabSpec tab = mTabHost.newTabSpec("List").setIndicator("Settings list");
 		tab.setContent(new Intent(this, ListView.class));
-		mTabHost.addTab(tab); 
-		
+		mTabHost.addTab(tab);
+
 		mTabHost.addTab(mTabHost.newTabSpec("custom")
 				.setIndicator("Set custom").setContent(R.id.custom));
 		mTabHost.setOnTabChangedListener(this);
-		
+
 		/** set current tab */
 		mTabHost.setCurrentTabByTag("actual");
-		
-		viewActual = new ActualView(this); 
+
+		viewActual = new ActualView(this);
 		viewCustom = new CustomView(this);
 		// viewList = new ListView(this);
-		
+
 		/**
 		 * Sorry for this break of MVP but i couldn't manage the ListView
 		 * because of exception
@@ -91,7 +102,19 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		//
 		// });
 		
-		
+		//Timer that will start the update thread in 500ms from Activity rendering :)
+		CountDownTimer ctimer = new CountDownTimer(500, 500) {
+	    	public void onTick(long muf) {
+	    		
+	    	}
+	    	
+	    	public void onFinish()  {
+	    		
+	    		ctx.startService(new Intent(ctx, Update.class));
+	    		
+	    	} 
+	    };
+	    ctimer.start();
 	}
 
 	// public boolean onContextItemSelected(MenuItem aItem) {
@@ -110,20 +133,21 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	// }
 	// return false;
 	// }
-	//	
+	//
 	public View createTabContent(String tag) {
-		
+
 		return null;
 	}
 
 	@Override
 	public void onTabChanged(String tabId) {
+		tracker.trackPageView("/tab_"+tabId);
 		Log.i("MarketEnabler", "Changed to tab initiated [" + tabId + "]");
 		if (tabId.equals("actual")) {
 			viewActual.updateView();
 		} else if (tabId.equals("custom")) {
 			/* is it really needed to update custom view? I don't
-			 * think so! 
+			 * think so!
 			 * // viewCustom.updateView(); }
 			 */
 		} else if (tabId.equals("list")) {
@@ -135,5 +159,11 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	public TelephonyManager getTelephonyManager() {
 		return tm;
 	}
-	
+
+	@Override
+	public void onPause() {
+		tracker.dispatch();
+		super.onPause();
+	}
+
 }
