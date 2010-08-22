@@ -87,6 +87,34 @@ I summed up all donations up to this point (paypal comissions, 2.9% + $0.30 USD 
 This makes a total of about ~450 USD since we published the first version (that was about March 2009)
 
 || *Date* || *Who* || *Reason / Comment* || *Ammount* || Via ||
-
+|| 12.05.10 || TBM || || 5 USD || AndAppStore ||
+|| 13.05.10 || MAP || || 5 USD || AndAppStore ||
+|| 17.05.10 || NQ || || 3 USD || PayPal ||
+|| 02.06.10 || JTT || || 5 USD || AndAppStore ||
+|| 04.06.10 || PK || || 5 USD || AndAppStore ||
+|| 05.06.10 || Kiwi || || 5 USD || AndAppStore ||
+|| 08.06.10 || PF || || 4 Euro || PayPal ||
+|| 08.06.10 || AH || || 5 Euro || AndAppStore ||
+|| 16.06.10 || PRL || || 10 Euro || AndAppStore ||
+|| 28.06.10 || AL || || 5 USD || AndAppStore ||
+|| 30.06.10 || KA || || 5 USD || AndAppStore ||
+|| 02.07.10 || SB || || 5 EUR || AndAppStore ||
+|| 05.07.10 || UM || || 5 USD || AndAppStore ||
+|| 06.07.10 || EL ||  || 10 EUR || AndAppStore ||
+|| 10.07.10 || AS ||  || 5 USD || AndAppStore ||
+|| 14.07.10 || All users || Advertising 01.04.10 - 31.05.10|| 41.40 USD || AdMob ||
+|| 15.07.10 || ACB ||  || 1 EUR || PayPal ||
+|| 15.07.10 || HD ||  || 5 USD || AndAppStore ||
+|| 21.07.10 || AB ||  || 5 USD || AndAppStore ||
+|| 30.07.10 || AU ||  || 5 USD || AndAppStore ||
+|| 03.08.10 || PP ||  || 5 USD || AndAppStore ||
+|| 03.08.10 || NM ||  || 5 USD || AndAppStore ||
+|| 04.08.10 || OS ||  || 5 USD || AndAppStore ||
+|| 08.08.10 || DM ||  || 5 EUR || PayPal ||
+|| 11.08.10 || SHK ||  || 5 EUR || AndAppStore ||
+|| 11.08.10 || RB ||  || 10 USD || AndAppStore ||
+|| 13.08.10 || All users || Advertising 01.06.10 - 30.06.10|| 21.59 USD || AdMob ||
+|| 21.08.10 || LF || || 5 USD || AndAppStore ||
+|| Date || Who || Comment || Ammount || Via ||
 
 TODO: implement autoupdate with paypal API including comments left on PayPal ;-)
