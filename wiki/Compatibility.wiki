@@ -1,6 +1,6 @@
 #summary Table of Device / ROM working or non working reports
 #labels Featured,Phase-QA
-
+<wiki:gadget url="http://buncha-toolz.googlecode.com/svn/trunk/google_gadgets/custom_adsense/custom_adsense.xml" g_client="pub-1304947992104673" g_slot="3752098995" g_format="336x280" width="600" height="280" up_g_client="pub-1304947992104673" up_g_slot="3752098995" up_g_format="336x280"/>
 Please feel free to post your info in the comments and I will add it to the table.
 
 || *Device* || *Android Version* || *ROM* || *fully working* || *comment* ||
