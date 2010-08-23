@@ -1,6 +1,6 @@
 #summary Who donated to us
 #labels Featured
-
+<wiki:gadget url="http://buncha-toolz.googlecode.com/svn/trunk/google_gadgets/custom_adsense/custom_adsense.xml" g_client="pub-1304947992104673" g_slot="3752098995" g_format="336x280" width="336" height="280" up_g_client="pub-1304947992104673" up_g_slot="3752098995" up_g_format="336x280"/>
 = People who donated to this Project or the coders =
 || *Date* || *Who* || *Reason / Comment* || *Ammount* || Via ||
 || 12.09.09 ||  Luís Abreu ( lmjabreu ) || 'cos it's a really handy app || 10 Euro <wiki:comment>collected by Andrea</wiki:comment>|| Paypal ||
