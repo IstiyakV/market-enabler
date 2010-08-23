@@ -1,6 +1,6 @@
 #summary How to drop the shell commands
 #labels Phase-Design
-
+<wiki:gadget url="http://buncha-toolz.googlecode.com/svn/trunk/google_gadgets/custom_adsense/custom_adsense.xml" g_client="pub-1304947992104673" g_slot="3752098995" g_format="336x280" width="600" height="280" up_g_client="pub-1304947992104673" up_g_slot="3752098995" up_g_format="336x280"/>
 = Problem =
 There exist certain ways how to drop a shell command from an application.
 Some of them end in force close on some circumstances.
