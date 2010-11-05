@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.androidiani.MarketEnabler"
-      android:versionName="3.0.8" android:versionCode="308">
+      package="ch.racic.android.marketenabler.ads"
+      android:versionName="3.0.9" android:versionCode="1011051">
        <uses-sdk android:minSdkVersion="1" />
     <application android:icon="@drawable/me348" android:label="@string/app_name">
     	<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion" android:value="same value as android:versionCode" />
     	<meta-data android:name="com.a0soft.gphone.aTrackDog.webURL" android:value="http://code.google.com/p/market-enabler" />
 		<meta-data android:name="com.a0soft.gphone.aTrackDog.dlURL" android:value="http://code.google.com/p/market-enabler/downloads/list" />
-		<meta-data android:name="com.a0soft.gphone.aTrackDog.noMarket" android:value="true" />
-        <activity android:name=".view.StartUpView"
+		<meta-data android:name="com.a0soft.gphone.aTrackDog.noMarket" android:value="false" />
+        <activity android:name=".Splash"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ListView"
+        <activity android:name="com.androidiani.MarketEnabler.view.ListView"
                   android:label="@string/app_name" />
-   
-        <!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14b0f31c6c9c79" android:name="ADMOB_PUBLISHER_ID" /> 
+        <activity android:name="com.androidiani.MarketEnabler.view.StartUpView"
+                  android:label="@string/app_name" />
+         <!-- The application's publisher ID assigned by AdMob -->
+         <meta-data android:value="a14b0f31c6c9c79" android:name="ADMOB_PUBLISHER_ID" /> 
+         <!-- AdMobActivity definition -->
+		<activity android:name="com.admob.android.ads.AdMobActivity"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:configChanges="orientation|keyboard|keyboardHidden" />
+		<!-- Track Market installs -->
+		<receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="com.android.vending.INSTALL_REFERRER" />
+			</intent-filter>
+		</receiver>
+
+		<!-- The application's Adclient ID assigned by ZestADZ -->
+		<meta-data android:value="14131C047A50414B4F5640544459455682852A" android:name="ZestADZ_Adclient_ID" />
 		
 		<!-- Update service -->        
-        <service android:name=".update.Update" />            
+        <service android:name="com.androidiani.MarketEnabler.update.Update" />            
     </application>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<!--  used for AdWhirl -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest> 
