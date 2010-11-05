@@ -29,8 +29,9 @@ public class ListPresenter implements Runnable {
 
 	public ArrayList<ProviderConfig> createDefaultList() {
 		list = new ArrayList<ProviderConfig>();
-		list.add(new ProviderConfig(22802, 22802, "ch", "ch", "sunrise",
-		"sunrise"));
+		list.add(new ProviderConfig(22802, 22802, "ch", "ch", "sunrise", "sunrise"));
+		list.add(new ProviderConfig(22801, 22801, "ch", "ch", "swisscom", "swisscom"));
+		list.add(new ProviderConfig(22803, 22803, "ch", "ch", "orange", "orange"));
 		list.add(new ProviderConfig(26207, 26207, "de", "de", "o2 - de",
 		"o2 - de"));
 		list
