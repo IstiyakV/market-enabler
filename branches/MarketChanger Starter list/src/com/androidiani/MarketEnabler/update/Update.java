@@ -104,7 +104,11 @@ public class Update extends Service {
 			// e1.printStackTrace();
 			Log.i(logName, e1.getLocalizedMessage());
 			return false;
+		} catch (NumberFormatException e2) {
+			  Log.i(logName, e2.getLocalizedMessage());
+			  return false;
 		}
+
 		if (actualVersion < latestVersion) {
 			try {
 				latestUrl = getHttpString(urlLatestUrl);
