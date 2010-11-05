@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="ch.racic.android.marketenabler.ads"
-      android:versionName="3.0.9" android:versionCode="1011051">
+      android:versionName="3.0.9" android:versionCode="1011051" android:installLocation="auto">
        <uses-sdk android:minSdkVersion="1" />
     <application android:icon="@drawable/me348" android:label="@string/app_name">
     	<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion" android:value="same value as android:versionCode" />
