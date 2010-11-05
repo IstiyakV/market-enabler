@@ -3,16 +3,22 @@ package com.androidiani.MarketEnabler.view;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
-import com.androidiani.MarketEnabler.R;
+import ch.racic.android.marketenabler.ads.R;
+
+import com.adwhirl.AdWhirlLayout;
 import com.androidiani.MarketEnabler.presenter.IActualView;
 import com.androidiani.MarketEnabler.update.Update;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
@@ -25,6 +31,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private android.widget.ListView list;
 	private GoogleAnalyticsTracker tracker;
 	private Context ctx;
+	
 	public android.widget.ListView getList() {
 		return list;
 	}
@@ -38,7 +45,6 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		/** start update service **/
 		ctx = getApplicationContext();
 		
-		
 		tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.start("UA-10016187-3", this);
 		tracker.setDispatchPeriod(10);// 5 secondi
@@ -50,6 +56,17 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mainview);
+		
+		Log.i("MarketEnabler", "Setup ads");
+		LinearLayout layout = (LinearLayout) findViewById(R.id.ads);
+		AdWhirlLayout adWhirlLayout = new AdWhirlLayout(this, "950d37c5a6b54c82a2dcb752f7a91112");
+		RelativeLayout.LayoutParams adWhirlLayoutParams =
+		new RelativeLayout.LayoutParams(
+		LayoutParams.FILL_PARENT,
+		LayoutParams.WRAP_CONTENT);
+		layout.addView(adWhirlLayout, adWhirlLayoutParams);
+		layout.invalidate();
+		
 		Log.i("MarketEnabler", "Start setting up tabs");
 		/** setup tabs **/
 		TabHost mTabHost = getTabHost();
@@ -109,9 +126,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	    	}
 	    	
 	    	public void onFinish()  {
-	    		
 	    		ctx.startService(new Intent(ctx, Update.class));
-	    		
 	    	} 
 	    };
 	    ctimer.start();
@@ -160,6 +175,11 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		return tm;
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+	
 	@Override
 	public void onPause() {
 		tracker.dispatch();

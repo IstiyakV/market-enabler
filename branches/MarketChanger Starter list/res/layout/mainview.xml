@@ -2,30 +2,26 @@
 <TabHost 
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:admobsdk="http://schemas.android.com/apk/res/com.admob.android.ads"
-	xmlns:app="http://schemas.android.com/apk/res/com.androidiani.MarketEnabler"
+	xmlns:app="http://schemas.android.com/apk/res/ch.racic.android.marketenabler.ads"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    		
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        
-<com.admob.android.ads.AdView 
-        	android:id="@+id/ad" 
-        	android:layout_width="fill_parent" 
-        	android:layout_height="wrap_content" 
-        	android:layout_alignParentBottom="true"
-        	android:visibility="visible"  
-        	app:keywords="Market fake buy application" 
-        	app:testing="false" 
-        	app:refreshInterval="60"
-          app:isGoneWithoutAd="false" 
-        	/>
+        <LinearLayout
+			android:id="@+id/ads"
+			android:layout_width="fill_parent"
+			android:layout_height="50dip"
+			android:scaleType="centerInside"
+		/>
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+            
             <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
