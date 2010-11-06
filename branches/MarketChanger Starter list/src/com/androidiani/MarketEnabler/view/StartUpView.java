@@ -1,14 +1,19 @@
 package com.androidiani.MarketEnabler.view;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
@@ -16,7 +21,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
-import ch.racic.android.marketenabler.ads.R;
+import ch.racic.android.marketenabler.R;
 
 import com.adwhirl.AdWhirlLayout;
 import com.androidiani.MarketEnabler.presenter.IActualView;
@@ -31,6 +36,9 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private android.widget.ListView list;
 	private GoogleAnalyticsTracker tracker;
 	private Context ctx;
+	private boolean isAppPayed;
+	private final String	paypalDonateUrl	= "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SJDNMZ5JLZRSU&lc=CH&item_name=Android%20Market%20Enabler%20%2d%20Developement%20team&item_number=MarketEnabler&currency_code=CHF&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
+	private final String	marketDonateUrl	= "market://search?q=pname:ch.racic.android.marketenabler.donatekey";
 	
 	public android.widget.ListView getList() {
 		return list;
@@ -55,17 +63,65 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
 		Log.i("MarketEnabler", "Start app");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mainview);
 		
-		Log.i("MarketEnabler", "Setup ads");
-		LinearLayout layout = (LinearLayout) findViewById(R.id.ads);
-		AdWhirlLayout adWhirlLayout = new AdWhirlLayout(this, "950d37c5a6b54c82a2dcb752f7a91112");
-		RelativeLayout.LayoutParams adWhirlLayoutParams =
-		new RelativeLayout.LayoutParams(
-		LayoutParams.FILL_PARENT,
-		LayoutParams.WRAP_CONTENT);
-		layout.addView(adWhirlLayout, adWhirlLayoutParams);
-		layout.invalidate();
+		/** check if donate key is available **/
+		if(!isAppPayed) { 
+			if (isPackageAvailable("ch.racic.android.marketenabler.donatekey")) {
+				setAppToPayed();
+				setContentView(R.layout.mainview_donate);
+				Log.i("MarketEnabler", "Loading in donate mode");
+			} else {
+				setContentView(R.layout.mainview);
+				Log.i("MarketEnabler", "Setup ads");
+				LinearLayout layout = (LinearLayout) findViewById(R.id.ads);
+				AdWhirlLayout adWhirlLayout = new AdWhirlLayout(this, "950d37c5a6b54c82a2dcb752f7a91112");
+				RelativeLayout.LayoutParams adWhirlLayoutParams =
+					new RelativeLayout.LayoutParams(
+							LayoutParams.FILL_PARENT,
+							LayoutParams.WRAP_CONTENT);
+				layout.addView(adWhirlLayout, adWhirlLayoutParams);
+				layout.invalidate();
+				/** find the paypal donate view **/
+				final Button paypal = (Button) findViewById(R.id.donatePaypal);
+				/** find the market donate view **/
+				final Button market = (Button) findViewById(R.id.donateMarket);
+				/**
+				 * create an intent that can be fired if the paypal donate button gets
+				 * pressed
+				 **/
+				final Intent paypalIntent = new Intent("android.intent.action.VIEW",
+						Uri.parse(paypalDonateUrl));
+				/**
+				 * create an intent that can be fired if the market donate button gets
+				 * pressed
+				 **/
+				final Intent marketIntent = new Intent("android.intent.action.VIEW",
+						Uri.parse(marketDonateUrl));
+
+				/**
+				 * create an onClick listener for the logo and buttons that fires the
+				 * intent
+				 **/
+				paypal.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View view) {
+						startActivity(paypalIntent);
+					}
+				});
+				market.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View view) {
+						startActivity(marketIntent);
+					}
+				});
+			}
+		} else {
+			setContentView(R.layout.mainview_donate);
+			Log.i("MarketEnabler", "Loading in donate mode");
+		}
+		
+		/** check if old package is installed that is deprecated **/
+		if(isOldPackageStillInstalled()) {
+			oldVersionNotifyDialog();
+        }
 		
 		Log.i("MarketEnabler", "Start setting up tabs");
 		/** setup tabs **/
@@ -132,6 +188,14 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	    ctimer.start();
 	}
 
+	private void setAppToPayed() {
+		isAppPayed = true;
+	}
+
+
+
+
+
 	// public boolean onContextItemSelected(MenuItem aItem) {
 	// AdapterView.AdapterContextMenuInfo menuInfo =
 	// (AdapterView.AdapterContextMenuInfo) aItem
@@ -185,5 +249,43 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 		tracker.dispatch();
 		super.onPause();
 	}
+	
+ 
+	public boolean isPackageAvailable(String packageName) {
+		int sigMatch = getPackageManager().checkSignatures(getPackageName(), packageName);
+		return sigMatch == PackageManager.SIGNATURE_MATCH;
+	}
+	
+	public boolean isOldPackageStillInstalled() {
+		int sigMatch = getPackageManager().checkSignatures(getPackageName(), "com.androidiani.MarketEnabler");
+		boolean ret = sigMatch == PackageManager.SIGNATURE_MATCH;
+		Log.i("MarketEnabler", "check for old installed package = "+ret);
+		return ret;
+	}
+	
 
+	private void oldVersionNotifyDialog() {
+		AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+			alt_bld.setMessage("You have still installed an old MarketEnabler version!\nI have changed the package name to publish it to the market and you can safely uninstall the old version.\n\nDo you want to uninstall the old package now?")
+				.setCancelable(false)
+				.setPositiveButton(getString(android.R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// Action for 'Yes' Button
+						Uri uri = Uri.fromParts("package", "com.androidiani.MarketEnabler", null);
+						Intent deleteIntent = new Intent(Intent.ACTION_DELETE, uri);
+						startActivity(deleteIntent);
+					}
+				})
+				.setNegativeButton(getString(android.R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//  Action for 'NO' Button
+						dialog.cancel();
+					}
+				});
+				AlertDialog alert = alt_bld.create();
+				// 	Title for AlertDialog
+				alert.setTitle("Title");
+				alert.show();
+		}
+	
 }

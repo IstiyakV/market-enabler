@@ -49,28 +49,6 @@ android:layout_marginLeft="20px"
             android:text="Restore settings" />
 </TableRow>
 
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
-    	<TableRow>
-			<Button
-				android:id="@+id/donatePaypal"
-				android:layout_width="150dip"
-				android:layout_height="wrap_content"
-				android:layout_gravity="left"
-				android:background="@drawable/donate_paypal"
-				android:contentDescription="@string/donate_paypal"
-			/>
-        	<Button android:id="@+id/donateMarket"
-				android:layout_width="150dip"
-				android:layout_height="wrap_content"
-				android:layout_gravity="right"
-				android:background="@drawable/donate_market"
-				android:contentDescription="@string/donate_market"  
-			/>
-	    </TableRow>
-	</TableLayout>
 	
 <TextView
 android:id="@+id/actualaboutText"

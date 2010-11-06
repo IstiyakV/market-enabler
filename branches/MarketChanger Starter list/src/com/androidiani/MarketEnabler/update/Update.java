@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import ch.racic.android.marketenabler.ads.R;
+import ch.racic.android.marketenabler.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ch.racic.android.marketenabler.ads.R;
+import ch.racic.android.marketenabler.R;
 
 import com.androidiani.MarketEnabler.presenter.ActualPresenter;
 import com.androidiani.MarketEnabler.presenter.IActualView;
