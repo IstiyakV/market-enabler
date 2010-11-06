@@ -11,12 +11,6 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        <LinearLayout
-			android:id="@+id/ads"
-			android:layout_width="fill_parent"
-			android:layout_height="50dip"
-			android:scaleType="centerInside"
-		/>
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
@@ -28,7 +22,7 @@
             android:layout_height="fill_parent">
                     	
     <!-- include the tab content views -->
-	<include android:id="@+id/actual" layout="@layout/actualsettings" />
+	<include android:id="@+id/actual" layout="@layout/actualsettings_donate" />
 	<include android:id="@+id/list" layout="@layout/listofsettings" />
 	<include android:id="@+id/custom" layout="@layout/customsettings" />
 	<!-- <include android:id="@+id/old" layout="@layout/main" />  -->
