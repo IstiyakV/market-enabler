@@ -1,7 +1,13 @@
 package com.androidiani.MarketEnabler.view;
 
+import android.content.Intent;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +16,10 @@ import android.widget.Toast;
 
 import ch.racic.android.marketenabler.R;
 
+import com.androidiani.MarketEnabler.model.ProviderConfig;
 import com.androidiani.MarketEnabler.presenter.CustomPresenter;
 import com.androidiani.MarketEnabler.presenter.ICustomView;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class CustomView implements ICustomView {
 	
@@ -19,6 +27,7 @@ public class CustomView implements ICustomView {
 	private TextView simNumeric, operatorNumeric, simISO, operatorISO,
 			simAlpha, operatorAlpha;
 	private Button setValues;
+	private Button setForFakeOnBoot;
 
 	private StartUpView startup;
 	private CustomPresenter presenter;
@@ -44,7 +53,6 @@ public class CustomView implements ICustomView {
 					Toast.makeText(startup, "We Got a Problem Houston :(",
 							Toast.LENGTH_LONG).show();
 				startup.getTabHost().setCurrentTabByTag("actual");
-
 			}
 
 		}
@@ -92,9 +100,49 @@ public class CustomView implements ICustomView {
 			}
 		});
 		
-		
+		setForFakeOnBoot = (Button) startup.findViewById(R.id.customsetOnBoot);
+		setForFakeOnBoot.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				setFakeOnBoot(getSimNumeric());
+			}
+		});
 		 
 	}
+	
+	public void setFakeOnBoot(String providerCode) {
+		if(isPackageAvailable("ch.racic.android.marketenabler.donatekey")) {
+			Log.d("MarketEnabler", "save for fakeOnBoot with code [" + providerCode + "]");
+			setFakeOnBootRecord(providerCode);
+
+			GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
+			tracker.trackPageView("/fakeOnBoot/"+providerCode);
+			// send intent
+			Intent i2 = new Intent();
+			i2.setAction("ch.racic.android.marketenabler.plugin.fakeonboot.SET_CODE");
+			Bundle c = new Bundle();            
+			c.putString("code", providerCode);
+			i2.putExtras(c);
+			startup.getApplicationContext().sendBroadcast(i2);
+		} else {
+			 Toast.makeText(startup, "fakeOnBoot needs the donate key, you can get it from Market or I will send it to every paypal donator.\n\nThe donate key app has a boot receiver and will initiate MarketEnabler with the set fakeOnBoot provider code after the boot broadcast has been received.", 2*Toast.LENGTH_LONG).show();
+			 startup.startActivity(new Intent("android.intent.action.VIEW",Uri.parse(StartUpView.marketDonateUrl)));
+		}
+	}
+
+	private void setFakeOnBootRecord(String providerCode) {
+	    Editor prefsEditor = PreferenceManager.getDefaultSharedPreferences(
+	    		startup.getApplicationContext()).edit();
+		prefsEditor.putString("FakeOnBootName", "Custom");
+		prefsEditor.putString("FakeOnBootCode", providerCode);
+		prefsEditor.commit();
+		prefsEditor = null;
+	}
+	
+	public boolean isPackageAvailable(String packageName) {
+		int sigMatch = startup.getPackageManager().checkSignatures(startup.getPackageName(), packageName);
+		return sigMatch == PackageManager.SIGNATURE_MATCH;
+	}
+
 
 	public void displayError(String error) {
 		// TODO Auto-generated method stub

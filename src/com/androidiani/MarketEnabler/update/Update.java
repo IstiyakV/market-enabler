@@ -17,10 +17,13 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -30,14 +33,14 @@ import android.util.Log;
  * @author rac
  *
  */
-public class Update extends Service {
+public class Update extends Service implements Runnable{
 
 	private static final String EXTRA_NOTIFY = "EXTRA_NOTIFY";
 	private static final String DOWNLOAD_URL = "DOWNLOAD_URL";
 	/** Constants **/
 	private static String urlLatestVersion = "http://market-enabler.googlecode.com/svn/branches/MarketChanger%20Starter%20list/update/latestversion";
 	private static String urlLatestUrl = "http://market-enabler.googlecode.com/svn/branches/MarketChanger%20Starter%20list/update/latesturl";
-	private static String logName = "MarketEnabler update";
+	private static String logName = "MarketEnabler";
 	private static int UPDATE_NOTIFICATION_ID = 1;
 
 	/** Variables **/
@@ -62,7 +65,7 @@ public class Update extends Service {
 			this.startActivity(downloadIntent);
 			this.stopSelf();
 			return;
-		} 
+		} else if (isBackgroundDataEnabled() && isOnline()){
 		/** get me my preferences **/
 		settings = PreferenceManager
 		.getDefaultSharedPreferences(getBaseContext());
@@ -73,18 +76,10 @@ public class Update extends Service {
 			actualVersion = pi.versionCode;
 		} catch (PackageManager.NameNotFoundException e) {
 		}
-		/** does a update exist? **/
-		if (checkForUpdate()) {
-			// Update exists
-			Log.i(logName, "MarketEnabler version " + latestVersion
-					+ " is available!");
-			updateNotify();
-		} else {
-			// no update needed
-			Log.i(logName,
-			"you have the latest version of MarketEnabler running");
-		}
+		Thread thread = new Thread(this);
+		thread.start();
 		this.stopSelf();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -198,5 +193,41 @@ public class Update extends Service {
 
 	}
 
+	private boolean isBackgroundDataEnabled() {
+        ConnectivityManager connManager =
+                (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isBDE = connManager.getBackgroundDataSetting();
+		Log.i(logName, "Is background data enabled ["+isBDE+"]");
+		return isBDE;
+    }
+	
+	private boolean isOnline() {
+		 ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		 Log.i(logName, "ConnectivityManager is null? ["+(cm == null)+"]");
+		 
+		 NetworkInfo ni = cm.getActiveNetworkInfo();
+		 boolean isCon = false;
+		 if(ni != null) {
+			 isCon = ni.isConnected();
+		 }
+		 
+		 Log.i(logName, "Is device connected to the internet ["+isCon+"]");
+		 return isCon;
+		}
+
+	@Override
+	public void run() {
+		/** does a update exist? **/
+		if (checkForUpdate()) {
+			// Update exists
+			Log.i(logName, "MarketEnabler version " + latestVersion
+					+ " is available!");
+			updateNotify();
+		} else {
+			// no update needed
+			Log.i(logName,
+			"you have the latest version of MarketEnabler running");
+		}
+	}
 
 }

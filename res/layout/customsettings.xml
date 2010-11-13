@@ -113,7 +113,15 @@ android:text="Set to this values"
 android:layout_span="2"
 />
 </TableRow>
-
+<TableRow>
+<Button
+android:id="@+id/customsetOnBoot"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="Set for fakeOnBoot"
+android:layout_span="2"
+/>
+</TableRow>
 </TableLayout>
 
 </ScrollView>

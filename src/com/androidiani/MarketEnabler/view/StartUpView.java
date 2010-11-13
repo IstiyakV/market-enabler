@@ -38,7 +38,7 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 	private Context ctx;
 	private boolean isAppPayed;
 	private final String	paypalDonateUrl	= "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SJDNMZ5JLZRSU&lc=CH&item_name=Android%20Market%20Enabler%20%2d%20Developement%20team&item_number=MarketEnabler&currency_code=CHF&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
-	private final String	marketDonateUrl	= "market://search?q=pname:ch.racic.android.marketenabler.donatekey";
+	public static final String	marketDonateUrl	= "market://search?q=pname:ch.racic.android.marketenabler.donatekey";
 	
 	public android.widget.ListView getList() {
 		return list;
@@ -287,5 +287,13 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 				alert.setTitle("Title");
 				alert.show();
 		}
+
+
+
+
+
+	public boolean isAppPayed() {
+		return isAppPayed;
+	}
 	
 }

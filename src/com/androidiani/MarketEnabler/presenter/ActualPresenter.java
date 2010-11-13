@@ -1,5 +1,8 @@
 package com.androidiani.MarketEnabler.presenter;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 
 
@@ -26,4 +29,6 @@ public class ActualPresenter {
 		// view.setSimAlpha(view.getStartup().getTelephonyManager()
 		// .getSimOperatorName());
 	}
+	
+	
 }
