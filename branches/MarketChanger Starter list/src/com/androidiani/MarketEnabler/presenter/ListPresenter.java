@@ -4,10 +4,17 @@ import java.util.ArrayList;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences.Editor;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.androidiani.MarketEnabler.model.ProviderConfig;
+import com.androidiani.MarketEnabler.view.StartUpView;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class ListPresenter implements Runnable {
@@ -29,6 +36,8 @@ public class ListPresenter implements Runnable {
 
 	public ArrayList<ProviderConfig> createDefaultList() {
 		list = new ArrayList<ProviderConfig>();
+		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
+		"T-Mobile"));
 		list.add(new ProviderConfig(22802, 22802, "ch", "ch", "sunrise", "sunrise"));
 		list.add(new ProviderConfig(22801, 22801, "ch", "ch", "swisscom", "swisscom"));
 		list.add(new ProviderConfig(22803, 22803, "ch", "ch", "orange", "orange"));
@@ -37,8 +46,6 @@ public class ListPresenter implements Runnable {
 		list
 		.add(new ProviderConfig(26203, 26203, "de", "de", "simyo",
 		"E-Plus"));
-		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
-		"T-Mobile"));
 		list.add(new ProviderConfig(22201, 22201, "it", "it", "TIM", "TIM"));
 		list.add(new ProviderConfig(50501, 50501, "au", "au", "Telstra",
 		"Telstra"));
@@ -115,4 +122,10 @@ public class ListPresenter implements Runnable {
 				+ writePropCommand.length + "] commands");
 		ShellInterface.doExec(writePropCommand, true, handler);
 	}
+	
+	public ProviderConfig getCodeFromListItem(int i) {
+		return list.get(i);
+	}
+	
+	
 }

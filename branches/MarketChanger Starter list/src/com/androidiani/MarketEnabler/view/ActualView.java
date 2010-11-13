@@ -1,8 +1,10 @@
 package com.androidiani.MarketEnabler.view;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +21,14 @@ public class ActualView implements IActualView {
 	
 	/** UI elements **/
 	private TextView simNumeric, operatorNumeric, simISO, operatorISO,
-			simAlpha, operatorAlpha;
+			simAlpha, operatorAlpha, actualFakeOnBootValue;
 	
 	private StartUpView startup;
 	
 	private ActualPresenter presenter;
 	private RestorePresenter restorePresenter = null;
 	
-	private Button save, restore;
+	private Button save, restore, resetFakeOnBoot;
 
 	private static final String SIMNUM = "simNumeric",
 			OPNUM = "operatorNumeric", SIMISO = "simISO",
@@ -47,6 +49,22 @@ public class ActualView implements IActualView {
 		// simAlpha = (TextView) startup.findViewById(R.id.actualsimAlphaValue);
 		// operatorAlpha = (TextView) startup
 		// .findViewById(R.id.actualoperatorAlphaValue);
+		
+		actualFakeOnBootValue = (TextView) startup.findViewById(R.id.actualFakeOnBootValue);
+		updateFakeOnBootText();
+		resetFakeOnBoot = (Button) startup.findViewById(R.id.buttonResetFakeOnBoot);
+		resetFakeOnBoot.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				setFakeOnBootRecord("not set");
+				actualFakeOnBootValue.setText("not set");
+				resetFakeOnBoot.setVisibility(View.INVISIBLE);
+			}
+		});
+		if(!isFakeOnBootEnabled()) {
+			resetFakeOnBoot.setVisibility(View.INVISIBLE);
+		} else {
+			resetFakeOnBoot.setVisibility(View.VISIBLE);
+		}
 		presenter = new ActualPresenter(this);
 		save = (Button) startup.findViewById(R.id.buttonSave);
 		save.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +79,37 @@ public class ActualView implements IActualView {
 			}
 		});
 		if (!backupAvailable()) {
-			restore.setEnabled(false);
-			SharedPreferences settings = startup.getSharedPreferences(
-					PREF_NAME, 0);
-			restore.setText("Restore");
+			backupSettings();
+//			restore.setEnabled(false);
+//			SharedPreferences settings = startup.getSharedPreferences(
+//					PREF_NAME, 0);
+//			restore.setText("Restore");
 		}
 
+	}
+
+	private void updateFakeOnBootText() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+	    		startup.getApplicationContext());
+		actualFakeOnBootValue.setText(prefs.getString("FakeOnBootCode", "not set"));
+		prefs = null;
+		if(!isFakeOnBootEnabled()) {
+			if(resetFakeOnBoot != null)
+				resetFakeOnBoot.setVisibility(View.INVISIBLE);
+		} else {
+			if(resetFakeOnBoot != null)
+				resetFakeOnBoot.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	private boolean isFakeOnBootEnabled() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+	    		startup.getApplicationContext());
+		if(prefs.getString("FakeOnBootCode", "not set") != "not set") {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean backupAvailable() {
@@ -128,6 +171,7 @@ public class ActualView implements IActualView {
 
 	public void updateView() {
 		presenter.updateView();
+		updateFakeOnBootText();
 	}
 	
 	public StartUpView getStartup() {
@@ -172,6 +216,13 @@ public class ActualView implements IActualView {
 		return handler;
 	}
 
-	
+	private void setFakeOnBootRecord(String providerCode) {
+	    Editor prefsEditor = PreferenceManager.getDefaultSharedPreferences(
+	    		startup.getApplicationContext()).edit();
+		prefsEditor.putString("FakeOnBootName", "Custom");
+		prefsEditor.putString("FakeOnBootCode", providerCode);
+		prefsEditor.commit();
+		prefsEditor = null;
+	}
 
 }

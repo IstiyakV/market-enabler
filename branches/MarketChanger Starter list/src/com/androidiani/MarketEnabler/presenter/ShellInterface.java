@@ -40,11 +40,15 @@ public class ShellInterface {
 				os.writeBytes(single + "\n");
 				Log.i("MarketEnabler", "Executing [" + single + "] os.flush()");
 				os.flush();
-				msg = Message.obtain();
-				msg.arg1 = i++;
-				msg.arg2 = -1;// This because when 0 i will dismiss the
-								// progressbar.
-				handler.sendMessage(msg);
+				
+				if(handler != null) {
+					msg = Message.obtain();
+					msg.arg1 = i++;
+					msg.arg2 = -1;// This because when 0 i will dismiss the
+									// progressbar.
+					handler.sendMessage(msg);
+				}
+				
 				Thread.sleep(200);
 			}
 			
@@ -52,19 +56,23 @@ public class ShellInterface {
 			os.flush();
 
 			process.waitFor();
-			msg = Message.obtain();
-			msg.arg1 = 0;
-			msg.arg2 = 0;
-			handler.sendMessage(msg);
+			if(handler != null) {
+				msg = Message.obtain();
+				msg.arg1 = 0;
+				msg.arg2 = 0;
+				handler.sendMessage(msg);
+			}
 
         } catch (Exception e) {
 			Log.d("MarketEnabler", "Unexpected error - Here is what I know: "
 					+ e.getMessage());
 			e.printStackTrace();
-			msg = Message.obtain();
-			msg.arg1 = 1;
-			msg.arg2 = 0;
-			handler.sendMessage(msg);
+			if(handler != null) {
+				msg = Message.obtain();
+				msg.arg1 = 1;
+				msg.arg2 = 0;
+				handler.sendMessage(msg);
+			}
 			res.add(e.getMessage());
 		} finally {
 			try {

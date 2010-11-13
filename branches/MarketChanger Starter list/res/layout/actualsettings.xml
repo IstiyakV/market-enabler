@@ -49,6 +49,28 @@ android:layout_marginLeft="20px"
             android:text="Restore settings" />
 </TableRow>
 
+<TableRow>
+<TextView
+android:id="@+id/actualFakeOnBoot"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Auto fake on change:"
+ />
+<TextView
+android:id="@+id/actualFakeOnBootValue"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="not set"
+android:layout_marginLeft="20px"
+ />
+</TableRow>
+<TableRow>
+ <Button android:id="@+id/buttonResetFakeOnBoot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disable fake on change" />
+
+</TableRow>
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

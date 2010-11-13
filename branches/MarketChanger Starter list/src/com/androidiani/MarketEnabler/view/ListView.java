@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -19,6 +24,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import com.androidiani.MarketEnabler.model.ProviderConfig;
 import com.androidiani.MarketEnabler.presenter.IListView;
 import com.androidiani.MarketEnabler.presenter.ListPresenter;
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 public class ListView extends ListActivity implements IListView {
 
@@ -52,8 +58,50 @@ public class ListView extends ListActivity implements IListView {
 		// Toast.makeText(this, "Longpress: " + info.position,
 		// Toast.LENGTH_SHORT)
 		// .show();
-		presenter.setValues(info.position);
-		return true;
+		if(item.getTitle() == "Set for fakeOnBoot") {
+			
+			setFakeOnBoot(presenter.getCodeFromListItem(info.position));
+			return true;
+		} else if(item.getTitle() == "fake this provider now") {
+			presenter.setValues(info.position);
+			return true;
+		} else {
+			return false;
+		}
+	}
+    
+    public void setFakeOnBoot(ProviderConfig providerConfig) {
+		if(isPackageAvailable("ch.racic.android.marketenabler.donatekey")) {
+			Log.d("MarketEnabler", "save for fakeOnBoot with item[" + providerConfig.getGsmSimOperatorAlpha()
+				+ "] provider config[" + providerConfig.getGsmSimOperatorNumeric() + "]");
+			setFakeOnBootRecord(providerConfig);
+
+			GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
+			tracker.trackPageView("/fakeOnBoot/"+providerConfig.getGsmOperatorAlpha());
+			// send intent
+			Intent i2 = new Intent("ch.racic.android.marketenabler.plugin.fakeonboot.SET_CODE");
+			Bundle c = new Bundle();            
+			c.putString("code", ""+providerConfig.getGsmSimOperatorNumeric());
+			i2.putExtras(c);
+			sendBroadcast(i2);
+		} else {
+			 Toast.makeText(this, "fakeOnBoot needs the donate key, you can get it from Market or I will send it to every paypal donator.\n\nThe donate key app has a boot receiver and will initiate MarketEnabler with the set fakeOnBoot provider code after the boot broadcast has been received.", 2*Toast.LENGTH_LONG).show();
+			 startActivity(new Intent("android.intent.action.VIEW",Uri.parse(StartUpView.marketDonateUrl)));
+		}
+	}
+
+	private void setFakeOnBootRecord(ProviderConfig tmp) {
+	    Editor prefsEditor = PreferenceManager.getDefaultSharedPreferences(
+	    		getApplicationContext()).edit();
+		prefsEditor.putString("FakeOnBootName", tmp.getGsmSimOperatorAlpha());
+		prefsEditor.putString("FakeOnBootCode", ""+tmp.getGsmSimOperatorNumeric());
+		prefsEditor.commit();
+		prefsEditor = null;
+	}
+	
+	public boolean isPackageAvailable(String packageName) {
+		int sigMatch = getPackageManager().checkSignatures(getPackageName(), packageName);
+		return sigMatch == PackageManager.SIGNATURE_MATCH;
 	}
 
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -62,6 +110,7 @@ public class ListView extends ListActivity implements IListView {
 		int selPos = info.position;
 
 		menu.add("fake this provider now");
+		menu.add("Set for fakeOnBoot");
 	}
 
 	private StartUpView startup;
@@ -113,7 +162,6 @@ public class ListView extends ListActivity implements IListView {
 
 	@Override
 	public Context getCtx() {
-		// TODO Auto-generated method stub
 		return ctx;
 	}
 	
