@@ -15,6 +15,7 @@ import android.widget.*;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import ru.org.amip.MarketAccess.R;
+import ru.org.amip.MarketAccess.utils.AppManager;
 import ru.org.amip.MarketAccess.utils.CompleteListener;
 import ru.org.amip.MarketAccess.utils.RunWithProgress;
 import ru.org.amip.MarketAccess.utils.ShellInterface;
@@ -142,9 +143,9 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
 
       @Override
       public void onItemSelected(final AdapterView<?> parent, final View view, final int pos, long l) {
+        if (pos == AppManager.getInstance().getCurrentInstallLocation()) return;
         // see http://groups.google.com/group/android-developers/msg/d57008cf370b8051
         if (!processSpinnerEvents) {
-          processSpinnerEvents = true;
           return;
         }
         final RunWithProgress rwp =
@@ -152,13 +153,17 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
         final String msg = getString(R.string.install_location) + " - " + parent.getItemAtPosition(pos).toString();
         rwp.setOkMessage(msg);
         rwp.setErrorMessage(getString(R.string.msg_loc_failed));
+        rwp.setCompleteListener(new CompleteListener() {
+          @Override
+          public void onComplete() {
+            AppManager.getInstance().setCurrentInstallLocation(pos);
+          }
+        });
         rwp.doRun();
       }
 
       @Override
-      public void onNothingSelected(AdapterView<?> view) {
-
-      }
+      public void onNothingSelected(AdapterView<?> view) {}
     });
 
     // Force install location is supported only on FroYo (2.2) and later
@@ -166,7 +171,15 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
       override.setEnabled(false);
       installLocation.setEnabled(false);
     } else {
-      new GetInstallLocation().execute();
+      final int location = AppManager.getInstance().getCurrentInstallLocation();
+      if (location == -1) {
+        new GetInstallLocation().execute();
+      } else {
+        installLocation.setSelection(location);
+        processSpinnerEvents = true;
+        override.setEnabled(true);
+        installLocation.setEnabled(true);
+      }
     }
 
     simNumeric = (TextView) findViewById(R.id.actualsimNumericValue);
@@ -303,6 +316,8 @@ public class StartUpView extends TabActivity implements OnTabChangeListener {
         processSpinnerEvents = false;
         installLocation.setSelection(current);
       }
+      AppManager.getInstance().setCurrentInstallLocation(current);
+      processSpinnerEvents = true;
     }
   }
 }

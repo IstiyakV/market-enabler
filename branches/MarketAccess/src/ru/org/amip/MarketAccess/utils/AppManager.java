@@ -19,6 +19,16 @@ public class AppManager extends Application {
   private        ActivityManager                             activityManager;
   private        List<ActivityManager.RunningAppProcessInfo> processes;
 
+  private int currentInstallLocation = -1;
+
+  public int getCurrentInstallLocation() {
+    return currentInstallLocation;
+  }
+
+  public void setCurrentInstallLocation(int currentInstallLocation) {
+    this.currentInstallLocation = currentInstallLocation;
+  }
+
   @Override
   public void onCreate() {
     instance = this;
