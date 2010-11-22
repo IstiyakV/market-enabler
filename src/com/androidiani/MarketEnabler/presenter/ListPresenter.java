@@ -38,6 +38,8 @@ public class ListPresenter implements Runnable {
 		list = new ArrayList<ProviderConfig>();
 		list.add(new ProviderConfig(310260, 310260, "us", "us", "T-Mobile",
 		"T-Mobile"));
+		list.add(new ProviderConfig(310260, 310260, "us", "us", "Verizon",
+		"Verizon"));
 		list.add(new ProviderConfig(22802, 22802, "ch", "ch", "sunrise", "sunrise"));
 		list.add(new ProviderConfig(22801, 22801, "ch", "ch", "swisscom", "swisscom"));
 		list.add(new ProviderConfig(22803, 22803, "ch", "ch", "orange", "orange"));

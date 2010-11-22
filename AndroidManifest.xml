@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="ch.racic.android.marketenabler"
-      android:versionName="3.1.0" android:installLocation="auto" android:versionCode="1011139">
+      android:versionName="3.1.1" android:installLocation="auto" android:versionCode="1011221">
        <uses-sdk android:minSdkVersion="1" />
     <application android:icon="@drawable/me348" android:label="@string/app_name">
     	<meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion" android:value="same value as android:versionCode" />
@@ -39,11 +39,15 @@
 				<action android:name="ch.racic.android.marketenabler.EXECUTE" />
 			</intent-filter>
 		</receiver>
-
-
-		<!-- The application's Adclient ID assigned by ZestADZ -->
-		<meta-data android:value="14131C047A50414B4F5640544459455682852A" android:name="ZestADZ_Adclient_ID" />
 		
+		<!-- millennialmedia -->
+		<activity android:name="com.millennialmedia.android.MMAdViewOverlayActivity" 
+      		android:theme="@android:style/Theme.Translucent.NoTitleBar">
+		</activity>
+		<activity android:name="com.millennialmedia.android.VideoPlayer" 
+	          android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+	          android:configChanges="keyboardHidden|orientation|keyboard" >
+		</activity>
 		<!-- Update service -->        
         <service android:name="com.androidiani.MarketEnabler.update.Update" />            
     </application>
